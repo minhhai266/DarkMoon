@@ -4,7 +4,7 @@
     <footer>
         <div class="footer-grid">
             <div>
-                <span class="footer-brand">MoonBlight</span>
+                <span class="footer-brand">MOONBLIGHT</span>
                 <p class="footer-tagline">
                     Bước vào một thế giới bị bao phủ bởi bóng tối cổ xưa. Mỗi lựa chọn đều vang vọng khắp vùng đất đang hấp hối.
                     Sự tỉnh táo là thứ quý giá nhất của bạn.

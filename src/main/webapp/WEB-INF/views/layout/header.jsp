@@ -21,7 +21,7 @@
             </div>
             <!-- NAVBAR -->
             <nav class="navbar" role="navigation" aria-label="Main navigation">
-                <a href="/" class="navbar-brand">MOON BLIGHT</a>
+                <a href="/" class="navbar-brand">MOONBLIGHT</a>
 
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="/" class="${activePage == 'home' ? 'active' : ''}">Trang chủ</a></li>

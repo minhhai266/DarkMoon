@@ -14,7 +14,7 @@
             <div class="hero-content">
                 <div>
                     <div class="hero-eyebrow">Dark Fantasy RPG</div>
-                    <h1 class="hero-title">MOON BLIGHT</h1>
+                    <h1 class="hero-title">MOONBLIGHT</h1>
                     <p class="hero-title-sub">Chìm vào thế giới hư vô bị nguyền rủa</p>
                     <div class="hero-divider"></div>
                     <p class="hero-desc">
