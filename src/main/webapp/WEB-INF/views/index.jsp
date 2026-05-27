@@ -14,7 +14,7 @@
             <div class="hero-content">
                 <div>
                     <div class="hero-eyebrow">Dark Fantasy RPG</div>
-                    <h1 class="hero-title">MOONBLIGHT</h1>
+                    <h1 class="hero-title">MOON BLIGHT</h1>
                     <p class="hero-title-sub">Chìm vào thế giới hư vô bị nguyền rủa</p>
                     <div class="hero-divider"></div>
                     <p class="hero-desc">
@@ -58,7 +58,7 @@
                                     GAME FEATURES
         ============================================================= -->
 
-        <section class="section section-surface" style="padding:2.5rem 2rem;">
+        <!-- <section class="section section-surface" style="padding:2.5rem 2rem;">
             <div class="container">
                 <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; text-align:center;">
                     <div style="padding:1.2rem; border:1px solid var(--border-dark);">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- ================================================================
                                     STORY TEASER

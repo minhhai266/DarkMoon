@@ -133,20 +133,27 @@
                 <div class="grid-3" style="margin-top:3rem;">
                     <div class="card" style="text-align:center; padding:2rem;">
                         <div style="font-size:2.5rem; margin-bottom:1rem;">&#9760;</div>
-                        <h3 class="card-title mb-2">Permadeath Stakes</h3>
-                        <p class="card-text">Every hero you lose is gone forever. The story is written in the names of
-                            the fallen.</p>
+                        <h3 class="card-title mb-2">Tinh Thần Là Một Tài Nguyên</h3>
+                        <p class="card-text"> Áp lực sẽ dần tích tụ. Các anh hùng rồi sẽ gục ngã.
+                            Những chứng loạn tâm bóp méo hành động của họ trong chiến đấu.
+                            Hãy quản lý tâm trí cẩn thận như chính cơ thể.</p>
                     </div>
                     <div class="card" style="text-align:center; padding:2rem;">
                         <div style="font-size:2.5rem; margin-bottom:1rem;">&#128161;</div>
-                        <h3 class="card-title mb-2">Sanity as Resource</h3>
-                        <p class="card-text">Stress accumulates. Heroes break. Afflictions twist their actions in
-                            combat. Manage the mind as carefully as the body.</p>
+                        <h3 class="card-title mb-2">Bóng Tối Không Ngừng Biến Đổi</h3>
+                        <p class="card-text">
+                            Không có hai chuyến thám hiểm nào giống nhau.
+                            Hầm ngục biết thở. Nó thích nghi.
+                            Và nó luôn ghi nhớ.
+                        </p>
                     </div>
                     <div class="card" style="text-align:center; padding:2rem;">
                         <div style="font-size:2.5rem; margin-bottom:1rem;">&#127981;</div>
-                        <h3 class="card-title mb-2">Procedural Darkness</h3>
-                        <p class="card-text">No two runs are the same. The dungeon breathes. It adapts. It remembers.
+                        <h3 class="card-title mb-2">Tinh Thần Là Một Tài Nguyên</h3>
+                        <p class="card-text">
+                            Áp lực sẽ dần tích tụ. Các anh hùng rồi sẽ gục ngã.
+                            Những chứng loạn tâm bóp méo hành động của họ trong chiến đấu.
+                            Hãy quản lý tâm trí cẩn thận như chính cơ thể.
                         </p>
                     </div>
                 </div>
@@ -157,46 +164,55 @@
         <section class="section section-surface">
             <div class="container">
                 <div class="section-header">
-                    <span class="section-eyebrow">Discovered Fragments</span>
-                    <h2 class="section-title">Lore of the Cursed Land</h2>
+                    <span class="section-eyebrow">Những Mảnh Tàn Tích Được Khai Quật</span>
+                    <h2 class="section-title">Truyền Thuyết Về Vùng Đất Bị Nguyền Rủa</h2>
                     <div class="section-divider"></div>
                 </div>
                 <div class="grid-2">
                     <div class="card" style="padding:1.8rem;">
-                        <span class="card-tag">Ancient Scripture — Fragment VII</span>
-                        <h3 class="card-title mb-2">The Pact of Unmaking</h3>
+                        <span class="card-tag">Kinh Thánh Cũ — Mảnh VII</span>
+                        <h3 class="card-title mb-2">Hiệp Ước của Việc Làm</h3>
                         <p class="card-text" style="font-style:italic;">
-                            "...and he spoke the words that should not be spoken, and the earth answered in blood.
-                            The covenant was sealed not with a signature, but with the screaming of ten thousand souls
-                            dragged below the threshold of the waking world..."
+                            "...và hắn đã cất lên những lời không nên được thốt ra,
+                            còn mặt đất đáp lại bằng máu.
+                            Giao ước ấy không được khắc bằng chữ ký,
+                            mà bằng tiếng gào thét của hàng vạn linh hồn
+                            bị kéo xuống bên dưới ranh giới của thế giới tỉnh thức..."
                         </p>
                     </div>
                     <div class="card" style="padding:1.8rem;">
-                        <span class="card-tag">Survivor's Account — Unnamed</span>
-                        <h3 class="card-title mb-2">What the Survivors Say</h3>
+                        <span class="card-tag">Tài Liệu Của Người Sống Sót — Chưa Biết Tên</span>
+                        <h3 class="card-title mb-2">Những Gì Người Sống Sót Nói</h3>
                         <p class="card-text" style="font-style:italic;">
-                            "We heard it before we saw it—a sound like the world forgetting its own name.
-                            Three of our party turned and ran. Two of those three made it back to the hamlet.
-                            The third one made it back too, but he wasn't alone anymore..."
+                            "Chúng tôi nghe thấy nó trước khi thấy nó—một âm thanh như thế giới đang quên tên mình.
+                            Ba người trong nhóm của chúng tôi quay đầu chạy. Hai trong số ba người đó đã trở lại làng.
+                            Người thứ ba cũng đã trở lại, nhưng anh ta không còn một mình nữa..."
                         </p>
                     </div>
                     <div class="card" style="padding:1.8rem;">
-                        <span class="card-tag">The Ancestor's Journal — Final Entry</span>
-                        <h3 class="card-title mb-2">A Confession Too Late</h3>
+                        <span class="card-tag">Nhật Ký Của Tổ Tiên — Dòng Cuối Cùng</span>
+                        <h3 class="card-title mb-2">Lời Thú Tội Quá Muộn</h3>
                         <p class="card-text" style="font-style:italic;">
-                            "I sought to transcend mortality. Instead I transcended mercy.
-                            Whatever comes next—for me, for the land, for you who reads this—
-                            know that I am sorry. Know that it changes nothing. Know that you must finish what I
-                            started."
+                            "Ta từng tìm cách vượt lên khỏi cái chết.
+                            Nhưng thứ ta vượt qua lại là lòng nhân từ.
+                            Dù điều gì xảy đến tiếp theo —
+                            với ta, với vùng đất này, hay với ngươi, kẻ đang đọc những dòng chữ này —
+                            hãy biết rằng ta hối hận.
+                            Và hãy biết rằng điều đó chẳng thay đổi được gì.
+                            Ngươi phải hoàn thành thứ mà ta đã bắt đầu."
                         </p>
                     </div>
                     <div class="card" style="padding:1.8rem;">
-                        <span class="card-tag">Cartographer's Note</span>
-                        <h3 class="card-title mb-2">The Dungeon Shifts</h3>
+                        <span class="card-tag">Ghi Chú Của Người Bản đồ</span>
+                        <h3 class="card-title mb-2">Hầm Ngục Luôn Biến Đổi</h3>
                         <p class="card-text" style="font-style:italic;">
-                            "I have mapped these corridors seventeen times now. Each time, the layout changes.
-                            The dungeon is not a place. It is a hunger. And it is always hungry.
-                            Do not trust your memories of the path. Trust only your torch."
+                            "Ta đã vẽ lại những hành lang này mười bảy lần.
+                            Và mỗi lần, cấu trúc của chúng đều thay đổi.
+                            Hầm ngục này không phải một nơi chốn.
+                            Nó là một cơn đói.
+                            Và nó chưa bao giờ ngừng đói khát.
+                            Đừng tin vào ký ức của ngươi về con đường.
+                            Hãy chỉ tin vào ngọn đuốc trong tay."
                         </p>
                     </div>
                 </div>
