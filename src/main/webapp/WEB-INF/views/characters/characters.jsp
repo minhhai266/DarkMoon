@@ -3,7 +3,7 @@
 
         <section class="page-hero">
             <div class="page-hero-bg"
-                style="background-image:url('https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1920&q=80');">
+                style="background-image:url('${pageContext.request.contextPath}/img/nhanvat-back.png');">
             </div>
             <div class="page-hero-overlay"></div>
             <div class="page-hero-content">
@@ -11,7 +11,7 @@
                 <h1 class="page-hero-title">Nhân vật</h1>
                 <p class="page-hero-subtitle">Mỗi anh hùng đều mang theo những thương tích — cả hữu hình lẫn ẩn sâu
                     trong tâm trí.
-                    Hãy lựa chọn thật cẩn trọng, bởi họ sẽ không tha thứ cho ngươi nếu sự hy sinh của họ bị lãng phí.
+                    
                 </p>
             </div>
         </section>
@@ -20,11 +20,11 @@
         <section style="background:var(--dark-surface); padding:3rem 2rem; text-align:center;">
             <div class="container-sm">
                 <p class="font-im-fell" style="font-size:1.15rem; color:var(--mid-grey); line-height:1.9;">
-                    Thập tứ lớp tàn hồn đã đáp lại lời triệu hồi của ngươi.
+    
                     Mỗi kẻ mang theo những kỹ năng riêng biệt cho cuộc viễn chinh bị nguyền rủa — và những cách thức
                     riêng để sụp đổ dưới áp lực.
-                    Những đức tính của họ chính là sức mạnh lớn nhất.
-                    Còn những ác chứng của họ — là gánh nặng mà ngươi phải tự mình kiểm soát.
+                    
+                    Ta là phật ác không còn nơi chốn, ta là ác phật làm gì được ta.
                 </p>
             </div>
         </section>

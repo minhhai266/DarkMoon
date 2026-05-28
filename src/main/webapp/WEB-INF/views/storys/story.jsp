@@ -4,7 +4,7 @@
         <!-- PAGE HERO -->
         <section class="page-hero">
             <div class="page-hero-bg"
-                style="background-image:url('https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=1920&q=80');">
+                style="background-image:url('${pageContext.request.contextPath}/img/aa.png');">
             </div>
             <div class="page-hero-overlay"></div>
             <div class="page-hero-content">
