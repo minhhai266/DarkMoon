@@ -864,7 +864,7 @@ h4 {
     content:"";
     position:absolute;
     inset:0;
-    background-image:url('../img/back-groud.png');
+    background-image:url('../img/backback.png');
     background-size:cover;
     background-position:center;
     background-attachment:fixed;
@@ -872,16 +872,16 @@ h4 {
 }
 /* Các section bên trong phải có nền bán trong suốt, KHÔNG dùng màu đặc */
 .parallax-wrapper .section-dark {
-    background: rgba(15, 12, 10, 0.80) ;
+    background: rgba(15, 12, 10, 0.60) ;
 }
 
 .parallax-wrapper .section-darker {
-    background: rgba(15, 12, 10, 0.80) ;
+    background: rgba(15, 12, 10, 0.60) ;
 }
 
 
 .parallax-wrapper .section-world {
-    background: rgba(15, 12, 10, 0.80) ;
+    background: rgba(15, 12, 10, 0.60) ;
 }
 
 /* ============================================================
@@ -1478,7 +1478,13 @@ h4 {
     content: '';
     position: absolute;
     inset: 0;
-    border: 1px solid var(--border-dark);
+
+    border: 1px solid #c7a15a;
+
+    box-shadow:
+        0 0 8px rgba(199, 161, 90, 0.3),
+        inset 0 0 10px rgba(199, 161, 90, 0.15);
+
     pointer-events: none;
 }
 
@@ -1660,8 +1666,8 @@ h4 {
 }
 
 .platform-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.58rem;
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--mid-grey);

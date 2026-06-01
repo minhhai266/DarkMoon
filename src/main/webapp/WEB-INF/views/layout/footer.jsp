@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div>
-                <p class="footer-heading">Explore</p>
+                <p class="footer-heading">Khám phá</p>
                 <ul class="footer-links">
                     <li><a href="/story">Cốt truyện</a></li>
                     <li><a href="/characters">Nhân vật</a></li>
@@ -39,19 +39,19 @@
                 </ul>
             </div>
             <div>
-                <p class="footer-heading">Support</p>
+                <p class="footer-heading">Hỗ trợ</p>
                 <ul class="footer-links">
                     <li><a href="/support">FAQ</a></li>
-                    <li><a href="/support">Contact Us</a></li>
-                    <li><a href="/support">Bug Report</a></li>
-                    <li><a href="/support">Accessibility</a></li>
-                    <li><a href="/support">Press Kit</a></li>
+                    <li><a href="/support">Liên hệ với chúng tôi</a></li>
+                    <li><a href="/support">Báo cáo lỗi</a></li>
+                    <li><a href="/support">Khả năng tiếp cận</a></li>
+                    <li><a href="/support">Bộ tài liệu báo chí</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p class="footer-copy">&copy; 2026 Black moon. All rights reserved. All horrors reserved.</p>
+            <p class="footer-copy">&copy; Trăng đen 2026. Bảo lưu mọi quyền. Bảo lưu mọi nỗi kinh hoàng.</p>
             <ul class="footer-legal">
                 <li><a href="#">Privacy</a></li>
                 <li><a href="#">Terms</a></li>

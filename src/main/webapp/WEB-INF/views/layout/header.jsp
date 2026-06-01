@@ -31,7 +31,7 @@
                     <li class="nav-item"><a href="/weapons" class="${activePage == 'weapons' ? 'active' : ''}">Vũ khí</a></li> -->
                     <li class="nav-item "><a data-target="world"  class="nav-down ${activePage == 'world' ? 'active' : ''}">Thế giới</a></li>
                     <li class="nav-item "><a data-target="news"  class="nav-down ${activePage == 'news' ? 'active' : ''}">Tin tức</a></li>
-                    <li class="nav-item "><a data-target="community" class="nav-down ${activePage == 'community' ? 'active' : ''}">Cộng đồng</a></li>
+                    <li class="nav-item "><a href="/aboutUs"  class=" ${activePage == 'community' ? 'active' : ''}">Về Chúng Tôi</a></li>
                 </ul>
 
                 <a href="/support" class="navbar-cta">Support</a>
@@ -52,7 +52,7 @@
                     <li><a class="nav-down" href="/weapons" class="nav-down ${activePage == 'weapons' ? 'active' : ''}">Vũ khí</a></li> -->
                     <li><a data-target="world"   class="nav-down ${activePage == 'world' ? 'active' : ''}">Thế giới</a></li>
                     <li><a data-target="news"   class="nav-down ${activePage == 'news' ? 'active' : ''}">Tin tức</a></li>
-                    <li><a data-target="community"   class="nav-down ${activePage == 'community' ? 'active' : ''}">Cộng đồng</a></li>
+                    <li><a href="/aboutUs"   class=" ${activePage == 'community' ? 'active' : ''}">Về Chúng Tôi</a></li>
                     <li><a data-target="support"   class="nav-down ${activePage == 'support' ? 'active' : ''}">Support</a></li>
 
                 </ul>

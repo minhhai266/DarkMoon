@@ -56,11 +56,11 @@ public class PageController {
         return "news/news";
     }
 
-    @GetMapping("/community")
+    @GetMapping("/aboutUs")
     public String community(Model model) {
         model.addAttribute("activePage", "community");
         model.addAttribute("pageTitle", "Community - Moon Blight");
-        return "community/community";
+        return "community/aboutUs";
     }
 
     @GetMapping("/support")

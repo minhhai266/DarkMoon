@@ -140,6 +140,8 @@
                             vào bóng tối.
 
                         </p>
+                        <a href="/world" class="btn btn-primary">Khám phá thế giới</a>
+
                     </div>
                     <div class="split-img-wrapper">
                         <img src="${pageContext.request.contextPath}/img/img4.png" alt="The Estate Map" loading="lazy">
@@ -258,7 +260,7 @@
                                 style="font-size:0.58rem; letter-spacing:0.15em;">Oct
                                 15, 2024</span>
                             <a href="/news" class="text-crimson font-Lora"
-                                style="font-size:0.72rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
+                                style="font-size:0.82rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
                         </div>
                     </div>
                     <div class="card">
@@ -277,7 +279,7 @@
                                 style="font-size:0.58rem; letter-spacing:0.15em;">Oct 3,
                                 2024</span>
                             <a href="/news" class="text-crimson font-Lora"
-                                style="font-size:0.72rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
+                                style="font-size:0.82rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
                         </div>
                     </div>
                     <div class="card">
@@ -295,7 +297,7 @@
                                 style="font-size:0.58rem; letter-spacing:0.15em;">Sep
                                 28, 2024</span>
                             <a href="/news" class="text-crimson font-Lora"
-                                style="font-size:0.72rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
+                                style="font-size:0.82rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
                         </div>
                     </div>
                 </div>
