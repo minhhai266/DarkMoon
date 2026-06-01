@@ -525,8 +525,10 @@ h4 {
 
 .content-wrapper {
     position: relative;
-    z-index: 10;
-    background: var(--dark-bg);  /* nền đặc để che hero phía sau */
+    
+    background: var(--dark-bg);
+    min-height: 100vh;
+    /* background: var(--dark-bg);  nền đặc để che hero phía sau */
 }
 .hero {
     position: fixed;
@@ -546,17 +548,18 @@ h4 {
 
 .section-stack {
     position: relative;
-    z-index: 10;
-    background: var(--dark-bg);
+    z-index: 20;
+    margin-top: 0px;
+    /* background: var(--dark-bg); */
     border-radius: 20px 20px 0 0;
-    box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.95);
+     /* box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.95); */
 }
 
 /* ============================================================= */
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     width: 55%;
     padding-left: 9%;
 
@@ -816,7 +819,7 @@ h4 {
 
 .page-hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .page-hero-eyebrow {
@@ -845,14 +848,51 @@ h4 {
 }
 
 /* ============================================================
-   SECTION COMMON
+                    wrapper
+   ============================================================ */
+
+/* CSS cho wrapper */
+.body-container{
+    
+}
+
+.parallax-wrapper{
+    position: relative;
+    z-index: 2;
+}
+.parallax-wrapper::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:url('../img/back-groud.png');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    z-index:-1;
+}
+/* Các section bên trong phải có nền bán trong suốt, KHÔNG dùng màu đặc */
+.parallax-wrapper .section-dark {
+    background: rgba(15, 12, 10, 0.80) ;
+}
+
+.parallax-wrapper .section-darker {
+    background: rgba(15, 12, 10, 0.80) ;
+}
+
+
+.parallax-wrapper .section-world {
+    background: rgba(15, 12, 10, 0.80) ;
+}
+
+/* ============================================================
+    SECTION COMMON
    ============================================================ */
 .section {
     padding: 5rem 2rem;
     position: relative;
 }
 
-.section-dark {
+/* .section-dark {
     background-color: var(--dark-bg);
 }
 
@@ -862,7 +902,7 @@ h4 {
 
 .section-surface {
     background-color: var(--dark-bg);
-}
+} */
 
 .container {
     max-width: 1300px;
@@ -956,7 +996,7 @@ h4 {
 }
 
 /* ============================================================
-   CARDS
+    CARDS
    ============================================================ */
 .card {
     background: var(--dark-card);
@@ -1238,6 +1278,25 @@ h4 {
 }
 
 /* ============================================================
+    back-ground  img 
+   ============================================================ */
+
+
+.backgroud-img{
+    position: relative;
+    z-index: 2;
+}
+.backgroud-img::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:url('../img/black.jpg');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    z-index:-1;
+}
+/* ============================================================
    WEAPON CARDS
    ============================================================ */
 .weapon-card {
@@ -1407,7 +1466,7 @@ h4 {
     width: 100%;
     height: 400px;
     object-fit: cover;
-    filter: brightness(0.75) saturate(0.65) sepia(0.2);
+    /* filter: brightness(0.75) saturate(0.65) sepia(0.2); */
     transition: filter 0.4s;
 }
 
@@ -1423,7 +1482,18 @@ h4 {
     pointer-events: none;
 }
 
-.split-text {}
+.split-text {
+    position: relative;
+
+    background: rgba(20,16,14,.75);
+
+    padding: 2rem;
+
+    border: 1px solid rgba(255,255,255,.05);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.6);
+}
 
 .split-tag {
     font-family: 'Cinzel', serif;

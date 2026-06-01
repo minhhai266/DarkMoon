@@ -5,7 +5,7 @@
         
 
         
-            <section class="hero">
+            <section id="home" class="hero">
 
                 <div class="hero-bg"
                     style="background-image:url('${pageContext.request.contextPath}/img/backgroud.png');">
@@ -60,18 +60,19 @@
         </div>
 
 
+        
 
+    <div class="parallax-wrapper">
 
         <!-- ================================================================
                                     STORY TEASER
         ================================================================= -->
-
-        <section class="section section-dark section-stack">
-            <div class="hero-bg"
+        <section id="story" class="section section-dark section-stack">
+            <!-- <div class="hero-bg"
                     style="background-image:url('${pageContext.request.contextPath}/img/section2-back.png');">
                 </div>
                 <div class="hero-overlay"></div>
-                <div class="hero-vignette"></div>
+                <div class="hero-vignette"></div> -->
             <div class="container">
                 <div class="split-section">
                     <div class="split-img-wrapper">
@@ -103,15 +104,58 @@
             </div>
         </section>
 
-
         <!-- ==================================================================
-                                    CHARACTER PREVIEW
+                                    World
         =================================================================== -->
 
 
 
+        <section id="world" class="section-world" >
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-text">
+                        <div class="split-tag">Vùng đất</div>
+                        <h2 class="split-title">Giáo hội thiên thể</h2>
+                        <div class="split-divider"></div>
+                        <p class="split-body">
+                            Giáo Hội Thiên Thể từng là biểu tượng tối cao của Oakhaven — một thế lực thần quyền bao trùm
+                            toàn bộ thành phố bằng những đại giáo đường nguy nga, thánh điện phủ ánh tinh quang và các
+                            quảng trường thanh tẩy rực cháy dưới ánh đuốc thiêng. Người dân nơi đây quỳ lạy “Ánh Sáng Từ
+                            Các Vì Sao”, tin rằng chỉ có sự thuần khiết tuyệt đối mới cứu rỗi linh hồn nhân loại.
+                        </p>
+                        <p class="split-body">
+                            Nhưng đức tin ấy từ lâu đã mục rữa từ bên trong. Những nghi thức thanh tẩy cực đoan, các
+                            cuộc săn lùng dị giáo và sự cuồng tín mù quáng đã biến Oakhaven thành một vùng đất bị nguyền
+                            rủa. Bên dưới các thánh đường cổ kính, những mật thất và hầm nguyện tăm tối đã bị khai mở,
+                            giải phóng các thực thể dị dạng lan tràn khắp thành phố. Giữa cơn suy vong ấy, khu dân cư
+                            trung tâm — thành trì cuối cùng của văn minh — vẫn đang hấp hối tồn tại dưới cái bóng của
+                            Giáo Hội.
 
-        <section class="section section-darker section-stack">
+                        </p>
+                        <p class="split-body">
+                            Bao quanh Oakhaven là năm khu vực tà dị riêng biệt, mỗi nơi mang một hình thái kinh hãi khác
+                            nhau: từ những tu viện đổ nát phủ đầy huyết tự, các hầm mộ bị ánh sao nguyền rủa xâm thực,
+                            cho đến bến cảng mục nát nơi tín đồ điên loạn hành lễ dưới triều đêm. Mỗi vùng đất đều cất
+                            giấu một chân tướng khủng khiếp — cùng cuộc đối diện cuối cùng đang chờ đợi kẻ dám tiến sâu
+                            vào bóng tối.
+
+                        </p>
+                    </div>
+                    <div class="split-img-wrapper">
+                        <img src="${pageContext.request.contextPath}/img/img4.png" alt="The Estate Map" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        <!-- ==================================================================
+                                    CHARACTER PREVIEW
+        =================================================================== -->
+        
+
+
+
+        <section id="character" class="section section-darker section-stack">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Tội Nhân</span>
@@ -163,13 +207,15 @@
             </div>
         </section>
 
+        </div>
+
 
         <!-- ==================================================================
                                     QUOTE SECTION
         =================================================================== -->
+        <div class="backgroud-img">
 
-
-        <section class="section section-surface section-stack" style="padding:5rem 2rem;">
+        <section  class="section section-surface section-stack" style="padding:5rem 2rem;">
             <div class="container-sm">
                 <div class="quote-block">
                     <p class="quote-text">
@@ -188,7 +234,7 @@
         =================================================================== -->
 
 
-        <section class="section section-dark section-stack">
+        <section id="news" class="section section-dark section-stack">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Thông điệp từ vực thẳm</span>
@@ -259,7 +305,8 @@
             </div>
         </section>
 
-
-
+        
+        <!-- Footer -->
         <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
+        </div>
         </div>

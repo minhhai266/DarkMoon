@@ -3,7 +3,7 @@
 
         <section class="page-hero">
             <div class="page-hero-bg"
-                style="background-image:url('https://images.unsplash.com/photo-1475738198235-5e1f7f8d8395?w=1920&q=80');">
+                style="background-image:url('${pageContext.request.contextPath}/img/world-back.png');">
             </div>
             <div class="page-hero-overlay"></div>
             <div class="page-hero-content">

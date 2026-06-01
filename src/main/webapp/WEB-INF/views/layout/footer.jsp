@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
     <!-- FOOTER -->
-    <footer >
+    <footer>
         <div class="footer-grid">
             <div>
                 <span class="footer-brand">MOON BLIGHT</span>
@@ -63,7 +63,7 @@
     <!-- JAVASCRIPT (inline to avoid file-extension restrictions) -->
     <script src="${pageContext.request.contextPath}/js/index.js">
     </script>
-    <script>
+    <!-- <script>
         const canvas = document.getElementById('sandstorm');
         const ctx = canvas.getContext('2d');
 
@@ -154,9 +154,34 @@
         initParticles();
         draw();
         // =============================================================================================================
-        
-    </script>
+        const navLinks = document.querySelectorAll(".nav-down");
 
+        navLinks.forEach(link => {
+
+            link.addEventListener("click", function () {
+
+                const targetId = this.dataset.target;
+
+                const targetSection = document.getElementById(targetId);
+
+                targetSection.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            });
+
+        });
+        window.addEventListener("load", function () {
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    setTimeout(() => target.scrollIntoView({ behavior: "smooth" }), 100);
+                }
+            }
+        });
+    </script> -->
+    <script src="${pageContext.request.contextPath}/js/index2.js"></script>
     </body>
 
     </html>
