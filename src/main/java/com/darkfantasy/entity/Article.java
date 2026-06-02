@@ -4,7 +4,6 @@ import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,7 +40,7 @@ public class Article {
 
     @Column(nullable = false, length = 100)
     private String type;
-    
+
     @Column(name = "thumbnail_url", length = 500)
     private String thumbnailUrl;
 
