@@ -1,8 +1,10 @@
 package com.darkfantasy.dto.article;
 
 import com.darkfantasy.entity.Article;
+import com.darkfantasy.entity.enums.ArticleType;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,8 +26,8 @@ public class CreateArticleRequest {
 
     private String thumbnailUrl;
 
-    @NotBlank
-    private String type;
+    @NotNull
+    private ArticleType type;
 
     public Article toEntity() {
         return Article.builder()

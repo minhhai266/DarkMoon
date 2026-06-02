@@ -500,7 +500,7 @@ h4 {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('${pageContext.request.contextPath}/img/backgroud.png');
+    background-image: url(../img/back-groud.png);
     background-size: cover;
     background-position: center 100%;
     /* filter: brightness(1) saturate(0.9) sepia(0.8); */

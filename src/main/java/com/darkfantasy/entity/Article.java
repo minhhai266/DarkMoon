@@ -5,6 +5,8 @@ import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.darkfantasy.entity.enums.ArticleType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,8 +40,8 @@ public class Article {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false, length = 100)
-    private String type;
+    @Column(nullable = false)
+    private ArticleType type;
 
     @Column(name = "thumbnail_url", length = 500)
     private String thumbnailUrl;

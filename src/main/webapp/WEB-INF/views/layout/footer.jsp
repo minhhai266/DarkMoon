@@ -14,8 +14,8 @@
                     <a href="/news" class="btn btn-outline-red" style="padding:0.5rem 1.2rem; font-size:0.62rem;">Tin
                         tức
                     </a>
-                    <a href="/community" class="btn btn-secondary"
-                        style="padding:0.5rem 1.2rem; font-size:0.62rem;">Tham gia cộng đồng</a>
+                    <a href="/aboutUs" class="btn btn-secondary"
+                        style="padding:0.5rem 1.2rem; font-size:0.62rem;">Về chúng tôi</a>
                 </div>
             </div>
             <div>
@@ -32,10 +32,10 @@
                 <p class="footer-heading">Cộng đồng</p>
                 <ul class="footer-links">
                     <li><a href="/news">Dev Blog</a></li>
-                    <li><a href="/community">Discord</a></li>
-                    <li><a href="/community">Reddit</a></li>
-                    <li><a href="/community">Fan Art</a></li>
-                    <li><a href="/community">Wiki</a></li>
+                    <li><a href="/aboutUs">Discord</a></li>
+                    <li><a href="/aboutUs">Reddit</a></li>
+                    <li><a href="/aboutUs">Fan Art</a></li>
+                    <li><a href="/aboutUs">Wiki</a></li>
                 </ul>
             </div>
             <div>

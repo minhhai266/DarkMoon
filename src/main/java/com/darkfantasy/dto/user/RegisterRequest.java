@@ -1,5 +1,7 @@
 package com.darkfantasy.dto.user;
 
+import org.springframework.lang.NonNull;
+
 import com.darkfantasy.annotation.PasswordMatch;
 import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.enums.Role;
@@ -12,6 +14,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @NoArgsConstructor
@@ -38,6 +41,7 @@ public class RegisterRequest {
     private String fullName;
 
 
+    @NonNull
     public User toEntity(String hashPassword){
         return User.builder()
                 .username(this.username)

@@ -1,5 +1,7 @@
 package com.darkfantasy.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -9,9 +11,12 @@ import com.darkfantasy.dto.article.UpdateArticleRequest;
 
 public interface ArticleService {
     ArticleResponse createArticle(CreateArticleRequest request);
-    ArticleResponse getArticleById(Long articleId);
     ArticleResponse updateArticle(UpdateArticleRequest request);
     void deleteArticle(Long articleId);
+    void restoreArticle(Long articleId);
 
     Page<ArticleResponse> getArticles(Pageable pageable);
+    Page<ArticleResponse> getArticlesDeletedFalse(Pageable pageable);
+    List<ArticleResponse> getLatestArticles(int limit);
+    ArticleResponse getLatestImportantArticle();
 }

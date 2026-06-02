@@ -1,9 +1,8 @@
 package com.darkfantasy.dto.article;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-
 import com.darkfantasy.entity.Article;
+import com.darkfantasy.entity.enums.ArticleType;
+import com.darkfantasy.util.TimeUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,18 +21,9 @@ public class ArticleResponse {
     private String authorUsername;
     private String thumbnailUrl;
     private String type;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
-    public Article toEntity() {
-        return Article.builder()
-                .id(this.id)
-                .title(this.title)
-                .content(this.content)
-                .thumbnailUrl(this.thumbnailUrl)
-                .type(this.type)
-                .build();
-    }
+    private String createdAt;
+    private String updatedAt;
+    private boolean deleted;
 
     public static ArticleResponse fromEntity(Article article) {
         return ArticleResponse.builder()
@@ -42,9 +32,22 @@ public class ArticleResponse {
                 .content(article.getContent())
                 .authorUsername(article.getCreatedBy().getUsername())
                 .thumbnailUrl(article.getThumbnailUrl())
-                .type(article.getType())
-                .createdAt(article.getCreatedAt().atZone(ZoneId.systemDefault()).toLocalDateTime())
-                .updatedAt(article.getUpdatedAt().atZone(ZoneId.systemDefault()).toLocalDateTime())
+                .type(article.getType().getDisplayName())
+                .createdAt(TimeUtil.formatInstant(article.getCreatedAt()))
+                .updatedAt(TimeUtil.formatInstant(article.getUpdatedAt()))
+                .deleted(article.isDeleted())
                 .build();
+    }
+
+    public String getSummary() {
+        if (content == null) {
+            return "";
+        }
+
+        if (content.length() <= 150) {
+            return content;
+        }
+
+        return content.substring(0, 150) + "...";
     }
 }

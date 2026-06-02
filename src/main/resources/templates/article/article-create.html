@@ -1,0 +1,62 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tạo bài viết</title>
+  </head>
+  <body>
+    <h1>Tạo bài viết mới</h1>
+
+    <!-- Thay thế <c:if> của JSTL bằng th:if của Thymeleaf -->
+    <p
+      style="color: green"
+      th:if="${successMessage}"
+      th:text="${successMessage}"
+    ></p>
+    <p style="color: red" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
+    <!-- Sử dụng th:action và cú pháp @{} để xử lý context path, giữ nguyên enctype cho file upload -->
+    <form
+      th:action="@{/article/moonblight/create}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div>
+        <label>Tiêu đề</label><br />
+        <input type="text" name="title" maxlength="255" required />
+      </div>
+
+      <br />
+
+      <div>
+        <label>Loại bài viết</label><br />
+
+        <select name="type" required>
+          <option
+            th:each="type : ${articleTypes}"
+            th:value="${type}"
+            th:text="${type.displayName}"
+          ></option>
+        </select>
+      </div>
+
+      <br />
+
+      <div>
+        <label>Thumbnail</label><br />
+        <input type="file" name="thumbnail" accept="image/*" />
+      </div>
+
+      <br />
+
+      <div>
+        <label>Nội dung</label><br />
+        <textarea name="content" rows="15" cols="80" required></textarea>
+      </div>
+
+      <br />
+
+      <button type="submit">Tạo bài viết</button>
+    </form>
+  </body>
+</html>

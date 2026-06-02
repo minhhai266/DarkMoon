@@ -1,0 +1,54 @@
+<footer th:fragment="footer">
+    <div class="footer-grid">
+        <div>
+            <span class="footer-brand">MOON BLIGHT</span>
+            <p class="footer-tagline">
+                Bước vào một thế giới bị bao phủ bởi bóng tối cổ xưa. Mỗi lựa chọn đều vang vọng khắp vùng đất đang
+                hấp hối. Sự tỉnh táo là thứ quý giá nhất của bạn.
+            </p>
+            <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                <a th:href="@{/news}" class="btn btn-outline-red" style="padding:0.5rem 1.2rem; font-size:0.62rem;">Tin tức</a>
+                <a th:href="@{/community}" class="btn btn-secondary" style="padding:0.5rem 1.2rem; font-size:0.62rem;">Tham gia cộng đồng</a>
+            </div>
+        </div>
+        <div>
+            <p class="footer-heading">Khám phá</p>
+            <ul class="footer-links">
+                <li><a th:href="@{/story}">Cốt truyện</a></li>
+                <li><a th:href="@{/characters}">Nhân vật</a></li>
+                <li><a th:href="@{/enemies}">Quái vật</a></li>
+                <li><a th:href="@{/weapons}">Vũ khí &amp; Ký hiệu</a></li>
+                <li><a th:href="@{/world}">Thế giới</a></li>
+            </ul>
+        </div>
+        <div>
+            <p class="footer-heading">Cộng đồng</p>
+            <ul class="footer-links">
+                <li><a th:href="@{/news}">Dev Blog</a></li>
+                <li><a th:href="@{/community}">Discord</a></li>
+                <li><a th:href="@{/community}">Reddit</a></li>
+                <li><a th:href="@{/community}">Fan Art</a></li>
+                <li><a th:href="@{/community}">Wiki</a></li>
+            </ul>
+        </div>
+        <div>
+            <p class="footer-heading">Hỗ trợ</p>
+            <ul class="footer-links">
+                <li><a th:href="@{/support}">FAQ</a></li>
+                <li><a th:href="@{/support}">Liên hệ với chúng tôi</a></li>
+                <li><a th:href="@{/support}">Báo cáo lỗi</a></li>
+                <li><a th:href="@{/support}">Khả năng tiếp cận</a></li>
+                <li><a th:href="@{/support}">Bộ tài liệu báo chí</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p class="footer-copy">&copy; Trăng đen 2026. Bảo lưu mọi quyền. Bảo lưu mọi nỗi kinh hoàng.</p>
+        <ul class="footer-legal">
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Cookies</a></li>
+        </ul>
+    </div>
+</footer>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+  </head>
+  <body>
+    <h2>Đăng ký tài khoản</h2>
+
+    <p
+      style="color: green"
+      th:if="${successMessage}"
+      th:text="${successMessage}"
+    ></p>
+    <p style="color: red" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
+    <form method="post" th:action="@{/user/moonblight/register/enter}">
+      <div>
+        <label>Username</label><br />
+        <input
+          type="text"
+          name="username"
+          minlength="3"
+          maxlength="30"
+          required
+        />
+      </div>
+
+      <br />
+
+      <div>
+        <label>Email</label><br />
+        <input type="email" name="email" maxlength="255" required />
+      </div>
+
+      <br />
+
+      <div>
+        <label>Họ và tên</label><br />
+        <input type="text" name="fullName" maxlength="255" required />
+      </div>
+
+      <br />
+
+      <div>
+        <label>Mật khẩu</label><br />
+        <input type="password" name="password" minlength="8" required />
+      </div>
+
+      <br />
+
+      <div>
+        <label>Nhập lại mật khẩu</label><br />
+        <input type="password" name="rePassword" required />
+      </div>
+
+      <br />
+
+      <button type="submit">Đăng ký</button>
+    </form>
+
+    <hr />
+
+    <a th:href="@{/user/moonblight/login}"> Đã có tài khoản? Đăng nhập </a>
+  </body>
+</html>

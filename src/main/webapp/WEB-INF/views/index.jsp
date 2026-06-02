@@ -243,64 +243,51 @@
                     <h2 class="section-title">Tin tức</h2>
                     <div class="section-divider"></div>
                 </div>
-                <div class="grid-3">
-                    <div class="card">
-                        <img class="card-img"
-                            src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&q=80" alt="News 1"
-                            loading="lazy">
-                        <div class="card-body">
-                            <span class="card-tag">Bản cập nhật 2.4 </span>
-                            <h3 class="card-title">Cân bằng lại Crimson Court</h3>
-                            <p class="card-text">Đám huyết tộc quý nhân đã được tái điều chỉnh.
-                                Những kháng tính dị hoạn cùng quy luật chiến đấu mới đã trải qua sáu tháng nội bộ khảo
-                                nghiệm thế giới này cực kì nguy hiểm.Thật thảm hại</p>
-                        </div>
-                        <div class="card-footer">
-                            <span class="font-Cormorant Garamond text-grey"
-                                style="font-size:0.58rem; letter-spacing:0.15em;">Oct
-                                15, 2024</span>
-                            <a href="/news" class="text-crimson font-Lora"
-                                style="font-size:0.82rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
-                        </div>
+        <div class="grid-3">
+
+            <c:forEach items="${articles}" var="article">
+
+                <div class="card">
+
+                    <img class="card-img"
+                        src="${article.thumbnailUrl}"
+                        alt="${article.title}"
+                        loading="lazy">
+
+                    <div class="card-body">
+
+                        <span class="card-tag">
+                            ${article.type}
+                        </span>
+
+                        <h3 class="card-title">
+                            ${article.title}
+                        </h3>
+
+                        <p class="card-text">
+                            ${article.summary}
+                        </p>
+
                     </div>
-                    <div class="card">
-                        <img class="card-img"
-                            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80" alt="News 2"
-                            loading="lazy">
-                        <div class="card-body">
-                            <span class="card-tag">DLC — The Sunken City</span>
-                            <h3 class="card-title">Khu vực mới: Kho tàng vực sâu</h3>
-                            <p class="card-text">Bên dưới những phế tích bị thủy triều nhấn chìm là các cấm thư đã bị
-                                thế nhân lãng quên.Tân dị thú, tân di vật, cùng những phương thức mới để nghênh đón tận diệt đang chờ đợi
-                                ngươi.</p>
-                        </div>
-                        <div class="card-footer">
-                            <span class="font-Cormorant Garamond text-grey"
-                                style="font-size:0.58rem; letter-spacing:0.15em;">Oct 3,
-                                2024</span>
-                            <a href="/news" class="text-crimson font-Lora"
-                                style="font-size:0.82rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
-                        </div>
+
+                    <div class="card-footer">
+
+                        <span class="font-Cormorant Garamond text-grey">
+                            ${article.createdAt}
+                        </span>
+
+                        <a href="/news/${article.id}"
+                        class="text-crimson font-Lora">
+                            Đọc thêm →
+                        </a>
+
                     </div>
-                    <div class="card">
-                        <img class="card-img"
-                            src="https://images.unsplash.com/photo-1475738198235-5e1f7f8d8395?w=600&q=80" alt="News 3"
-                            loading="lazy">
-                        <div class="card-body">
-                            <span class="card-tag">Cộng đồng</span>
-                            <h3 class="card-title">Tuyển tập fan art: Tháng chín</h3>
-                            <p class="card-text">Cộng đồng một lần nữa đã tạo nên những tuyệt tác sinh ra từ hắc ám.
-                                Tuyển tập kỳ này sẽ trình hiện hai mươi bốn tác phẩm kinh tâm động phách.Đám huyết tộc quý nhân đã được tái điều chỉnh.</p>
-                        </div>
-                        <div class="card-footer">
-                            <span class="font-Cormorant Garamond text-grey"
-                                style="font-size:0.58rem; letter-spacing:0.15em;">Sep
-                                28, 2024</span>
-                            <a href="/news" class="text-crimson font-Lora"
-                                style="font-size:0.82rem; letter-spacing:0.12em;">Đọc thêm &#8594;</a>
-                        </div>
-                    </div>
+
                 </div>
+
+            </c:forEach>
+
+        </div>
                 <div class="text-center mt-4">
                     <a href="/news" class="btn btn-secondary">Xem tất cả</a>
                 </div>

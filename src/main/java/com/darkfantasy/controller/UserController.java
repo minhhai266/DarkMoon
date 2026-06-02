@@ -1,11 +1,12 @@
 package com.darkfantasy.controller;
 
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +21,7 @@ import com.darkfantasy.dto.user.RegisterRequest;
 
 import com.darkfantasy.service.UserService;
 
-
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -34,38 +35,56 @@ public class UserController {
     @GetMapping({ "login", "login/" })
     public String toLoginPage(Model model) {
         model.addAttribute("loginRequest", new LoginRequest());
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping({ "register", "register/" })
     public String toRegisterPage(Model model) {
         model.addAttribute("registerRequest", new RegisterRequest());
-        return "register";
+        return "auth/register";
     }
 
     @GetMapping({ "reset", "reset/" })
     public String toResetPage() {
-        return "reset";
+        return "auth/reset";
     }
 
     @GetMapping({ "change", "change/" })
     public String toChangePasswordPage() {
-        return "password-change";
+        return "auth/password-change";
     }
 
     @PostMapping("login/enter")
-    public String login(@Valid @ModelAttribute LoginRequest request, BindingResult result, Model model) {
+    public String login(@Valid @ModelAttribute LoginRequest request, BindingResult result, Model model,
+            HttpServletRequest req) {
         if (result.hasErrors()) {
             return "login";
         }
         try {
-            Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            // Authentication authentication = authenticationManager
+            // .authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(),
+            // request.getPassword()));
+            // SecurityContextHolder.getContext().setAuthentication(authentication);
+            // return "redirect:/";
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getLogin(),
+                            request.getPassword()));
+
+            SecurityContext context = SecurityContextHolder.createEmptyContext();
+
+            context.setAuthentication(authentication);
+
+            SecurityContextHolder.setContext(context);
+
+            req.getSession(true).setAttribute(
+                    HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                    context);
+
             return "redirect:/";
         } catch (AuthenticationException e) {
             model.addAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không đúng.");
-            return "login";
+            return "auth/login";
         }
     }
 
@@ -73,7 +92,7 @@ public class UserController {
     public String registerAccount(@Valid @ModelAttribute RegisterRequest request, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            return "register";
+            return "auth/register";
         }
         try {
             userService.register(request);
@@ -83,7 +102,7 @@ public class UserController {
             request.setPassword("");
             request.setRePassword("");
             model.addAttribute("errorMessage", e.getMessage());
-            return "register";
+            return "auth/register";
         }
     }
 
