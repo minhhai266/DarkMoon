@@ -10,6 +10,7 @@ import com.darkfantasy.dto.article.CreateArticleRequest;
 import com.darkfantasy.dto.article.UpdateArticleRequest;
 
 public interface ArticleService {
+    ArticleResponse getArticleById(Long id);
     ArticleResponse createArticle(CreateArticleRequest request);
     ArticleResponse updateArticle(UpdateArticleRequest request);
     void deleteArticle(Long articleId);
@@ -19,4 +20,5 @@ public interface ArticleService {
     Page<ArticleResponse> getArticlesDeletedFalse(Pageable pageable);
     List<ArticleResponse> getLatestArticles(int limit);
     ArticleResponse getLatestImportantArticle();
+    
 }

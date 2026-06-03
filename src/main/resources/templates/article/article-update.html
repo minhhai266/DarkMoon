@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật bài viết</title>
+</head>
+<body>
+
+<h1>Cập nhật bài viết</h1>
+
+<p style="color: green"
+   th:if="${successMessage}"
+   th:text="${successMessage}">
+</p>
+
+<p style="color: red"
+   th:if="${errorMessage}"
+   th:text="${errorMessage}">
+</p>
+
+<form th:action="@{/article/moonblight/{id}/edit(id=${article.id})}"
+      method="post"
+      enctype="multipart/form-data">
+
+    <div>
+        <label>Tiêu đề</label><br>
+        <input type="text"
+               name="title"
+               maxlength="255"
+               required
+               th:value="${article.title}">
+    </div>
+
+    <br>
+
+    <div>
+        <label>Loại bài viết</label><br>
+
+        <select name="type" required>
+            <option th:each="type : ${articleTypes}"
+                    th:value="${type}"
+                    th:text="${type.displayName}"
+                    th:selected="${article.type == type}">
+            </option>
+        </select>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Thumbnail hiện tại</label><br>
+
+        <img th:if="${article.thumbnailUrl != null}"
+             th:src="${article.thumbnailUrl}"
+             alt="Thumbnail"
+             style="max-width:200px;">
+    </div>
+
+    <br>
+
+    <div>
+        <label>Thumbnail mới (không bắt buộc)</label><br>
+        <input type="file"
+               name="thumbnail"
+               accept="image/*">
+    </div>
+
+    <br>
+
+    <div>
+        <label>Nội dung</label><br>
+
+        <textarea name="content"
+                  rows="15"
+                  cols="80"
+                  required
+                  th:text="${article.content}">
+        </textarea>
+    </div>
+
+    <br>
+
+    <button type="submit">
+        Cập nhật bài viết
+    </button>
+
+</form>
+
+</body>
+</html>

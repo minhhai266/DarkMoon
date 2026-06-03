@@ -1,5 +1,4 @@
 <!doctype html>
-<!-- Thêm khai báo namespace của Thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
@@ -10,17 +9,35 @@
 
     <p style="color: red" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
-    <form method="post" th:action="@{/user/moonblight/login/enter}">
+    <form
+      method="post"
+      th:action="@{/user/moonblight/login}"
+      th:object="${loginRequest}"
+    >
       <div>
         <label>Username hoặc Email</label><br />
-        <input type="text" name="login" required />
+
+        <input type="text" th:field="*{login}" />
+
+        <div
+          style="color: red"
+          th:if="${#fields.hasErrors('login')}"
+          th:text="${#fields.errors('login')[0]}"
+        ></div>
       </div>
 
       <br />
 
       <div>
         <label>Password</label><br />
-        <input type="password" name="password" required />
+
+        <input type="password" th:field="*{password}" />
+
+        <div
+          style="color: red"
+          th:if="${#fields.hasErrors('password')}"
+          th:text="${#fields.errors('password')[0]}"
+        ></div>
       </div>
 
       <br />
@@ -30,7 +47,6 @@
 
     <hr />
 
-    <!-- Dùng th:href cùng cú pháp @{} thay cho thẻ href thông thường -->
     <a th:href="@{/user/moonblight/register}"> Tạo tài khoản mới </a>
   </body>
 </html>

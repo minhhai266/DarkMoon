@@ -54,11 +54,11 @@ public class UserController {
         return "auth/password-change";
     }
 
-    @PostMapping("login/enter")
+    @PostMapping("login")
     public String login(@Valid @ModelAttribute LoginRequest request, BindingResult result, Model model,
             HttpServletRequest req) {
         if (result.hasErrors()) {
-            return "login";
+            return "auth/login";
         }
         try {
             // Authentication authentication = authenticationManager
@@ -88,7 +88,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("register/enter")
+    @PostMapping("register")
     public String registerAccount(@Valid @ModelAttribute RegisterRequest request, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {

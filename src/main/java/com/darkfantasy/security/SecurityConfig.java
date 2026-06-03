@@ -36,7 +36,6 @@ public class SecurityConfig {
                         .requestMatchers("/article/**").hasRole(Role.STAFF.name())
                         .anyRequest()
                         .permitAll())
-                .formLogin(login -> login.loginPage("/user/moonblight/login").permitAll())
                 .csrf(csrf -> csrf.disable());
         return http.build();
     }

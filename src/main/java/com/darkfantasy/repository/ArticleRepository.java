@@ -1,6 +1,5 @@
 package com.darkfantasy.repository;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -13,10 +12,8 @@ import com.darkfantasy.entity.enums.ArticleType;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    Page<Article> findByDeletedFalse(Pageable pageable);
 
-
-    List<Article> findByDeletedFalseOrderByCreatedAtDesc(
+    Page<Article> findByDeletedFalseOrderByCreatedAtDesc(
             Pageable pageable);
 
     Optional<Article> findFirstByTypeAndDeletedFalseOrderByCreatedAtDesc(

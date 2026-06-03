@@ -26,6 +26,10 @@ public class ArticleServiceImpl implements ArticleService {
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
 
+    @Override
+    public ArticleResponse getArticleById(Long id){ 
+        return ArticleResponse.fromEntity(findArticle(id));
+    }
     @Transactional
     @Override
     public ArticleResponse createArticle(CreateArticleRequest request) {
@@ -45,28 +49,32 @@ public class ArticleServiceImpl implements ArticleService {
         return ArticleResponse.fromEntity(savedArticle);
     }
 
+    @Transactional
     @Override
     public ArticleResponse updateArticle(UpdateArticleRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateArticle'");
+        Article article = findArticle(request.getId());
+        article.setTitle(request.getTitle());
+        article.setContent(request.getContent());
+        article.setType(request.getType());
+        article.setThumbnailUrl(request.getThumbnailUrl());
+
+        return ArticleResponse.fromEntity(article);
     }
 
+    @Transactional
     @Override
     public void deleteArticle(Long articleId) {
         if (articleId == null) {
             throw new IllegalArgumentException("Không thể xóa bài viết với ID null");
         }
-        Article article = articleRepository
-                .findById(articleId)
-                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy bài viết với ID: " + articleId));
+        Article article = findArticle(articleId);
         article.setDeleted(true);
-        articleRepository.save(article);
     }
 
     @Override
     public Page<ArticleResponse> getArticlesDeletedFalse(Pageable pageable) {
         return articleRepository
-                .findByDeletedFalse(pageable)
+                .findByDeletedFalseOrderByCreatedAtDesc(pageable)
                 .map(ArticleResponse::fromEntity);
     }
 
@@ -94,21 +102,24 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Page<ArticleResponse> getArticles(Pageable pageable) {
-        if(pageable == null) {
+        if (pageable == null) {
             throw new IllegalArgumentException("Pageable không được null");
         }
         return articleRepository.findAll(pageable).map(ArticleResponse::fromEntity);
     }
 
+    @Transactional
     @Override
     public void restoreArticle(Long articleId) {
         if (articleId == null) {
             throw new IllegalArgumentException("Không thể khôi phục bài viết với ID null");
         }
-        Article article = articleRepository
-                .findById(articleId)
-                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy bài viết với ID: " + articleId));
+        Article article = findArticle(articleId);
         article.setDeleted(false);
-        articleRepository.save(article);
+    }
+
+    private Article findArticle(Long id) {
+        return articleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy bài viết với ID: " + id));
     }
 }

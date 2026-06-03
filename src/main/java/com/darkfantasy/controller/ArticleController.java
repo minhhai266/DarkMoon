@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.darkfantasy.dto.article.ArticleResponse;
 import com.darkfantasy.dto.article.CreateArticleRequest;
+import com.darkfantasy.dto.article.UpdateArticleRequest;
 import com.darkfantasy.entity.enums.ArticleType;
 import com.darkfantasy.service.ArticleService;
 
@@ -32,6 +33,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ArticleController {
     private final ArticleService articleService;
+
+    @GetMapping({ "/list", "/list/" })
+    public String articleList(
+            @PageableDefault(size = 10) Pageable pageable,
+            Model model) {
+
+        model.addAttribute(
+                "articles",
+                articleService.getArticles(pageable));
+
+        return "article/article-list";
+    }
 
     @GetMapping({ "/create", "/create/" })
     public String toCreatePage(Model model) {
@@ -89,18 +102,6 @@ public class ArticleController {
         }
     }
 
-    @GetMapping({ "/list", "/list/" })
-    public String articleList(
-            @PageableDefault(size = 10) Pageable pageable,
-            Model model) {
-
-        model.addAttribute(
-                "articles",
-                articleService.getArticles(pageable));
-
-        return "article/article-list";
-    }
-
     @PostMapping("{id}/delete")
     public String deleteArticle(
             @PathVariable("id") Long id,
@@ -121,10 +122,11 @@ public class ArticleController {
 
         return "redirect:/article/moonblight/list";
     }
+
     @PostMapping("{id}/restore")
     public String restoreArticle(
             @PathVariable("id") Long id,
-            RedirectAttributes redirectAttributes) {    
+            RedirectAttributes redirectAttributes) {
         try {
             articleService.restoreArticle(id);
             redirectAttributes.addFlashAttribute(
@@ -135,6 +137,38 @@ public class ArticleController {
                     "errorMessage",
                     e.getMessage());
         }
+        return "redirect:/article/moonblight/list";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editArticlePage(
+            @PathVariable Long id,
+            Model model) {
+
+        ArticleResponse article = articleService.getArticleById(id);
+
+        model.addAttribute("article", article);
+        model.addAttribute("articleTypes", ArticleType.values());
+
+        return "article/article-edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateArticle(
+            @PathVariable Long id,
+            @Valid @ModelAttribute("article") UpdateArticleRequest request,
+            BindingResult result,
+            Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("articleTypes", ArticleType.values());
+            return "article/article-edit";
+        }
+
+        request.setId(id);
+
+        articleService.updateArticle(request);
+
         return "redirect:/article/moonblight/list";
     }
 }

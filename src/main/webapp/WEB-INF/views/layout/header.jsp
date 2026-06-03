@@ -26,10 +26,10 @@
                 <ul class="navbar-nav">
                     <li class="nav-item "><a data-target="home" href="/" class="nav-down ${activePage == 'home' ? 'active' : ''}">Trang chủ</a></li>
                     <li class="nav-item "><a data-target="story"  class="nav-down ${activePage == 'story' ? 'active' : ''}">Cốt truyện</a></li>
+                     <li class="nav-item "><a data-target="world"  class="nav-down ${activePage == 'world' ? 'active' : ''}">Thế giới</a></li>
                     <li class="nav-item "><a data-target="character"  class="nav-down ${activePage == 'characters' ? 'active' : ''}">Nhân vật</a></li>
                     <!-- <li class="nav-item"><a href="/enemies" class="${activePage == 'enemies' ? 'active' : ''}">Quái vật</a></li>
                     <li class="nav-item"><a href="/weapons" class="${activePage == 'weapons' ? 'active' : ''}">Vũ khí</a></li> -->
-                    <li class="nav-item "><a data-target="world"  class="nav-down ${activePage == 'world' ? 'active' : ''}">Thế giới</a></li>
                     <li class="nav-item "><a data-target="news"  class="nav-down ${activePage == 'news' ? 'active' : ''}">Tin tức</a></li>
                     <li class="nav-item "><a href="/aboutUs"  class=" ${activePage == 'community' ? 'active' : ''}">Về Chúng Tôi</a></li>
                 </ul>
