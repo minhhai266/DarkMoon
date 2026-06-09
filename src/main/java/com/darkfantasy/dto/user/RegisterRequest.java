@@ -2,7 +2,7 @@ package com.darkfantasy.dto.user;
 
 import org.springframework.lang.NonNull;
 
-import com.darkfantasy.annotation.PasswordMatch;
+import com.darkfantasy.annotation.RegisterPasswordMatch;
 import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@PasswordMatch
+@RegisterPasswordMatch
 public class RegisterRequest {
     @NotBlank(message = "Tên đăng nhập không được để trống")
     @Size(min = 3, max = 30, message = "Tên đăng nhập phải có độ dài từ 3 đến 30 ký tự")

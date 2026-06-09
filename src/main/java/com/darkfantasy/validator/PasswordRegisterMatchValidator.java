@@ -1,13 +1,13 @@
 package com.darkfantasy.validator;
 
-import com.darkfantasy.annotation.PasswordMatch;
+import com.darkfantasy.annotation.RegisterPasswordMatch;
 import com.darkfantasy.dto.user.RegisterRequest;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class PasswordRegisterMatchValidator
-        implements ConstraintValidator<PasswordMatch, RegisterRequest> {
+        implements ConstraintValidator<RegisterPasswordMatch, RegisterRequest> {
 
     @Override
     public boolean isValid(RegisterRequest request,

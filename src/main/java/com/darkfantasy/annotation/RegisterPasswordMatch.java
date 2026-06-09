@@ -13,7 +13,7 @@ import jakarta.validation.Payload;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PasswordRegisterMatchValidator.class)
-public @interface PasswordMatch {
+public @interface RegisterPasswordMatch {
 
     String message() default "Mật khẩu xác nhận không khớp";
 

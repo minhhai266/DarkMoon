@@ -24,8 +24,10 @@ import com.darkfantasy.dto.user.UserResponse;
 import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.enums.LogAction;
 import com.darkfantasy.entity.enums.LogEntityType;
+import com.darkfantasy.entity.enums.Role;
 import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.UserService;
+import com.darkfantasy.util.SecurityUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -69,11 +71,6 @@ public class UserController {
             return "cms/auth/login";
         }
         try {
-            // Authentication authentication = authenticationManager
-            // .authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(),
-            // request.getPassword()));
-            // SecurityContextHolder.getContext().setAuthentication(authentication);
-            // return "redirect:/";
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getLogin(),
@@ -151,7 +148,6 @@ public class UserController {
         model.addAttribute(
                 "changePasswordRequest",
                 new ChangePasswordRequest());
-
         return "cms/auth/change-password";
     }
 
@@ -175,6 +171,12 @@ public class UserController {
                     "successMessage",
                     "Đổi mật khẩu thành công");
 
+            Role role = SecurityUtil.getCurrentUserRole();
+
+            if (role == Role.ADMIN) {
+                return "redirect:/admin/moonblight/dashboard";
+            }
+
             return "redirect:/dashboard/moonblight";
 
         } catch (Exception e) {
@@ -183,7 +185,7 @@ public class UserController {
                     "errorMessage",
                     e.getMessage());
 
-            return "cms/user/change-password";
+            return "cms/auth/change-password";
         }
     }
     // @PostMapping("reset/enter")

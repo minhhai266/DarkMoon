@@ -1,6 +1,6 @@
 package com.darkfantasy.dto.user;
 
-import com.darkfantasy.annotation.PasswordMatch;
+import com.darkfantasy.annotation.ChangePasswordMatch;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-@PasswordMatch
+@ChangePasswordMatch
 public class ChangePasswordRequest {
 
     @NotBlank(message = "Mật khẩu cũ không được để trống")

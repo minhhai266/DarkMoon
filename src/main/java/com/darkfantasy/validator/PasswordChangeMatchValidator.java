@@ -1,12 +1,12 @@
 package com.darkfantasy.validator;
 
-import com.darkfantasy.annotation.PasswordMatch;
+import com.darkfantasy.annotation.ChangePasswordMatch;
 import com.darkfantasy.dto.user.ChangePasswordRequest;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class PasswordChangeMatchValidator implements ConstraintValidator<PasswordMatch, ChangePasswordRequest>{
+public class PasswordChangeMatchValidator implements ConstraintValidator<ChangePasswordMatch, ChangePasswordRequest>{
 
     @Override
     public boolean isValid(ChangePasswordRequest request,
@@ -25,7 +25,7 @@ public class PasswordChangeMatchValidator implements ConstraintValidator<Passwor
 
             context.buildConstraintViolationWithTemplate(
                     "Mật khẩu xác nhận không khớp")
-                    .addPropertyNode("rePassword")
+                    .addPropertyNode("confirmPassword")
                     .addConstraintViolation();
         }
 
