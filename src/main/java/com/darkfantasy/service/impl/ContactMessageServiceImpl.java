@@ -3,20 +3,24 @@ package com.darkfantasy.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.darkfantasy.dto.contact.ContactMessageResponse;
 import com.darkfantasy.dto.contact.CreateContactMessageRequest;
 import com.darkfantasy.entity.ContactMessage;
+import com.darkfantasy.entity.enums.LogAction;
+import com.darkfantasy.entity.enums.LogEntityType;
 import com.darkfantasy.repository.ContactMessageRepository;
+import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.ContactMessageService;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ContactMessageServiceImpl implements ContactMessageService {
     private final ContactMessageRepository contactMessageRepository;
+    private final AuditLogService auditLogService;
 
     @Transactional
     @Override
@@ -28,6 +32,11 @@ public class ContactMessageServiceImpl implements ContactMessageService {
         ContactMessage message = request.toEntity();
         ContactMessage savedMessage = contactMessageRepository.save(message);
 
+        auditLogService.log(
+                LogEntityType.CONTACT,
+                savedMessage.getId(),
+                LogAction.CREATE,
+                "Tạo liên hệ: " + savedMessage.getMessage());
         return ContactMessageResponse.fromEntity(savedMessage);
     }
 
@@ -56,6 +65,11 @@ public class ContactMessageServiceImpl implements ContactMessageService {
 
         ContactMessage message = findContactMessage(id);
         message.setProcessed(true);
+        auditLogService.log(
+                LogEntityType.CONTACT,
+                message.getId(),
+                LogAction.PROCESS,
+                "Đánh dấu đã xử lý: " + message.getMessage());
     }
 
     @Transactional

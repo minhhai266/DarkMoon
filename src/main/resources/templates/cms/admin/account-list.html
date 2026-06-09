@@ -21,7 +21,7 @@
 
   <body>
     <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
+      <th:block th:replace="~{cms/fragments/admin-sidebar :: sidebar}"> </th:block>
 
       <div class="content-wrapper">
         <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
@@ -51,7 +51,7 @@
                 <th>Vai trò</th>
                 <th>Trạng thái</th>
                 <th>Ngày tạo</th>
-                <th>Chi tiết</th>
+                <!-- <th>Chi tiết</th> -->
               </tr>
             </thead>
 
@@ -68,26 +68,23 @@
                 <td th:text="${account.role}"></td>
 
                 <td>
-                  <span th:if="${!account.accept}" style="color: orange">
-                    Chờ duyệt
-                  </span>
 
                   <span
-                    th:if="${account.accept and account.active}"
+                    th:if="${account.active}"
                     style="color: green"
                   >
                     Đang hoạt động
                   </span>
 
                   <span
-                    th:if="${account.accept and !account.active}"
+                    th:if="${!account.active}"
                     style="color: red"
                   >
                     Đã khóa
                   </span>
                 </td>
 
-                <td th:text="${account.createdAt}"></td>
+                <!-- <td th:text="${account.createdAt}"></td> -->
 
                 <td>
                   <a

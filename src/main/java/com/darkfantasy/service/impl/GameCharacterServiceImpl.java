@@ -6,18 +6,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.darkfantasy.dto.gamecharacter.CreateGameCharacterRequest;
 import com.darkfantasy.dto.gamecharacter.GameCharacterResponse;
 import com.darkfantasy.dto.gamecharacter.UpdateGameCharacterRequest;
 import com.darkfantasy.entity.GameCharacter;
 import com.darkfantasy.entity.User;
+import com.darkfantasy.entity.enums.LogAction;
+import com.darkfantasy.entity.enums.LogEntityType;
 import com.darkfantasy.repository.GameCharacterRepository;
 import com.darkfantasy.repository.UserRepository;
+import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.GameCharacterService;
 import com.darkfantasy.util.SecurityUtil;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,6 +29,7 @@ public class GameCharacterServiceImpl implements GameCharacterService {
 
     private final GameCharacterRepository gameCharacterRepository;
     private final UserRepository userRepository;
+    private final AuditLogService auditLogService;
 
     @Override
     public GameCharacterResponse getGameCharacterById(Long id) {
@@ -46,7 +50,11 @@ public class GameCharacterServiceImpl implements GameCharacterService {
         character.setCreatedBy(getCurrentUser());
 
         GameCharacter savedCharacter = gameCharacterRepository.save(character);
-
+        auditLogService.log(
+                LogEntityType.CHARACTER,
+                savedCharacter.getId(),
+                LogAction.CREATE,
+                "Thêm nhân vật: " + savedCharacter.getName());
         return GameCharacterResponse.fromEntity(
                 savedCharacter);
     }
@@ -68,6 +76,11 @@ public class GameCharacterServiceImpl implements GameCharacterService {
         if (request.getImage() != null) {
             character.setImage(request.getImage());
         }
+        auditLogService.log(
+                LogEntityType.CHARACTER,
+                character.getId(),
+                LogAction.UPDATE,
+                "Sửa nhân vật: " + character.getName());
         return GameCharacterResponse.fromEntity(character);
 
     }
@@ -81,6 +94,11 @@ public class GameCharacterServiceImpl implements GameCharacterService {
         GameCharacter found = findGameCharacter(id);
         found.setDeleted(true);
         found.setUpdatedBy(getCurrentUser());
+        auditLogService.log(
+                LogEntityType.CHARACTER,
+                found.getId(),
+                LogAction.DELETE,
+                "Xóa nhân vật: " + found.getName());
     }
 
     @Transactional
@@ -92,6 +110,11 @@ public class GameCharacterServiceImpl implements GameCharacterService {
         GameCharacter found = findGameCharacter(id);
         found.setDeleted(false);
         found.setUpdatedBy(getCurrentUser());
+                auditLogService.log(
+                LogEntityType.CHARACTER,
+                found.getId(),
+                LogAction.RESTORE,
+                "Khôi phục nhân vật: " + found.getName());
     }
 
     @Override

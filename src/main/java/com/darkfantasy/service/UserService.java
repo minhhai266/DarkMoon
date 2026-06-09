@@ -9,6 +9,7 @@ import com.darkfantasy.dto.user.RegisterRequest;
 import com.darkfantasy.dto.user.UserResponse;
 
 public interface UserService {
+    UserResponse findByUsername(String user);
     UserResponse login(LoginRequest request);
 
     void register(RegisterRequest request);

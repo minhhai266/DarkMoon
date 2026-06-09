@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.darkfantasy.dto.article.ArticleResponse;
 import com.darkfantasy.dto.article.CreateArticleRequest;
@@ -13,11 +14,13 @@ import com.darkfantasy.dto.article.UpdateArticleRequest;
 import com.darkfantasy.entity.Article;
 import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.enums.ArticleType;
+import com.darkfantasy.entity.enums.LogAction;
+import com.darkfantasy.entity.enums.LogEntityType;
 import com.darkfantasy.repository.ArticleRepository;
 import com.darkfantasy.repository.UserRepository;
 import com.darkfantasy.service.ArticleService;
+import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.util.SecurityUtil;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class ArticleServiceImpl implements ArticleService {
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
+    private final AuditLogService auditLogService;
 
     @Override
     public ArticleResponse getArticleById(Long id) {
@@ -41,6 +45,11 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = request.toEntity();
         article.setCreatedBy(currentUser);
         Article savedArticle = articleRepository.save(article);
+        auditLogService.log(
+                LogEntityType.ARTICLE,
+                savedArticle.getId(),
+                LogAction.CREATE,
+                "Tạo bài viết: " + savedArticle.getTitle());
         return ArticleResponse.fromEntity(savedArticle);
     }
 
@@ -67,7 +76,11 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         article.setUpdatedBy(currentUser);
-
+        auditLogService.log(
+                LogEntityType.ARTICLE,
+                article.getId(),
+                LogAction.UPDATE,
+                "Sửa bài viết: " + article.getTitle());
         return ArticleResponse.fromEntity(article);
     }
 
@@ -81,6 +94,11 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = findArticle(articleId);
         article.setDeleted(true);
         article.setUpdatedBy(currentUser);
+                auditLogService.log(
+                LogEntityType.ARTICLE,
+                article.getId(),
+                LogAction.DELETE,
+                "Xóa bài viết: " + article.getTitle());
     }
 
     @Override
@@ -130,6 +148,11 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = findArticle(articleId);
         article.setDeleted(false);
         article.setUpdatedBy(currentUser);
+                auditLogService.log(
+                LogEntityType.ARTICLE,
+                article.getId(),
+                LogAction.RESTORE,
+                "Khôi phục bài viết: " + article.getTitle());
     }
 
     @Override

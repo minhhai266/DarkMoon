@@ -11,9 +11,12 @@ import com.darkfantasy.dto.story.CreateStoryRequest;
 import com.darkfantasy.dto.story.UpdateStoryRequest;
 import com.darkfantasy.entity.Story;
 import com.darkfantasy.entity.User;
+import com.darkfantasy.entity.enums.LogAction;
+import com.darkfantasy.entity.enums.LogEntityType;
 import com.darkfantasy.dto.story.StoryResponse;
 import com.darkfantasy.repository.StoryRepository;
 import com.darkfantasy.repository.UserRepository;
+import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.StoryService;
 import com.darkfantasy.util.SecurityUtil;
 
@@ -24,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class StoryServiceImpl implements StoryService {
     private final StoryRepository storyRepository;
     private final UserRepository userRepository;
+    private final AuditLogService auditLogService;
 
     @Override
     public Page<StoryResponse> getStories(Pageable pageable) {
@@ -50,7 +54,11 @@ public class StoryServiceImpl implements StoryService {
         story.setCreatedBy(getCurrentUser());
 
         Story savedStory = storyRepository.save(story);
-
+        auditLogService.log(
+                LogEntityType.STORY,
+                savedStory.getId(),
+                LogAction.CREATE,
+                "Thêm câu chuyện: " + savedStory.getTitle());
         return StoryResponse.fromEntity(savedStory);
     }
 
@@ -72,7 +80,11 @@ public class StoryServiceImpl implements StoryService {
         story.setQuoteAuthor(request.getQuoteAuthor());
         story.setPriority(request.getPriority());
         story.setUpdatedBy(getCurrentUser());
-
+        auditLogService.log(
+                LogEntityType.STORY,
+                story.getId(),
+                LogAction.UPDATE,
+                "Sửa câu chuyện: " + story.getTitle());
         return StoryResponse.fromEntity(story);
     }
 
@@ -84,7 +96,12 @@ public class StoryServiceImpl implements StoryService {
         }
         Story found = findStory(id);
         found.setDeleted(true);
-         found.setUpdatedBy(getCurrentUser());
+        found.setUpdatedBy(getCurrentUser());
+        auditLogService.log(
+                LogEntityType.STORY,
+                found.getId(),
+                LogAction.DELETE,
+                "Xóa câu chuyện: " + found.getTitle());
     }
 
     @Transactional
@@ -95,7 +112,12 @@ public class StoryServiceImpl implements StoryService {
         }
         Story found = findStory(id);
         found.setDeleted(false);
-         found.setUpdatedBy(getCurrentUser());
+        found.setUpdatedBy(getCurrentUser());
+        auditLogService.log(
+                LogEntityType.STORY,
+                found.getId(),
+                LogAction.RESTORE,
+                "Khôi phục câu chuyện: " + found.getTitle());
     }
 
     @Override
@@ -112,17 +134,17 @@ public class StoryServiceImpl implements StoryService {
                 .toList();
     }
 
-
-
     @Override
     public long count() {
         return storyRepository.count();
     }
+
     private Story findStory(Long id) {
         return storyRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy câu chuyện với ID: " + id));
     }
-        private User getCurrentUser() {
+
+    private User getCurrentUser() {
 
         String currentUsername = SecurityUtil.getCurrentUserName();
 

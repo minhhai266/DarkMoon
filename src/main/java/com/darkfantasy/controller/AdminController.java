@@ -1,6 +1,7 @@
 package com.darkfantasy.controller;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,113 +13,130 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 
 import com.darkfantasy.dto.user.UserResponse;
+import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/moonblight/")
 public class AdminController {
+        private final AuditLogService auditLogService;
+        private final UserService userService;
 
-    private final UserService userService;
+        @GetMapping("dashboard")
+        public String toDashboard(Model model) {
+                model.addAttribute(
+                                "totalUsers",
+                                userService.count());
 
-    @GetMapping("dashboard")
-    public String toDashboard(Model model) {
-        model.addAttribute(
-                "totalUsers",
-                userService.count());
+                model.addAttribute(
+                                "activeUsers",
+                                userService.countActiveUsers());
 
-        model.addAttribute(
-                "activeUsers",
-                userService.countActiveUsers());
+                model.addAttribute(
+                                "inActiveUsers",
+                                userService.countInactiveUsers());
+                return "cms/admin/admin-dashboard";
+        }
 
-        model.addAttribute(
-                "inActiveUsers",
-                userService.countInactiveUsers());
-        return "admin/admin-dashboard";
-    }
+        @GetMapping("list")
+        public String toAccountList(
+                        @PageableDefault(size = 10) Pageable pageable,
+                        Model model) {
 
-    @GetMapping("list")
-    public String toAccountList(
-            @PageableDefault(size = 10) Pageable pageable,
-            Model model) {
+                model.addAttribute(
+                                "accounts",
+                                userService.getAccounts(pageable));
 
-        model.addAttribute(
-                "accounts",
-                userService.getAccounts(pageable));
+                return "cms/admin/account-list";
+        }
 
-        return "admin/account-list";
-    }
+        @GetMapping("account/{id}")
+        public String toDetailAccount(
+                        @PathVariable("id") Long id,
+                        Model model) {
 
-    @GetMapping("account/{id}")
-    public String toDetailAccount(
-            @PathVariable("id") Long id,
-            Model model) {
+                UserResponse response = userService.findAccountById(id);
 
-        UserResponse response = userService.findAccountById(id);
+                model.addAttribute(
+                                "account",
+                                response);
 
-        model.addAttribute(
-                "account",
-                response);
+                return "cms/admin/account-detail";
+        }
 
-        return "admin/account-detail";
-    }
+        @GetMapping("log")
+        public String toLogList(
+                        @PageableDefault(size = 20, sort = "createdAt", direction = Direction.DESC) Pageable pageable,
+                        Model model) {
 
-    @PostMapping("account/{id}/approve")
-    public String approveAccount(
-            @PathVariable("id") Long id,
-            RedirectAttributes redirectAttributes) {
+                model.addAttribute(
+                                "logs",
+                                auditLogService.getLogs(pageable));
 
-        userService.unlockUser(id);
+                model.addAttribute(
+                                "activeMenu",
+                                "audit-log");
 
-        redirectAttributes.addFlashAttribute(
-                "successMessage",
-                "Duyệt tài khoản thành công");
+                return "cms/admin/audit-log";
+        }
 
-        return "redirect:/admin/moonblight/account/" + id;
-    }
+        @PostMapping("account/{id}/approve")
+        public String approveAccount(
+                        @PathVariable("id") Long id,
+                        RedirectAttributes redirectAttributes) {
 
-    @PostMapping("account/{id}/reject")
-    public String rejectAccount(
-            @PathVariable("id") Long id,
-            RedirectAttributes redirectAttributes) {
+                userService.unlockUser(id);
 
-        userService.lockUser(id);
+                redirectAttributes.addFlashAttribute(
+                                "successMessage",
+                                "Duyệt tài khoản thành công");
 
-        redirectAttributes.addFlashAttribute(
-                "successMessage",
-                "Từ chối tài khoản thành công");
+                return "redirect:/admin/moonblight/account/" + id;
+        }
 
-        return "redirect:/admin/moonblight/account/" + id;
-    }
+        @PostMapping("account/{id}/reject")
+        public String rejectAccount(
+                        @PathVariable("id") Long id,
+                        RedirectAttributes redirectAttributes) {
 
-    @PostMapping("account/{id}/lock")
-    public String lockAccount(
-            @PathVariable("id") Long id,
-            RedirectAttributes redirectAttributes) {
+                userService.lockUser(id);
 
-        userService.lockUser(id);
+                redirectAttributes.addFlashAttribute(
+                                "successMessage",
+                                "Từ chối tài khoản thành công");
 
-        redirectAttributes.addFlashAttribute(
-                "successMessage",
-                "Khóa tài khoản thành công");
+                return "redirect:/admin/moonblight/account/" + id;
+        }
 
-        return "redirect:/admin/moonblight/account/" + id;
-    }
+        @PostMapping("account/{id}/lock")
+        public String lockAccount(
+                        @PathVariable("id") Long id,
+                        RedirectAttributes redirectAttributes) {
 
-    @PostMapping("account/{id}/unlock")
-    public String unlockAccount(
-            @PathVariable("id") Long id,
-            RedirectAttributes redirectAttributes) {
+                userService.lockUser(id);
 
-        userService.unlockUser(id);
+                redirectAttributes.addFlashAttribute(
+                                "successMessage",
+                                "Khóa tài khoản thành công");
 
-        redirectAttributes.addFlashAttribute(
-                "successMessage",
-                "Mở khóa tài khoản thành công");
+                return "redirect:/admin/moonblight/account/" + id;
+        }
 
-        return "redirect:/admin/moonblight/account/" + id;
-    }
+        @PostMapping("account/{id}/unlock")
+        public String unlockAccount(
+                        @PathVariable("id") Long id,
+                        RedirectAttributes redirectAttributes) {
+
+                userService.unlockUser(id);
+
+                redirectAttributes.addFlashAttribute(
+                                "successMessage",
+                                "Mở khóa tài khoản thành công");
+
+                return "redirect:/admin/moonblight/account/" + id;
+        }
 
 }

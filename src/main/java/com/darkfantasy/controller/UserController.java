@@ -20,7 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.darkfantasy.dto.user.ChangePasswordRequest;
 import com.darkfantasy.dto.user.LoginRequest;
 import com.darkfantasy.dto.user.RegisterRequest;
-
+import com.darkfantasy.dto.user.UserResponse;
+import com.darkfantasy.entity.User;
+import com.darkfantasy.entity.enums.LogAction;
+import com.darkfantasy.entity.enums.LogEntityType;
+import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,6 +38,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final AuditLogService auditLogService;
 
     @GetMapping({ "login", "login/" })
     public String toLoginPage(Model model) {
@@ -84,6 +89,15 @@ public class UserController {
                     HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                     context);
 
+            boolean isAdmin = authentication
+                    .getAuthorities()
+                    .stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+            if (isAdmin) {
+                return "redirect:/admin/moonblight/dashboard";
+            }
+
             return "redirect:/dashboard/moonblight";
         } catch (AuthenticationException e) {
             model.addAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không đúng.");
@@ -96,6 +110,15 @@ public class UserController {
             HttpServletRequest request,
             HttpServletResponse response,
             Authentication authentication) {
+        if (authentication != null) {
+            String username = authentication.getName();
+            UserResponse user = userService.findByUsername(username);
+            auditLogService.log(
+                    LogEntityType.USER,
+                    user.getId(),
+                    LogAction.LOGOUT,
+                    "Đăng xuất");
+        }
 
         new SecurityContextLogoutHandler()
                 .logout(request, response, authentication);

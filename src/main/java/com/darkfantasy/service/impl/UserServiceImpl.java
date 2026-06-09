@@ -6,20 +6,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.darkfantasy.dto.gamecharacter.GameCharacterResponse;
 import com.darkfantasy.dto.user.ChangePasswordRequest;
 import com.darkfantasy.dto.user.LoginRequest;
 import com.darkfantasy.dto.user.RegisterRequest;
 import com.darkfantasy.dto.user.UserResponse;
-import com.darkfantasy.entity.GameCharacter;
 import com.darkfantasy.entity.User;
-import com.darkfantasy.entity.enums.Role;
+import com.darkfantasy.entity.enums.LogAction;
+import com.darkfantasy.entity.enums.LogEntityType;
 import com.darkfantasy.repository.UserRepository;
+import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.UserService;
 import com.darkfantasy.util.SecurityUtil;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -27,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuditLogService auditLogService;
 
     @Transactional
     @Override
@@ -38,7 +39,13 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Email này đã được đăng ký!");
         }
         String hashPassword = passwordEncoder.encode(request.getPassword());
-        userRepository.save(request.toEntity(hashPassword));
+        User savedUser = userRepository.save(
+                request.toEntity(hashPassword));
+        auditLogService.log(
+                LogEntityType.USER,
+                savedUser.getId(),
+                LogAction.CREATE,
+                "Đăng kí: " + savedUser.getUsername());
     }
 
     @Override
@@ -48,6 +55,11 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("Sai tài khoản hoặc mật khẩu");
         }
+        auditLogService.log(
+                LogEntityType.USER,
+                user.getId(),
+                LogAction.LOGIN,
+                "Đăng Nhập: " + user.getUsername());
         return UserResponse.fromEntity(user);
     }
 
@@ -78,6 +90,11 @@ public class UserServiceImpl implements UserService {
                         request.getNewPassword()));
 
         currentUser.setMustChangePassword(false);
+        auditLogService.log(
+                LogEntityType.USER,
+                currentUser.getId(),
+                LogAction.UPDATE,
+                "Đổi mật khẩu: " + currentUser.getUsername());
     }
 
     private Optional<User> findUser(String keyword) {
@@ -153,6 +170,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public long countInactiveUsers() {
         return userRepository.countByIsActiveFalse();
+    }
+
+    @Override
+    public UserResponse findByUsername(String username) {
+        User user = userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản"));
+        return UserResponse.fromEntity(user);
     }
 
 }

@@ -5,18 +5,21 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.darkfantasy.dto.world.CreateWorldRequest;
 import com.darkfantasy.dto.world.UpdateWorldRequest;
 import com.darkfantasy.dto.world.WorldResponse;
 import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.World;
+import com.darkfantasy.entity.enums.LogAction;
+import com.darkfantasy.entity.enums.LogEntityType;
 import com.darkfantasy.repository.UserRepository;
 import com.darkfantasy.repository.WorldRepository;
+import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.WorldService;
 import com.darkfantasy.util.SecurityUtil;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,6 +28,7 @@ public class WorldServiceImpl implements WorldService {
 
     private final WorldRepository worldRepository;
     private final UserRepository userRepository;
+    private final AuditLogService auditLogService;
 
     @Override
     public Page<WorldResponse> getWorlds(Pageable pageable) {
@@ -49,7 +53,11 @@ public class WorldServiceImpl implements WorldService {
         World world = request.toEntity();
         world.setCreatedBy(getCurrentUser());
         World savedWorld = worldRepository.save(world);
-
+        auditLogService.log(
+                LogEntityType.WORLD,
+                savedWorld.getId(),
+                LogAction.CREATE,
+                "Thêm thế giới: " + savedWorld.getTitle());
         return WorldResponse.fromEntity(world);
     }
 
@@ -69,6 +77,11 @@ public class WorldServiceImpl implements WorldService {
             world.setImage(request.getImage());
         }
         world.setUpdatedBy(getCurrentUser());
+        auditLogService.log(
+                LogEntityType.WORLD,
+                world.getId(),
+                LogAction.UPDATE,
+                "Sửa thế giới: " + world.getTitle());
         return WorldResponse.fromEntity(world);
     }
 
@@ -81,6 +94,11 @@ public class WorldServiceImpl implements WorldService {
         World found = findWorld(id);
         found.setDeleted(true);
         found.setCreatedBy(getCurrentUser());
+        auditLogService.log(
+                LogEntityType.WORLD,
+                found.getId(),
+                LogAction.DELETE,
+                "Xóa thế giới: " + found.getTitle());
     }
 
     @Transactional
@@ -92,6 +110,11 @@ public class WorldServiceImpl implements WorldService {
         World found = findWorld(id);
         found.setDeleted(false);
         found.setUpdatedBy(getCurrentUser());
+        auditLogService.log(
+                LogEntityType.WORLD,
+                found.getId(),
+                LogAction.RESTORE,
+                "Khôi phục thế giới: " + found.getTitle());
     }
 
     @Override

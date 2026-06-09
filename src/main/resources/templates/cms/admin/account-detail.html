@@ -1,178 +1,110 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>Chi tiết tài khoản</title>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="layout">
+      <th:block th:replace="~{cms/fragments/admin-sidebar :: sidebar}">
+      </th:block>
 
-<div class="layout">
-
-    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}">
-    </th:block>
-
-    <div class="content-wrapper">
-
-        <th:block th:replace="~{cms/fragments/header :: header}">
-        </th:block>
+      <div class="content-wrapper">
+        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
 
         <main>
+          <h1>Chi tiết tài khoản</h1>
 
-            <h1>Chi tiết tài khoản</h1>
+          <p
+            th:if="${successMessage}"
+            th:text="${successMessage}"
+            style="color: green"
+          ></p>
 
-            <p
-                th:if="${successMessage}"
-                th:text="${successMessage}"
-                style="color: green">
-            </p>
+          <p
+            th:if="${errorMessage}"
+            th:text="${errorMessage}"
+            style="color: red"
+          ></p>
 
-            <p
-                th:if="${errorMessage}"
-                th:text="${errorMessage}"
-                style="color: red">
-            </p>
+          <table border="1">
+            <tr>
+              <th>ID</th>
+              <td th:text="${account.id}"></td>
+            </tr>
 
-            <table border="1">
+            <tr>
+              <th>Username</th>
+              <td th:text="${account.username}"></td>
+            </tr>
 
-                <tr>
-                    <th>ID</th>
-                    <td th:text="${account.id}"></td>
-                </tr>
+            <tr>
+              <th>Email</th>
+              <td th:text="${account.email}"></td>
+            </tr>
 
-                <tr>
-                    <th>Username</th>
-                    <td th:text="${account.username}"></td>
-                </tr>
+            <tr>
+              <th>Họ tên</th>
+              <td th:text="${account.fullName}"></td>
+            </tr>
 
-                <tr>
-                    <th>Email</th>
-                    <td th:text="${account.email}"></td>
-                </tr>
+            <tr>
+              <th>Vai trò</th>
+              <td th:text="${account.role}"></td>
+            </tr>
 
-                <tr>
-                    <th>Họ tên</th>
-                    <td th:text="${account.fullName}"></td>
-                </tr>
-
-                <tr>
-                    <th>Vai trò</th>
-                    <td th:text="${account.role}"></td>
-                </tr>
-
-                <tr>
+            <!-- <tr>
                     <th>Ngày tạo</th>
                     <td th:text="${account.createdAt}"></td>
-                </tr>
+                </tr> -->
 
-                <tr>
-                    <th>Ngày cập nhật</th>
-                    <td th:text="${account.updatedAt}"></td>
-                </tr>
+            <!-- <tr>
+              <th>Ngày cập nhật</th>
+              <td th:text="${account.updatedAt}"></td>
+            </tr> -->
 
-                <tr>
-                    <th>Trạng thái</th>
+            <tr>
+              <th>Trạng thái</th>
 
-                    <td>
+              <td>
+                <span th:if="${account.active}" style="color: green">
+                  Đang hoạt động
+                </span>
 
-                        <span
-                            th:if="${!account.accept}"
-                            style="color: orange">
-                            Chờ duyệt
-                        </span>
+                <span th:if="${!account.active}" style="color: red">
+                  Đã khóa
+                </span>
+              </td>
+            </tr>
+          </table>
 
-                        <span
-                            th:if="${account.accept and account.active}"
-                            style="color: green">
-                            Đang hoạt động
-                        </span>
+          <br />
 
-                        <span
-                            th:if="${account.accept and !account.active}"
-                            style="color: red">
-                            Đã khóa
-                        </span>
+          <!-- CHỜ DUYỆT -->
 
-                    </td>
-
-                </tr>
-
-            </table>
+          <div th:if="${!account.active}">
+            <form
+              th:action="@{/admin/moonblight/account/{id}/approve(id=${account.id})}"
+              method="post"
+            >
+              <button type="submit">Duyệt tài khoản</button>
+            </form>
 
             <br />
 
-            <!-- CHỜ DUYỆT -->
+            <form
+              th:action="@{/admin/moonblight/account/{id}/reject(id=${account.id})}"
+              method="post"
+            >
+              <button type="submit">Từ chối tài khoản</button>
+            </form>
+          </div>
 
-            <div th:if="${!account.accept}">
+          <br />
 
-                <form
-                    th:action="@{/admin/moonblight/account/{id}/approve(id=${account.id})}"
-                    method="post">
-
-                    <button type="submit">
-                        Duyệt tài khoản
-                    </button>
-
-                </form>
-
-                <br />
-
-                <form
-                    th:action="@{/admin/moonblight/account/{id}/reject(id=${account.id})}"
-                    method="post">
-
-                    <button type="submit">
-                        Từ chối tài khoản
-                    </button>
-
-                </form>
-
-            </div>
-
-            <!-- ĐANG HOẠT ĐỘNG -->
-
-            <div
-                th:if="${account.accept and account.active}">
-
-                <form
-                    th:action="@{/admin/moonblight/account/{id}/lock(id=${account.id})}"
-                    method="post">
-
-                    <button type="submit">
-                        Khóa tài khoản
-                    </button>
-
-                </form>
-
-            </div>
-
-            <!-- ĐÃ KHÓA -->
-
-            <div
-                th:if="${account.accept and !account.active}">
-
-                <form
-                    th:action="@{/admin/moonblight/account/{id}/unlock(id=${account.id})}"
-                    method="post">
-
-                    <button type="submit">
-                        Mở khóa tài khoản
-                    </button>
-
-                </form>
-
-            </div>
-
-            <br />
-
-            <a th:href="@{/admin/moonblight/list}">
-                Quay lại danh sách
-            </a>
-
+          <a th:href="@{/admin/moonblight/list}"> Quay lại danh sách </a>
         </main>
-
+      </div>
     </div>
-
-</div>
-
-</body>
+  </body>
 </html>

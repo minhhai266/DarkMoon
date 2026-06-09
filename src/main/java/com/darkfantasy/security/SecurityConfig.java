@@ -31,7 +31,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/cms/admin/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/admin/moonblight/**").hasRole(Role.ADMIN.name())
                         .requestMatchers(
                                 "/dashboard/moonblight/**",
                                 "/article/moonblight/**",
