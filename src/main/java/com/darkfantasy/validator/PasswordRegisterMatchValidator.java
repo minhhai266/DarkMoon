@@ -6,7 +6,7 @@ import com.darkfantasy.dto.user.RegisterRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class PasswordMatchValidator
+public class PasswordRegisterMatchValidator
         implements ConstraintValidator<PasswordMatch, RegisterRequest> {
 
     @Override
