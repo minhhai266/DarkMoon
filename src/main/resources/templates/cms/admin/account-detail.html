@@ -82,24 +82,23 @@
 
           <!-- CHỜ DUYỆT -->
 
-          <div th:if="${!account.active}">
+          <div  th:if="${!account.active and account.role != 'ADMIN'}">
             <form
               th:action="@{/admin/moonblight/account/{id}/approve(id=${account.id})}"
               method="post"
             >
               <button type="submit">Duyệt tài khoản</button>
             </form>
-
-            <br />
-
+          </div>
+          <br />
+          <div  th:if="${account.active and account.role != 'ADMIN'}">
             <form
               th:action="@{/admin/moonblight/account/{id}/reject(id=${account.id})}"
               method="post"
             >
-              <button type="submit">Từ chối tài khoản</button>
+              <button type="submit">Khóa tài khoản</button>
             </form>
           </div>
-
           <br />
 
           <a th:href="@{/admin/moonblight/list}"> Quay lại danh sách </a>

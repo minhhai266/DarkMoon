@@ -15,6 +15,7 @@ import com.darkfantasy.dto.user.UserResponse;
 import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.enums.LogAction;
 import com.darkfantasy.entity.enums.LogEntityType;
+import com.darkfantasy.entity.enums.Role;
 import com.darkfantasy.repository.UserRepository;
 import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.UserService;
@@ -142,19 +143,29 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void lockUser(Long id) {
-
         User user = findUser(id);
-
+        if (user.getRole() == Role.ADMIN)
+            throw new IllegalArgumentException("Không có thẩm quyền");
         user.setActive(false);
+        auditLogService.log(
+                LogEntityType.USER,
+                user.getId(),
+                LogAction.LOCK,
+                "Khóa tài khoản: " + user.getUsername());
     }
 
     @Transactional
     @Override
     public void unlockUser(Long id) {
-
         User user = findUser(id);
-
+        if (user.getRole() == Role.ADMIN)
+            throw new IllegalArgumentException("Không có thẩm quyền");
         user.setActive(true);
+        auditLogService.log(
+                LogEntityType.USER,
+                user.getId(),
+                LogAction.UNLOCK,
+                "Mở khóa tài khoản: " + user.getUsername());
     }
 
     @Override
