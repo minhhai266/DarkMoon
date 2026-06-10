@@ -49,7 +49,7 @@ public class RegisterRequest {
                 .password(hashPassword)
                 .fullName(this.fullName)
                 .role(Role.STAFF)
-                .isActive(true)
+                .isActive(false)
                 .build();
     }
 }

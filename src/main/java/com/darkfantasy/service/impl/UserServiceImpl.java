@@ -1,21 +1,30 @@
 package com.darkfantasy.service.impl;
 
+import java.time.Instant;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.darkfantasy.dto.user.ChangePasswordRequest;
+import com.darkfantasy.dto.user.ForgotPasswordRequest;
 import com.darkfantasy.dto.user.LoginRequest;
 import com.darkfantasy.dto.user.RegisterRequest;
+import com.darkfantasy.dto.user.ResetPasswordRequest;
 import com.darkfantasy.dto.user.UserResponse;
+import com.darkfantasy.dto.user.VerifyOtpRequest;
+import com.darkfantasy.entity.PasswordResetToken;
 import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.enums.LogAction;
 import com.darkfantasy.entity.enums.LogEntityType;
 import com.darkfantasy.entity.enums.Role;
+import com.darkfantasy.repository.PasswordResetTokenRepository;
 import com.darkfantasy.repository.UserRepository;
 import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.UserService;
@@ -29,6 +38,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuditLogService auditLogService;
+    private final PasswordResetTokenRepository tokenRepository;
+    private final JavaMailSender mailSender;
 
     @Transactional
     @Override
@@ -56,7 +67,8 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("Sai tài khoản hoặc mật khẩu");
         }
-        if(!user.isActive()) throw new IllegalArgumentException("Sai tài khoản hoặc mật khẩu");
+        if (!user.isActive())
+            throw new IllegalArgumentException("Sai tài khoản hoặc mật khẩu");
         auditLogService.log(
                 LogEntityType.USER,
                 user.getId(),
@@ -191,4 +203,92 @@ public class UserServiceImpl implements UserService {
         return UserResponse.fromEntity(user);
     }
 
+    @Transactional
+    @Override
+    public void sendOtp(ForgotPasswordRequest request) {
+
+        User user = userRepository
+                .findUserByEmail(
+                        request.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Email không tồn tại"));
+
+        String otp = String.format(
+                "%06d",
+                new Random().nextInt(1000000));
+
+        PasswordResetToken token = PasswordResetToken.builder()
+                .email(user.getEmail())
+                .otp(otp)
+                .expiredAt(
+                        Instant.now()
+                                .plusSeconds(300))
+                .used(false)
+                .build();
+
+        tokenRepository.save(token);
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setTo(user.getEmail());
+
+        message.setSubject(
+                "Mã OTP đặt lại mật khẩu");
+
+        message.setText(
+                "Mã OTP của bạn là: "
+                        + otp
+                        + "\n\nMã có hiệu lực trong 5 phút.");
+        mailSender.send(message);
+
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public void verifyOtp(
+            VerifyOtpRequest request) {
+
+        PasswordResetToken token = tokenRepository
+                .findTopByEmailAndOtpAndUsedFalseOrderByIdDesc(
+                        request.getEmail(),
+                        request.getOtp())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "OTP không hợp lệ"));
+
+        if (token.getExpiredAt()
+                .isBefore(Instant.now())) {
+
+            throw new IllegalArgumentException(
+                    "OTP đã hết hạn");
+        }
+    }
+
+    @Transactional
+    @Override
+    public void resetPassword(ResetPasswordRequest request) {
+
+        PasswordResetToken token = tokenRepository
+                .findTopByEmailAndOtpAndUsedFalseOrderByIdDesc(
+                        request.getEmail(),
+                        request.getOtp())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "OTP không hợp lệ"));
+
+        if (token.getExpiredAt()
+                .isBefore(Instant.now())) {
+
+            throw new IllegalArgumentException(
+                    "OTP đã hết hạn");
+        }
+
+        User user = userRepository
+                .findUserByEmail(request.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Không tìm thấy người dùng"));
+
+        user.setPassword(
+                passwordEncoder.encode(
+                        request.getNewPassword()));
+        token.setUsed(true);
+    }
 }

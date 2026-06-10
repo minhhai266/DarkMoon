@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form
+      th:action="@{/user/moonblight/verify-otp}"
+      th:object="${verifyOtpRequest}"
+      method="post"
+    >
+      <input type="hidden" th:field="*{email}" />
+      <div>
+        <label>OTP</label>
+        <input type="text" th:field="*{otp}" />
+      </div>
+
+      <button type="submit">Xác nhận OTP</button>
+    </form>
+  </body>
+</html>
