@@ -1,55 +1,59 @@
 <aside th:fragment="sidebar" class="sidebar">
-  <h2>Moon Blight CMS</h2>
 
-  <hr />
+  <div class="sidebar-title">
+    <h2>🌙 Moon Blight CMS</h2>
+  </div>
 
-  <ul>
+  <hr class="sidebar-divider" />
+
+  <ul class="sidebar-menu">
+
     <li>
-      <a th:href="@{/dashboard/moonblight}"
-         th:classappend="${activeMenu == 'dashboard'} ? 'active'">
+      <a class="sidebar-link" th:href="@{/dashboard/moonblight}"
+        th:classappend="${activeMenu == 'dashboard'} ? ' active'">
         Dashboard
       </a>
     </li>
 
     <li>
-      <a th:href="@{/article/moonblight/list}"
-         th:classappend="${activeMenu == 'article'} ? 'active'">
+      <a class="sidebar-link" th:href="@{/article/moonblight/list}"
+        th:classappend="${activeMenu == 'article'} ? ' active'">
         Articles
       </a>
     </li>
 
     <li>
-      <a th:href="@{/story/moonblight/list}"
-         th:classappend="${activeMenu == 'story'} ? 'active'">
+      <a class="sidebar-link" th:href="@{/story/moonblight/list}" th:classappend="${activeMenu == 'story'} ? ' active'">
         Stories
       </a>
     </li>
 
     <li>
-      <a th:href="@{/world/moonblight/list}"
-         th:classappend="${activeMenu == 'world'} ? 'active'">
+      <a class="sidebar-link" th:href="@{/world/moonblight/list}" th:classappend="${activeMenu == 'world'} ? ' active'">
         Worlds
       </a>
     </li>
 
     <li>
-      <a th:href="@{/character/moonblight/list}"
-         th:classappend="${activeMenu == 'character'} ? 'active'">
+      <a class="sidebar-link" th:href="@{/character/moonblight/list}"
+        th:classappend="${activeMenu == 'character'} ? ' active'">
         Characters
       </a>
     </li>
+
     <li>
-      <a th:href="@{/faq/moonblight/list}"
-         th:classappend="${activeMenu == 'faq'} ? 'active'">
+      <a class="sidebar-link" th:href="@{/faq/moonblight/list}" th:classappend="${activeMenu == 'faq'} ? ' active'">
         FAQ
       </a>
     </li>
 
     <li>
-      <a th:href="@{/contact/blightmoon/list}"
-         th:classappend="${activeMenu == 'contact'} ? 'active'">
+      <a class="sidebar-link" th:href="@{/contact/blightmoon/list}"
+        th:classappend="${activeMenu == 'contact'} ? ' active'">
         Contact
       </a>
     </li>
+
   </ul>
+
 </aside>

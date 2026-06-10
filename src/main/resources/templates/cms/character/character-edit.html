@@ -1,111 +1,108 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Cập nhật nhân vật</title>
-    <!-- outer css -->
-    <!-- 1. Nhúng CSS & JS của Quill -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-  </head>
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Cập nhật nhân vật</title>
 
-        <main>
-          <h1>Cập nhật nhân vật</h1>
+  <link rel="stylesheet" th:href="@{/css/character.css}" />
 
-          <p
-            style="color: red"
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-          ></p>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+</head>
 
-          <form
-            th:action="@{/character/moonblight/{id}/edit(id=${character.id})}"
-            method="post"
-            enctype="multipart/form-data"
-            th:object="${character}"
-          >
-            <input type="hidden" th:field="*{image}" />
+<body>
 
-            <div>
-              <label>Tên</label><br />
+  <div class="bg-image"></div>
 
-              <input type="text" th:field="*{name}" />
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
+
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
+
+      <main class="section-dark">
+        <div class="container-xl">
+
+          <div class="character-card">
+
+            <div class="section-header">
+              <span class="section-eyebrow">Moonblight CMS</span>
+              <h1 class="section-title">Cập Nhật Nhân Vật</h1>
+              <div class="section-divider"></div>
             </div>
 
-            <br />
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+            </p>
 
-            <div>
-              <label>Chủng tộc</label><br />
+            <form class="character-form" th:action="@{/character/moonblight/{id}/edit(id=${character.id})}"
+              method="post" enctype="multipart/form-data" th:object="${character}">
 
-              <input type="text" th:field="*{race}" />
-            </div>
+              <input type="hidden" th:field="*{image}" />
 
-            <br />
+              <div class="form-group">
+                <label class="form-label">Tên nhân vật</label>
+                <input class="form-control" type="text" th:field="*{name}">
+              </div>
 
-            <div>
-              <label>Quote</label><br />
+              <div class="form-group">
+                <label class="form-label">Chủng tộc</label>
+                <input class="form-control" type="text" th:field="*{race}">
+              </div>
 
-              <input type="text" th:field="*{quote}" />
-            </div>
+              <div class="form-group">
+                <label class="form-label">Quote</label>
+                <input class="form-control" type="text" th:field="*{quote}">
+              </div>
 
-            <br />
+              <div class="form-group">
+                <label class="form-label">Độ ưu tiên (0 - 100)</label>
+                <input class="form-control" type="number" th:field="*{priority}" min="0" max="100">
+              </div>
 
-            <div>
-              <label>Priority</label><br />
+              <div class="form-group">
+                <label class="form-label">Ảnh hiện tại</label>
 
-              <input type="number" th:field="*{priority}" min="0" max="100" />
-            </div>
+                <div class="current-image-wrapper">
+                  <img th:if="${character.image != null}" th:src="${character.image}" class="current-image"
+                    alt="Character Image">
+                </div>
+              </div>
 
-            <br />
+              <div class="form-group">
+                <label class="form-label">Ảnh mới</label>
+                <input class="file-input" type="file" name="imageFile" accept="image/*">
+              </div>
 
-            <div>
-              <label>Ảnh hiện tại</label><br />
+              <div class="form-group">
+                <label class="form-label">Mô tả nhân vật</label>
 
-              <img
-                th:if="${character.image != null}"
-                th:src="${character.image}"
-                style="max-width: 200px"
-              />
-            </div>
+                <textarea id="content" th:field="*{description}" style="display:none">
+                </textarea>
 
-            <br />
+                <div id="quill-editor" class="character-editor">
+                </div>
+              </div>
 
-            <div>
-              <label>Ảnh mới</label><br />
+              <div class="character-actions">
+                <button type="submit" class="btn btn-primary">
+                  Cập nhật
+                </button>
 
-              <input type="file" name="imageFile" accept="image/*" />
-            </div>
+                <a th:href="@{/character/moonblight/list}" class="btn btn-secondary">
+                  Quay lại
+                </a>
+                
+              </div>
 
-            <br />
+            </form>
 
-            <div>
-              <label>Mô tả</label><br />
+          </div>
 
-              <textarea
-                id="content"
-                th:field="*{description}"
-                hidden
-              >
-              </textarea>
-              <div id="quill-editor" style="height: 300px"></div>
-            </div>
-
-            <br />
-
-            <button type="submit">Cập nhật</button>
-          </form>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
-    <script th:src="@{/js/editor.js}"></script>
-  </body>
+  </div>
+  <script th:src="@{/js/editor.js}"></script>
+</body>
 </html>

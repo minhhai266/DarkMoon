@@ -1,68 +1,71 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Register</title>
-  </head>
-  <body>
-    <h2>Đăng ký tài khoản</h2>
 
-    <p
-      style="color: green"
-      th:if="${successMessage}"
-      th:text="${successMessage}"
-    ></p>
+<head>
+  <meta charset="UTF-8" />
+  <title>Register</title>
+<link rel="stylesheet" href="/css/auth.css">  
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Cormorant+Garamond+Decorative:wght@700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="bg-image"></div>
+  <div class="register-card">
+
+    <div class="register-eyebrow">
+      MOONBLIGHT ACCOUNT
+    </div>
+
+    <h2 class="register-title">
+      Đăng ký
+    </h2>
+    <div class="register-divider"></div>
+    <p style="color: green" th:if="${successMessage}" th:text="${successMessage}"></p>
     <p style="color: red" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
     <form method="post" th:action="@{/user/moonblight/register}">
-      <div>
-        <label>Username</label><br />
-        <input
-          type="text"
-          name="username"
-          minlength="3"
-          maxlength="30"
-          required
-        />
+      <div class="register-group">
+        <label>Username</label>
+        <input type="text" name="username" minlength="3" maxlength="30" required />
       </div>
 
-      <br />
-
-      <div>
-        <label>Email</label><br />
+      <div class="register-group">
+        <label>Email</label>
         <input type="email" name="email" maxlength="255" required />
       </div>
 
-      <br />
-
-      <div>
-        <label>Họ và tên</label><br />
+      <div class="register-group">
+        <label>Họ và tên</label>
         <input type="text" name="fullName" maxlength="255" required />
       </div>
 
-      <br />
-
-      <div>
-        <label>Mật khẩu</label><br />
+      <div class="register-group">
+        <label>Mật khẩu</label>
         <input type="password" name="password" minlength="8" required />
       </div>
 
-      <br />
-
-      <div>
-        <label>Nhập lại mật khẩu</label><br />
+      <div class="register-group">
+        <label>Nhập lại mật khẩu</label>
         <input type="password" name="rePassword" required />
       </div>
 
-      <br />
-
-      <button type="submit">Đăng ký</button>
+      <button class="register-btn" type="submit">Đăng ký</button>
     </form>
 
     <hr />
 
+<<<<<<< Updated upstream
     <a th:href="@{/user/moonblight/login}"> Đã có tài khoản? Đăng nhập </a>
     <br/>
     <a th:href="@{/user/moonblight/forgot-password}"> Quên mật khẩu </a>
   </body>
 </html>
+=======
+    <a class="register-link" th:href="@{/user/moonblight/login}"> Đã có tài khoản? Đăng nhập </a>
+
+  </div>
+</body>
+
+</html>
+>>>>>>> Stashed changes

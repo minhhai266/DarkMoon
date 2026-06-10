@@ -1,5 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+<<<<<<< Updated upstream
   <head>
     <meta charset="UTF-8" />
     <title>Dashboard Quản trị</title>
@@ -8,63 +9,130 @@
     <div class="layout">
       <th:block th:replace="~{cms/fragments/admin-sidebar :: sidebar}">
       </th:block>
+=======
+>>>>>>> Stashed changes
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard Quản trị</title>
 
-        <main>
-          <h1>Dashboard Quản trị</h1>
+  <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+</head>
 
-          <br />
+<body>
+  <div class="bg-image"></div>
 
-          <!-- THỐNG KÊ -->
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/admin-sidebar :: sidebar}">
+    </th:block>
 
-          <section>
-            <h2>Tổng quan hệ thống</h2>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}">
+      </th:block>
 
+<<<<<<< Updated upstream
             <table border="1">
               <tr>
                 <th>Tổng tài khoản</th>
                 <th>Đang hoạt động</th>
                 <th>Bị khóa</th>
               </tr>
+=======
+      <main class="section-dark">
+        <div class="container-xl">
+>>>>>>> Stashed changes
 
-              <tr>
-                <td th:text="${totalUsers}">0</td>
-                <td th:text="${activeUsers}">0</td>
-                <td th:text="${inActiveUsers}">0</td>
-              </tr>
-            </table>
-          </section>
+          <div class="story-card">
 
+<<<<<<< Updated upstream
+=======
+            <div class="section-header">
+              <span class="section-eyebrow">
+                Moonblight CMS
+              </span>
 
-          <!-- AUDIT LOG -->
+              <h1 class="section-title">
+                Dashboard Quản Trị
+              </h1>
 
-          <!-- <section>
-            <h2>10 hoạt động gần nhất</h2>
+              <div class="section-divider"></div>
+            </div>
 
-            <table border="1">
-              <thead>
-                <tr>
-                  <th>Thời gian</th>
-                  <th>Người dùng</th>
-                  <th>Hành động</th>
-                </tr>
-              </thead>
+            <!-- STATS -->
 
-              <tbody>
-                <tr th:each="log : ${latestLogs}">
-                  <td th:text="${log.createdAt}"></td>
+            <div class="stats-grid">
 
-                  <td th:text="${log.username}"></td>
+              <div class="stat-card">
+                <span class="stat-label">Tổng tài khoản</span>
+                <h2 th:text="${totalUsers}">0</h2>
+              </div>
 
-                  <td th:text="${log.action}"></td>
-                </tr>
-              </tbody>
-            </table>
-          </section> -->
-        </main>
-      </div>
+              <div class="stat-card active">
+                <span class="stat-label">Đang hoạt động</span>
+                <h2 th:text="${activeUsers}">0</h2>
+              </div>
+
+              <div class="stat-card pending">
+                <span class="stat-label">Chờ duyệt</span>
+                <h2 th:text="${inActiveUsers}">0</h2>
+              </div>
+
+            </div>
+
+            <!-- PENDING USERS -->
+>>>>>>> Stashed changes
+
+            <div class="table-section">
+
+              <h2 class="table-title">
+                Tài khoản chờ duyệt
+              </h2>
+
+              <div class="table-wrapper">
+
+                <table class="dashboard-table">
+
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Username</th>
+                      <th>Email</th>
+                      <th>Họ tên</th>
+                      <th>Chi tiết</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+
+                    <tr th:if="${#lists.isEmpty(pendingAccounts)}">
+                      <td colspan="5" class="empty-state">
+                        Không có tài khoản nào chờ duyệt
+                      </td>
+                    </tr>
+
+                    <tr th:each="account : ${pendingAccounts}">
+                      <td th:text="${account.id}"></td>
+                      <td th:text="${account.username}"></td>
+                      <td th:text="${account.email}"></td>
+                      <td th:text="${account.fullName}"></td>
+                      <td>
+                        <a
+                          class="btn btn-secondary"
+                          th:href="@{/admin/moonblight/account/{id}(id=${account.id})}">
+                          Xem
+                        </a>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

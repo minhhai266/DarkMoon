@@ -1,20 +1,32 @@
 <header th:fragment="header" class="cms-header">
+
   <div class="header-left">
-    <h3>Moon Blight CMS</h3>
+    <h3>🌙 Moon Blight CMS</h3>
   </div>
 
   <div class="header-right">
-    <details>
-      <summary>
+
+    <details class="user-dropdown">
+      <summary class="user-summary">
         <span th:text="${#authentication.name}"></span>
+        <span class="arrow">▾</span>
       </summary>
 
-      <div>
-        <a th:href="@{/user/moonblight/change-password}"> Đổi mật khẩu </a>
+      <div class="dropdown-menu">
+
+        <a th:href="@{/user/moonblight/change-password}">
+          🔒 Đổi mật khẩu
+        </a>
+
         <form th:action="@{/user/moonblight/logout}" method="post">
-          <button type="submit">Logout</button>
+          <button type="submit">
+            🚪 Logout
+          </button>
         </form>
+
       </div>
     </details>
+
   </div>
+
 </header>

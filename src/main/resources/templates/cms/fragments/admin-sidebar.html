@@ -1,25 +1,27 @@
 <aside th:fragment="sidebar" class="sidebar">
 
-    <h2>Moon Blight Admin</h2>
+    <div class="sidebar-title">
+        <h2>🌙 Moon Blight Admin</h2>
+    </div>
 
-    <hr />
+    <hr class="sidebar-divider" />
 
-    <ul>
+    <ul class="sidebar-menu">
 
         <li>
-            <a th:href="@{/admin/moonblight/dashboard}">
+            <a class="sidebar-link" th:href="@{/admin/moonblight/dashboard}">
                 Dashboard
             </a>
         </li>
 
         <li>
-            <a th:href="@{/admin/moonblight/list}">
+            <a class="sidebar-link" th:href="@{/admin/moonblight/list}">
                 Accounts
             </a>
         </li>
 
         <li>
-            <a th:href="@{/admin/moonblight/log}">
+            <a class="sidebar-link" th:href="@{/admin/moonblight/log}">
                 Audit Logs
             </a>
         </li>

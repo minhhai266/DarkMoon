@@ -1,104 +1,90 @@
 <!doctype html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Tạo thế giới</title>
-    <!-- outer css -->
-    <!-- 1. Nhúng CSS & JS của Quill -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-  </head>
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Tạo thế giới</title>
+  <link th:href="@{/css/world.css}" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+</head>
 
-        <main>
-          <h1>Tạo thế giới mới</h1>
+<body>
+  <div class="bg-image"></div>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
 
-          <p
-            style="color: green"
-            th:if="${successMessage}"
-            th:text="${successMessage}"
-          ></p>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
 
-          <p
-            style="color: red"
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-          ></p>
+      <main class="section section-dark">
+        <div class="container-sm">
+          <div class="world-create-card">
 
-          <form
-            th:action="@{/world/moonblight/create}"
-            method="post"
-            enctype="multipart/form-data"
-            th:object="${createWorldRequest}"
-          >
-            ```
-            <div>
-              <label>Tag</label><br />
-              <input type="text" th:field="*{tag}" />
+            <div class="section-header">
+              <span class="section-eyebrow">Moonblight CMS</span>
+              <h1 class="section-title">Tạo Thế Giới Mới</h1>
+              <div class="section-divider"></div>
             </div>
 
-            <br />
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}"></p>
 
-            <div>
-              <label>Tiêu đề</label><br />
-              <input type="text" th:field="*{title}" required />
-            </div>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
-            <br />
+            <form class="world-form" th:action="@{/world/moonblight/create}" method="post" enctype="multipart/form-data"
+              th:object="${createWorldRequest}">
 
-            <div>
-              <label>Độ ưu tiên (0 - 100)</label><br />
-              <input
-                type="number"
-                th:field="*{priority}"
-                min="0"
-                max="100"
-                value="50"
-              />
-            </div>
+              <div class="form-group">
+                <label class="form-label">Tag</label>
+                <input class="form-control" type="text" th:field="*{tag}">
+              </div>
 
-            <br />
+              <div class="form-group">
+                <label class="form-label">Tiêu đề</label>
+                <input class="form-control" type="text" th:field="*{title}" required>
+              </div>
 
-            <div>
-              <label>Ảnh</label><br />
-              <input type="file" name="imageFile" accept="image/*" />
-            </div>
+              <div class="form-group">
+                <label class="form-label">
+                  Độ ưu tiên (0 - 100)
+                </label>
+                <input class="form-control" type="number" th:field="*{priority}" min="0" max="100">
+              </div>
 
-            <br />
+              <div class="form-group">
+                <label class="form-label">Ảnh đại diện</label>
+                <input class="file-input" type="file" name="imageFile" accept="image/*">
+              </div>
 
-            <div>
-              <label>Nội dung</label><br />
+              <div class="form-group">
+                <label class="form-label">
+                  Nội dung thế giới
+                </label>
+                <textarea id="content" th:field="*{content}" style="display:none">
+                    </textarea>
 
-              <textarea
-                id="content"
-                th:field="*{content}"
-                style="display: none"
-              ></textarea>
+                <div id="quill-editor" class="world-editor">
+                </div>
+              </div>
 
-              <div id="quill-editor"></div>
-            </div>
+              <div class="world-actions">
+                <button type="submit" class="btn btn-primary">
+                  Tạo Thế Giới
+                </button>
 
-            <br />
+                <a th:href="@{/world/moonblight/list}" class="btn btn-secondary">
+                  Quay Lại
+                </a>
+              </div>
+            </form>
 
-            <button type="submit">Tạo thế giới</button>
-            ```
-          </form>
-
-          <br />
-
-          <a th:href="@{/world/moonblight/list}"> Quay lại danh sách </a>
-        </main>
-      </div>
+          </div>
+        </div>
+      </main>
     </div>
-    <script th:src="@{/js/editor.js}"></script>
-  </body>
+  </div>
+  <script th:src="@{/js/editor.js}"></script>
+</body>
+
 </html>

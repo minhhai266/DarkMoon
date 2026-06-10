@@ -1,0 +1,234 @@
+/* ==========================================================
+    CONTACT DETAIL
+   ========================================================== */
+
+.contact-card {
+    background:
+        linear-gradient(180deg,
+            rgba(28, 20, 16, .98),
+            rgba(8, 6, 4, .98));
+
+    border: 1px solid #2e201a;
+    border-radius: 12px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, .6),
+        0 0 30px rgba(139, 0, 0, .15);
+}
+
+.contact-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #2e201a;
+}
+
+.detail-label {
+    min-width: 140px;
+
+    color: #c4a882;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .08em;
+}
+
+.email-link {
+    color: #ddd0b8;
+    text-decoration: none;
+}
+
+.email-link:hover {
+    color: #c41e3a;
+}
+
+.status-active {
+    color: #81c784;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #ffb74d;
+    font-weight: 600;
+}
+
+.message-box {
+    margin-top: 10px;
+}
+
+.message-box pre {
+    margin-top: 12px;
+
+    padding: 20px;
+
+    background: rgba(8, 6, 4, .85);
+
+    border: 1px solid #4a3028;
+
+    border-radius: 8px;
+
+    color: #ddd0b8;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+
+    line-height: 1.7;
+}
+
+.contact-actions {
+    margin-top: 30px;
+
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================
+    CONTACT TABLE
+   ========================================================== */
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+.contact-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.contact-table th{
+    background:#1c1410;
+
+    color:#c4a882;
+
+    padding:16px;
+
+    text-transform:uppercase;
+
+    font-size:.8rem;
+
+    letter-spacing:.08em;
+}
+
+.contact-table td{
+    padding:14px 16px;
+
+    border-top:1px solid #2e201a;
+
+    color:#ddd0b8;
+}
+
+.contact-table tr:hover{
+    background:rgba(196,30,58,.05);
+}
+
+/* ==========================================================
+    STATUS
+   ========================================================== */
+
+.status-active{
+    color:#81c784;
+    font-weight:600;
+}
+
+.status-pending{
+    color:#ffb74d;
+    font-weight:600;
+}
+
+/* ==========================================================
+    EMAIL
+   ========================================================== */
+
+.email-link{
+    color:#ddd0b8;
+    text-decoration:none;
+}
+
+.email-link:hover{
+    color:#c41e3a;
+}
+
+/*  ==========================================================
+    ACTIONS
+   ========================================================== */
+
+.action-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+/* ==========================================================
+    EMPTY
+   ========================================================== */
+
+.empty-state{
+    text-align:center;
+
+    padding:40px;
+
+    color:#8f7e76;
+
+    border:1px dashed #4a3028;
+
+    border-radius:8px;
+}
+
+/* ==========================================================
+    PAGINATION
+   ========================================================== */
+
+.pagination{
+    margin-top:30px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.page-btn{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:40px;
+    height:40px;
+
+    text-decoration:none;
+
+    border:1px solid #4a3028;
+
+    color:#ddd0b8;
+
+    transition:.3s;
+}
+
+.page-btn:hover{
+    border-color:#c41e3a;
+    color:#c41e3a;
+}
+
+.page-current{
+    color:#c4a882;
+    font-weight:700;
+}

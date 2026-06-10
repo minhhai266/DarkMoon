@@ -1,111 +1,73 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Tạo FAQ</title>
-    <!-- outer css -->
-    <!-- 1. Nhúng CSS & JS của Quill -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-  </head>
 
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Tạo FAQ</title>
+  <!-- outer css -->
+  <!-- 1. Nhúng CSS & JS của Quill -->
+  <link rel="stylesheet" th:href="@{/css/faq.css}">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+</head>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+<body>
+  <div class="bg-image"></div>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
 
-        <main>
-          <h1>Tạo FAQ mới</h1>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
 
-          <p
-            style="color: green"
-            th:if="${successMessage}"
-            th:text="${successMessage}"
-          ></p>
+      <main class="section-dark">
+        <div class="container-xl">
+          <div class="faq-card">
+            <div class="section-header">
+              <span class="section-eyebrow"> Moonblight CMS </span>
+              <h1 class="section-title"> Tạo FAQ mới</h1>
+              <div class="section-divider"></div>
 
-          <p
-            style="color: red"
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-          ></p>
-
-          <form
-            th:action="@{/faq/moonblight/create}"
-            th:object="${createFaqRequest}"
-            method="post"
-          >
-            <div>
-              <label>Tiêu đề</label>
-              <br />
-
-              <input type="text" th:field="*{title}" maxlength="500" />
             </div>
 
-            <div
-              style="color: red"
-              th:if="${#fields.hasErrors('title')}"
-              th:errors="*{title}"
-            ></div>
 
-            <br />
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}"></p>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
-            <div>
-              <label>Độ ưu tiên (0 - 100)</label>
-              <br />
+            <form class="faq-form" th:action="@{/faq/moonblight/create}" th:object="${createFaqRequest}" method="post">
 
-              <input
-                type="number"
-                th:field="*{priority}"
-                min="0"
-                max="100"
-                value="50"
-              />
-            </div>
+              <div class="form-group">
+                <label class="form-label"> Tiêu đề </label>
+                <input class="form-control" type="text" th:field="*{title}" maxlength="500">
+                <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> </div>
+              </div>
 
-            <div
-              style="color: red"
-              th:if="${#fields.hasErrors('priority')}"
-              th:errors="*{priority}"
-            ></div>
+              <div class="form-group">
+                <label class="form-label">Độ ưu tiên (0 - 100)</label>
+                <input class="form-control" type="number" th:field="*{priority}" min="0" max="100" value="50" />
+                <div class="field-error" th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}"></div>
+              </div>
 
-            <br />
 
-            <div>
-              <label>Nội dung</label>
-              <br />
+              <div class="form-group">
+                <label class="form-label"> Nội dung FAQ </label>
+                <textarea id="content" th:field="*{content}" style="display:none"> </textarea>
+                <div id="quill-editor" class="faq-editor"> </div>
+                <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"> </div>
+              </div>
 
-              <textarea
-                id="content"
-                th:field="*{content}"
-                style="display: none"
-              ></textarea>
+              <div class="faq-actions"> 
+                <button type="submit" class="btn btn-primary"> Tạo FAQ </button> 
+                <a th:href="@{/faq/moonblight/list}" class="btn btn-secondary"> Quay lại </a>
+              </div>
+            </form>
 
-              <!-- Vùng hiển thị cho người dùng gõ (Quill sẽ bám vào đây) -->
-              <div id="quill-editor" style="height: 300px"></div>
-            </div>
-
-            <div
-              style="color: red"
-              th:if="${#fields.hasErrors('content')}"
-              th:errors="*{content}"
-            ></div>
-
-            <br />
-
-            <button type="submit">Tạo FAQ</button>
-          </form>
-
-          <br />
-
-          <a th:href="@{/faq/moonblight/list}"> Quay lại danh sách </a>
-        </main>
-      </div>
+          </div>
+        </div>
+        
+      </main>
     </div>
-    <script th:src="@{/js/editor.js}"></script>
-  </body>
+  </div>
+  <script th:src="@{/js/editor.js}"></script>
+</body>
+
 </html>

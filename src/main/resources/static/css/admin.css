@@ -1,0 +1,167 @@
+/* ===== Background ===== */
+
+.bg-image {
+    position: fixed;
+    inset: 0;
+    background: url("/images/bg-dark-fantasy.jpg") center/cover no-repeat;
+    filter: brightness(.2);
+    z-index: -2;
+}
+
+.bg-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .7);
+}
+
+/* ===== Layout FIX ===== */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 260px; /* chỉnh theo sidebar */
+    padding: 20px;
+}
+
+/* ===== Container ===== */
+
+.section-dark {
+    padding: 40px;
+}
+
+.container-xl {
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* ===== Card ===== */
+
+.story-card {
+    background: rgba(15, 15, 20, .92);
+    border-radius: 20px;
+    padding: 35px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    backdrop-filter: blur(12px);
+}
+
+/* ===== Header ===== */
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-eyebrow {
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: .85rem;
+}
+
+.section-title {
+    color: #fff;
+    margin: 10px 0;
+    font-size: 2rem;
+}
+
+.section-divider {
+    width: 120px;
+    height: 3px;
+    margin: auto;
+    border-radius: 999px;
+    background: linear-gradient(to right, #d4af37, #f6d365);
+}
+
+/* ===== Table ===== */
+
+.table-title {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 12px;
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dashboard-table th {
+    background: #1f2937;
+    color: white;
+    padding: 14px;
+}
+
+.dashboard-table td {
+    padding: 14px;
+    color: #ddd;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.dashboard-table tbody tr {
+    transition: 0.2s ease;
+}
+
+.dashboard-table tbody tr:hover {
+    background: rgba(212, 175, 55, 0.08);
+}
+
+/* ===== Buttons ===== */
+
+.btn {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+.btn-secondary {
+    background: #374151;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+}
+
+/* ===== Pagination ===== */
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ===== Empty State ===== */
+
+.empty-state {
+    text-align: center;
+    color: #888;
+    padding: 30px;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 900px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+    }
+}

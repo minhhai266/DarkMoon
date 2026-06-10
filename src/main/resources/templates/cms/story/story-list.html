@@ -1,137 +1,121 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Danh sách câu chuyện</title>
-  </head>
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Danh sách câu chuyện</title>
+  <link rel="stylesheet" href="/css/story.css">
+</head>
 
-        <main>
-          <h1>Danh sách câu chuyện</h1>
+<body>
+  <div class="bg-image"></div>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
 
-          <p
-            style="color: green"
-            th:if="${successMessage}"
-            th:text="${successMessage}"
-          ></p>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
 
-          <p
-            style="color: red"
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-          ></p>
+      <main class="section-dark">
+        <div class="container-xl">
+          <div class="story-card">
+            <div class="section-header">
+              <span class="section-eyebrow"> Moonblight CMS </span>
+              <h1 class="section-title"> Danh Sách Câu Chuyện </h1>
+              <div class="section-divider"></div>
+            </div>
 
-          <a th:href="@{/story/moonblight/create}"> Tạo câu chuyện mới </a>
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}"> </p>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"> </p>
 
-          <br /><br />
+            <div class="top-actions">
+              <a th:href="@{/story/moonblight/create}" class="btn btn-primary"> + Tạo câu chuyện
+                mới </a>
+            </div>
 
-          <table border="1">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Ảnh</th>
-                <th>Ưu tiên</th>
-                <th>Tiêu đề</th>
-                <th>Tag</th>
-                <th>Quote Author</th>
-                <th>Trạng thái</th>
-                <th>Hành động</th>
-              </tr>
-            </thead>
+            <div class="table-wrapper">
+              <table class="story-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Ảnh</th>
+                    <th>Ưu tiên</th>
+                    <th>Tiêu đề</th>
+                    <th>Tag</th>
+                    <th>Quote Author</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                  </tr>
+                </thead>
 
-            <tbody>
-              <tr th:each="story : ${stories.content}">
-                <td th:text="${story.id}"></td>
+                <tbody>
+                  <tr th:each="story : ${stories.content}">
+                    <td th:text="${story.id}"></td>
 
-                <td>
-                  <img
-                    th:if="${story.image != null}"
-                    th:src="${story.image}"
-                    alt="Story Image"
-                    style="max-width: 120px"
-                  />
-                </td>
+                    <td>
+                      <img th:if="${story.image != null}" th:src="${story.image}" alt="Story Image"
+                        class="table-image" />
+                    </td>
 
-                <td th:text="${story.priority}"></td>
+                    <td th:text="${story.priority}"></td>
 
-                <td th:text="${story.title}"></td>
+                    <td th:text="${story.title}"></td>
 
-                <td th:text="${story.tag}"></td>
+                    <td th:text="${story.tag}"></td>
 
-                <td th:text="${story.quoteAuthor}"></td>
+                    <td th:text="${story.quoteAuthor}"></td>
 
-                <td
-                  th:text="${story.deleted ? 'Đã xóa' : 'Đang hiển thị'}"
-                ></td>
+                    <td>
+                      <span th:if="${!story.deleted}" class="status-active"> Đang hiển thị </span>
+                      <span th:if="${story.deleted}" class="status-deleted"> Đã xóa </span>
+                    </td>
 
-                <td>
-                  <form
-                    th:action="@{/story/moonblight/{id}/edit(id=${story.id})}"
-                    method="get"
-                  >
-                    <button type="submit">Sửa</button>
-                  </form>
+                    <td>
 
-                  <form
-                    th:if="${!story.deleted}"
-                    th:action="@{/story/moonblight/{id}/delete(id=${story.id})}"
-                    method="post"
-                  >
-                    <button type="submit">Xóa</button>
-                  </form>
+                      <div class="action-group">
+                        <form th:action="@{/story/moonblight/{id}/edit(id=${story.id})}" method="get">
+                          <button type="submit" class="btn btn-secondary btn-sm"> Sửa </button>
+                        </form>
 
-                  <form
-                    th:if="${story.deleted}"
-                    th:action="@{/story/moonblight/{id}/restore(id=${story.id})}"
-                    method="post"
-                  >
-                    <button type="submit">Khôi phục</button>
-                  </form>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                        <form th:if="${!story.deleted}" th:action="@{/story/moonblight/{id}/delete(id=${story.id})}"
+                          method="post">
+                          <button type="submit" class="btn btn-danger btn-sm"> Xóa </button>
+                        </form>
 
-          <br />
+                        <form th:if="${story.deleted}" th:action="@{/story/moonblight/{id}/restore(id=${story.id})}"
+                          method="post">
+                          <button type="submit" class="btn btn-success btn-sm"> Khôi phục </button>
+                        </form>
+                      </div>
 
-          <div th:if="${stories.totalPages > 1}">
-            <a
-              th:if="${!stories.first}"
-              th:href="@{/story/moonblight/list(page=${stories.number - 1})}"
-            >
-              ← Trước
-            </a>
+                    </td>
+                  </tr>
 
-            <span
-              th:each="i : ${#numbers.sequence(0, stories.totalPages - 1)}"
-            >
-              <a
-                th:if="${i != stories.number}"
-                th:href="@{/story/moonblight/list(page=${i})}"
-                th:text="${i + 1}"
-              ></a>
+                </tbody>
+              </table>
 
-              <span
-                th:if="${i == stories.number}"
-                th:text="${i + 1}"
-                style="font-weight: bold"
-              ></span>
-            </span>
 
-            <a
-              th:if="${!stories.last}"
-              th:href="@{/story/moonblight/list(page=${stories.number + 1})}"
-            >
-              Sau →
-            </a>
+              <div class="pagination" th:if="${stories.totalPages > 1}">
+                <a class="page-btn" th:if="${!stories.first}"
+                  th:href="@{/story/moonblight/list(page=${stories.number - 1})}">
+                  ← Trước </a>
+                <span th:each="i : ${#numbers.sequence(0, stories.totalPages - 1)}">
+                  <a class="page-number" th:if="${i != stories.number}" th:href="@{/story/moonblight/list(page=${i})}"
+                    th:text="${i + 1}">
+                  </a>
+                  <span class="page-number active" th:if="${i == stories.number}" th:text="${i + 1}"> </span>
+                </span>
+                <a class="page-btn" th:if="${!stories.last}"
+                  th:href="@{/story/moonblight/list(page=${stories.number + 1})}">
+                  Sau → </a>
+              </div>
+              
+            </div>
           </div>
-        </main>
-      </div>
+        </div>
+
+      </main>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

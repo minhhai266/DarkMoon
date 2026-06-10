@@ -1,135 +1,144 @@
 <!doctype html>
-
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Cập nhật bài viết</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <!-- common css -->
-    <link rel="stylesheet" th:href="@{/css/component/header.css}" />
-    <link rel="stylesheet" th:href="@{/css/component/footer.css}" />
-    <!-- article css -->
-    <link rel="stylesheet" th:href="@{/css/cms/article/article-edit.css}" />
-  </head>
 
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Cập nhật bài viết</title>
 
-      ```
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+  <!-- Quill -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
-        <main>
-          <h1>Cập nhật bài viết</h1>
+  <!-- Article CSS -->
+  <link rel="stylesheet" th:href="@{/css/article.css}">
+</head>
 
-          <p
-            style="color: green"
-            th:if="${successMessage}"
-            th:text="${successMessage}"
-          ></p>
+<body>
 
-          <p
-            style="color: red"
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-          ></p>
+  <div class="bg-image"></div>
 
-          <form
-            th:action="@{/article/moonblight/{id}/edit(id=${article.id})}"
-            th:object="${article}"
-            method="post"
-            enctype="multipart/form-data"
-          >
-            <div>
-              <label>Tiêu đề</label><br />
+  <div class="layout">
 
-              <input type="text" th:field="*{title}" maxlength="255" required />
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}">
+    </th:block>
 
-              <div
-                th:if="${#fields.hasErrors('title')}"
-                th:errors="*{title}"
-                style="color: red"
-              ></div>
+    <div class="content-wrapper">
+
+      <th:block th:replace="~{cms/fragments/header :: header}">
+      </th:block>
+
+      <main class="section-dark">
+
+        <div class="container-xl">
+
+          <div class="article-card">
+
+            <div class="section-header">
+              <span class="section-eyebrow">
+                Moonblight CMS
+              </span>
+
+              <h1 class="section-title">
+                Cập nhật bài viết
+              </h1>
+
+              <div class="section-divider"></div>
             </div>
 
-            <br />
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}">
+            </p>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+            </p>
 
-            <div>
-              <label>Loại bài viết</label><br />
+            <form class="article-form" th:action="@{/article/moonblight/{id}/edit(id=${article.id})}"
+              th:object="${article}" method="post" enctype="multipart/form-data">
 
-              <select th:field="*{type}" required>
-                <option value="">-- Chọn loại bài viết --</option>
+              <!-- Tiêu đề -->
+              <div class="form-group">
 
-                <option
-                  th:each="type : ${articleTypes}"
-                  th:value="${type}"
-                  th:text="${type.displayName}"
-                ></option>
-              </select>
+                <label class="form-label">
+                  Tiêu đề
+                </label>
+                <input class="form-control" type="text" th:field="*{title}" maxlength="255" required />
+                <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                </div>
 
-              <div
-                th:if="${#fields.hasErrors('type')}"
-                th:errors="*{type}"
-                style="color: red"
-              ></div>
-            </div>
+              </div>
 
-            <br />
+              <!-- Loại bài viết -->
+              <div class="form-group">
 
-            <div>
-              <label>Thumbnail hiện tại</label><br />
+                <label class="form-label">
+                  Loại bài viết
+                </label>
 
-              <img
-                th:if="${article.thumbnailUrl != null}"
-                th:src="${article.thumbnailUrl}"
-                alt="Thumbnail"
-                style="max-width: 200px"
-              />
-            </div>
+                <select class="form-control" th:field="*{type}" required>
 
-            <br />
+                  <option value="">
+                    -- Chọn loại bài viết --
+                  </option>
+                  <option th:each="type : ${articleTypes}" th:value="${type}" th:text="${type.displayName}">
+                  </option>
 
-            <div>
-              <label>Thumbnail mới (không bắt buộc)</label><br />
+                </select>
+                <div class="field-error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">
+                </div>
 
-              <input type="file" name="thumbnail" accept="image/*" />
-            </div>
+              </div>
 
-            <br />
+              <!-- Thumbnail hiện tại -->
+              <div class="form-group">
+                <label class="form-label">
+                  Thumbnail hiện tại
+                </label>
+                <img th:if="${article.thumbnailUrl != null}" th:src="${article.thumbnailUrl}" alt="Thumbnail"
+                  class="article-image" />
+              </div>
 
-            <div>
-              <label>Nội dung</label><br />
+              <!-- Thumbnail mới -->
+              <div class="form-group">
+                <label class="form-label">
+                  Thumbnail mới (không bắt buộc)
+                </label>
+                <input class="file-input" type="file" name="thumbnail" accept="image/*" />
+              </div>
 
-              <!-- Textarea ẩn để Thymeleaf binding dữ liệu xuống Backend -->
-              <textarea
-                id="content"
-                th:field="*{content}"
-                style="display: none"
-              ></textarea>
+              <!-- Nội dung -->
+              <div class="form-group">
 
-              <!-- Vùng hiển thị cho người dùng gõ (Quill sẽ bám vào đây) -->
-              <div id="quill-editor" style="height: 300px"></div>
+                <label class="form-label">
+                  Nội dung bài viết
+                </label>
+                <textarea id="content" th:field="*{content}" style="display:none">
+                                </textarea>
+                <div id="quill-editor" class="article-editor">
+                </div>
+                <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
+                </div>
 
-              <div
-                th:if="${#fields.hasErrors('content')}"
-                th:errors="*{content}"
-                style="color: red"
-              ></div>
-            </div>
+              </div>
 
-            <br />
+              <!-- Actions -->
+              <div class="article-actions">
 
-            <button type="submit">Cập nhật bài viết</button>
-          </form>
-        </main>
-      </div>
+                <button type="submit" class="btn btn-primary">
+                  Cập nhật bài viết
+                </button>
+
+                <a th:href="@{/article/moonblight/list}" class="btn btn-secondary">
+                  Quay lại
+                </a>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
     </div>
-    ```
-    <script th:src="@{/js/editor.js}"></script>
-  </body>
+  </div>
+
+  <script th:src="@{/js/editor.js}"></script>
+
+</body>
+
 </html>

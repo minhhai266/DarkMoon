@@ -1,137 +1,132 @@
 <!doctype html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Danh sách thế giới</title>
-  </head>
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Danh sách thế giới</title>
+</head>
 
-        <main>
-          <h1>Danh sách thế giới</h1>
+<body>
+  <div class="bg-image"></div>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
 
-          <p
-            style="color: green"
-            th:if="${successMessage}"
-            th:text="${successMessage}"
-          ></p>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
 
-          <p
-            style="color: red"
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-          ></p>
+      <main class="section section-dark">
+        <div class="bg-image"></div>
 
-          <a th:href="@{/world/moonblight/create}"> Tạo thế giới mới </a>
+        <div class="container-sm">
 
-          <br /><br />
+          <div class="world-create-card">
+            <div class="section-header">
+              <span class="section-eyebrow">Moonblight CMS</span>
+              <h1 class="section-title">Danh Sách Thế Giới</h1>
+              <div class="section-divider"></div>
+            </div>
 
-          <table border="1">
-            ```
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Ảnh</th>
-                <th>Ưu tiên</th>
-                <th>Tag</th>
-                <th>Tiêu đề</th>
-                <th>Trạng thái</th>
-                <th>Hành động</th>
-              </tr>
-            </thead>
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}"></p>
 
-            <tbody>
-              <tr th:each="world : ${worlds.content}">
-                <td th:text="${world.id}"></td>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
-                <td>
-                  <img
-                    th:if="${world.image != null}"
-                    th:src="${world.image}"
-                    alt="World Image"
-                    style="max-width: 120px"
-                  />
-                </td>
+            <div class="list-actions">
+              <a th:href="@{/world/moonblight/create}" class="btn btn-primary">
+                + Tạo thế giới mới
+              </a>
+            </div>
 
-                <td th:text="${world.priority}"></td>
+            <div class="table-wrapper">
+              <table class="world-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Ảnh</th>
+                    <th>Ưu tiên</th>
+                    <th>Tag</th>
+                    <th>Tiêu đề</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                  </tr>
+                </thead>
 
-                <td th:text="${world.tag}"></td>
+                <tbody>
+                  <tr th:each="world : ${worlds.content}">
+                    <td th:text="${world.id}"></td>
 
-                <td th:text="${world.title}"></td>
+                    <td>
+                      <img th:if="${world.image != null}" th:src="${world.image}" alt="World Image"
+                        class="world-thumb" />
+                    </td>
 
-                <td
-                  th:text="${world.deleted ? 'Đã xóa' : 'Đang hiển thị'}"
-                ></td>
+                    <td th:text="${world.priority}"></td>
 
-                <td>
-                  <form
-                    th:action="@{/world/moonblight/{id}/edit(id=${world.id})}"
-                    method="get"
-                  >
-                    <button type="submit">Sửa</button>
-                  </form>
+                    <td th:text="${world.tag}"></td>
 
-                  <form
-                    th:if="${!world.deleted}"
-                    th:action="@{/world/moonblight/{id}/delete(id=${world.id})}"
-                    method="post"
-                  >
-                    <button type="submit">Xóa</button>
-                  </form>
+                    <td th:text="${world.title}"></td>
 
-                  <form
-                    th:if="${world.deleted}"
-                    th:action="@{/world/moonblight/{id}/restore(id=${world.id})}"
-                    method="post"
-                  >
-                    <button type="submit">Khôi phục</button>
-                  </form>
-                </td>
-              </tr>
-            </tbody>
-            ```
-          </table>
+                    <td>
+                      <span th:if="${!world.deleted}" class="status-active">
+                        Đang hiển thị
+                      </span>
 
-          <br />
+                      <span th:if="${world.deleted}" class="status-deleted">
+                        Đã xóa
+                      </span>
+                    </td>
+                    <td>
+                      <div class="action-group">
 
-          <div th:if="${worlds.totalPages > 1}">
-            <a
-              th:if="${!worlds.first}"
-              th:href="@{/world/moonblight/list(page=${worlds.number - 1})}"
-            >
-              ← Trước
-            </a>
+                        <form th:action="@{/world/moonblight/{id}/edit(id=${world.id})}" method="get">
+                          <button class="btn btn-primary btn-small">
+                            Sửa
+                          </button>
+                        </form>
 
-            <span
-              th:each="i : ${#numbers.sequence(0, worlds.totalPages - 1)}"
-            >
-              <a
-                th:if="${i != worlds.number}"
-                th:href="@{/world/moonblight/list(page=${i})}"
-                th:text="${i + 1}"
-              ></a>
+                        <form th:if="${!world.deleted}" th:action="@{/world/moonblight/{id}/delete(id=${world.id})}"
+                          method="post">
+                          <button class="btn btn-danger btn-small">
+                            Xóa
+                          </button>
+                        </form>
 
-              <span
-                th:if="${i == worlds.number}"
-                th:text="${i + 1}"
-                style="font-weight: bold"
-              ></span>
-            </span>
+                        <form th:if="${world.deleted}" th:action="@{/world/moonblight/{id}/restore(id=${world.id})}"
+                          method="post">
+                          <button class="btn btn-secondary btn-small">
+                            Khôi phục
+                          </button>
+                        </form>
 
-            <a
-              th:if="${!worlds.last}"
-              th:href="@{/world/moonblight/list(page=${worlds.number + 1})}"
-            >
-              Sau →
-            </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+            <div class="pagination" th:if="${worlds.totalPages > 1}">
+              <a th:if="${!worlds.first}" th:href="@{/world/moonblight/list(page=${worlds.number - 1})}">
+                ← Trước
+              </a>
+
+              <span th:each="i : ${#numbers.sequence(0, worlds.totalPages - 1)}">
+                <a th:if="${i != worlds.number}" th:href="@{/world/moonblight/list(page=${i})}" th:text="${i + 1}"></a>
+
+                <span th:if="${i == worlds.number}" th:text="${i + 1}" style="font-weight: bold"></span>
+              </span>
+
+              <a th:if="${!worlds.last}" th:href="@{/world/moonblight/list(page=${worlds.number + 1})}">
+                Sau →
+              </a>
+            </div>
           </div>
-        </main>
-      </div>
+        </div>
     </div>
-  </body>
+    </main>
+  </div>
+  </div>
+</body>
+
 </html>

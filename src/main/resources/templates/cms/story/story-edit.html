@@ -1,152 +1,148 @@
 <!doctype html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Cập nhật câu chuyện</title>
-    <!-- outer css -->
-    <!-- 1. Nhúng CSS & JS của Quill -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-  </head>
 
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Cập nhật câu chuyện</title>
+  <!-- outer css -->
+  <!-- 1. Nhúng CSS & JS của Quill -->
+  <link rel="stylesheet" th:href="@{/css/story.css}">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+</head>
 
-      ```
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+<body>
+  <div class="bg-image"></div>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
 
-        <main>
-          <h1>Cập nhật câu chuyện</h1>
-
-          <p
-            style="color: green"
-            th:if="${successMessage}"
-            th:text="${successMessage}"
-          ></p>
-
-          <p
-            style="color: red"
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-          ></p>
-
-          <form
-            th:action="@{/story/moonblight/{id}/edit(id=${story.id})}"
-            th:object="${story}"
-            method="post"
-            enctype="multipart/form-data"
-          >
-            <div>
-              <label>Tiêu đề</label><br />
-
-              <input type="text" th:field="*{title}" maxlength="255" required />
-
-              <div
-                th:if="${#fields.hasErrors('title')}"
-                th:errors="*{title}"
-                style="color: red"
-              ></div>
+      <main class="section-dark">
+        <div class="container-sm">
+          <div class="story-card">
+            <div class="section-header">
+              <span class="section-eyebrow">
+                Moonblight CMS
+              </span>
+              <h1 class="section-title">
+                Cập Nhật Câu Chuyện
+              </h1>
+              <div class="section-divider"></div>
             </div>
 
-            <br />
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}">
+            </p>
 
-            <div>
-              <label>Tag</label><br />
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+            </p>
 
-              <input type="text" th:field="*{tag}" />
-            </div>
+            <form class="story-form" th:action="@{/story/moonblight/{id}/edit(id=${story.id})}" th:object="${story}"
+              method="post" enctype="multipart/form-data">
+              <div class="form-group">
 
-            <br />
+                <label class="form-label">
+                  Tiêu đề
+                </label>
+                <input class="form-control" type="text" th:field="*{title}" maxlength="255" required>
+                <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                </div>
 
-            <div>
-              <label>Độ ưu tiên (0 - 100)</label><br />
+              </div>
 
-              <input type="number" th:field="*{priority}" min="0" max="100" />
-            </div>
+              <div class="form-group">
 
-            <br />
+                <label class="form-label">
+                  Tag
+                </label>
+                <input class="form-control" type="text" th:field="*{tag}">
 
-            <div>
-              <label>Ảnh hiện tại</label><br />
+              </div>
 
-              <img
-                th:if="*{image != null}"
-                th:src="*{image}"
-                alt="Story Image"
-                style="max-width: 300px"
-              />
-            </div>
+              <div class="form-group">
 
-            <br />
+                <label class="form-label">
+                  Độ ưu tiên (0 - 100)
+                </label>
+                <input class="form-control" type="number" th:field="*{priority}" min="0" max="100">
 
-            <div>
-              <label>Ảnh mới (không bắt buộc)</label><br />
+              </div>
 
-              <input type="file" name="imageFile" accept="image/*" />
-            </div>
+              <div class="form-group">
 
-            <br />
+                <label class="form-label">
+                  Ảnh hiện tại
+                </label>
+                <img class="story-image-preview" th:if="*{image != null}" th:src="*{image}" alt="Story Image">
 
-            <div>
-              <label>Nội dung trích dẫn</label><br />
+              </div>
 
-              <textarea th:field="*{quoteContent}" rows="4" cols="80">
-              </textarea>
 
-              <div
-                th:if="${#fields.hasErrors('quoteContent')}"
-                th:errors="*{quoteContent}"
-                style="color: red"
-              ></div>
-            </div>
 
-            <br />
+              <div class="form-group">
 
-            <div>
-              <label>Tác giả trích dẫn</label><br />
+                <label class="form-label">
+                  Ảnh mới (không bắt buộc)
+                </label>
+                <input class="file-input" type="file" name="imageFile" accept="image/*">
 
-              <input type="text" th:field="*{quoteAuthor}" />
-            </div>
+              </div>
 
-            <br />
+              <div class="form-group">
 
-            <div>
-              <label>Nội dung câu chuyện</label><br />
+                <label class="form-label">
+                  Nội dung trích dẫn
+                </label>
+                <textarea class="form-control textarea-control" th:field="*{quoteContent}">
+                </textarea>
+                <div class="field-error" th:if="${#fields.hasErrors('quoteContent')}" th:errors="*{quoteContent}">
+                </div>
 
-              <textarea
-                id="content"
-                th:field="*{content}"
-                style="display: none"
-              ></textarea>
+              </div>
 
-              <!-- Vùng hiển thị cho người dùng gõ (Quill sẽ bám vào đây) -->
-              <div id="quill-editor" style="height: 300px"></div>
+              <div class="form-group">
 
-              <div
-                th:if="${#fields.hasErrors('content')}"
-                th:errors="*{content}"
-                style="color: red"
-              ></div>
-            </div>
+                <label class="form-label">
+                  Tác giả trích dẫn
+                </label>
+                <input class="form-control" type="text" th:field="*{quoteAuthor}">
 
-            <br />
+              </div>
 
-            <button type="submit">Cập nhật câu chuyện</button>
-          </form>
 
-          <br />
 
-          <a th:href="@{/story/moonblight/list}"> Quay lại danh sách </a>
-        </main>
-      </div>
+              <div class="form-group">
+
+                <label class="form-label">
+                  Nội dung câu chuyện
+                </label>
+                <textarea id="content" th:field="*{content}" style="display:none">
+                </textarea>
+                <div id="quill-editor" class="story-editor">
+                </div>
+                <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
+                </div>
+
+              </div>
+
+              <div class="story-actions">
+
+                <button type="submit" class="btn btn-primary">
+                  Cập nhật câu chuyện
+                </button>
+                <a th:href="@{/story/moonblight/list}" class="btn btn-secondary">
+                  Quay lại
+                </a>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
     </div>
-    ```
-    <script th:src="@{/js/editor.js}"></script>
-  </body>
+  </div>
+  <script th:src="@{/js/editor.js}"></script>
+</body>
+
 </html>

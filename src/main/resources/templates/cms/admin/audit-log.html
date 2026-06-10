@@ -3,86 +3,122 @@
   <head>
     <meta charset="UTF-8" />
     <title>Audit Logs</title>
+
+    <link rel="stylesheet" href="/css/your-style.css" />
   </head>
 
   <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/admin-sidebar :: sidebar}">
-      </th:block>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+    <!-- Background -->
+    <div class="bg-image"></div>
 
-        <main>
-          <h1>Audit Logs</h1>
+    <div class="layout section-dark">
+      <div class="container-xl">
 
-          <table border="1">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Người thực hiện</th>
-                <th>Loại đối tượng</th>
-                <th>ID đối tượng</th>
-                <th>Hành động</th>
-                <th>Mô tả</th>
-                <th>Thời gian</th>
-              </tr>
-            </thead>
+        <div class="story-card">
 
-            <tbody>
-              <tr th:each="log : ${logs.content}">
-                <td th:text="${log.id}"></td>
+          <!-- Sidebar -->
+          <th:block th:replace="~{cms/fragments/admin-sidebar :: sidebar}"></th:block>
 
-                <td th:text="${log.username}"></td>
+          <div class="content-wrapper">
 
-                <td th:text="${log.entityType}"></td>
+            <!-- Header -->
+            <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
 
-                <td th:text="${log.entityId}"></td>
+            <main>
 
-                <td th:text="${log.action}"></td>
+              <div class="section-header">
+                <div class="section-eyebrow">Admin Panel</div>
+                <h1 class="section-title">Audit Logs</h1>
+                <div class="section-divider"></div>
+              </div>
 
-                <td th:text="${log.description}"></td>
+              <!-- TABLE -->
+              <h3 class="table-title">Danh sách log hệ thống</h3>
 
-                <td th:text="${log.createdAt}"></td>
-              </tr>
-            </tbody>
-          </table>
+              <div class="table-wrapper">
+                <table class="dashboard-table">
 
-          <br />
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Người thực hiện</th>
+                      <th>Loại đối tượng</th>
+                      <th>ID đối tượng</th>
+                      <th>Hành động</th>
+                      <th>Mô tả</th>
+                      <th>Thời gian</th>
+                    </tr>
+                  </thead>
 
-          <div th:if="${logs.totalPages > 1}">
-            <a
-              th:if="${!logs.first}"
-              th:href="@{/admin/moonblight/log(page=${logs.number - 1})}"
-            >
-              ← Trước
-            </a>
+                  <tbody>
+                    <tr th:each="log : ${logs.content}">
+                      <td th:text="${log.id}"></td>
+                      <td th:text="${log.username}"></td>
+                      <td th:text="${log.entityType}"></td>
+                      <td th:text="${log.entityId}"></td>
+                      <td th:text="${log.action}"></td>
+                      <td th:text="${log.description}"></td>
+                      <td th:text="${log.createdAt}"></td>
+                    </tr>
 
-            <span th:each="i : ${#numbers.sequence(0, logs.totalPages - 1)}">
-              <a
-                th:if="${i != logs.number}"
-                th:href="@{/admin/moonblight/log(page=${i})}"
-                th:text="${i + 1}"
-              >
-              </a>
+                    <tr th:if="${logs.empty}">
+                      <td colspan="7" class="empty-state">
+                        Không có dữ liệu log
+                      </td>
+                    </tr>
 
-              <span
-                th:if="${i == logs.number}"
-                th:text="${i + 1}"
-                style="font-weight: bold"
-              >
-              </span>
-            </span>
+                  </tbody>
+                </table>
+              </div>
 
-            <a
-              th:if="${!logs.last}"
-              th:href="@{/admin/moonblight/log(page=${logs.number + 1})}"
-            >
-              Sau →
-            </a>
+              <br />
+
+              <!-- PAGINATION -->
+              <div class="pagination">
+
+                <a
+                  class="btn btn-secondary"
+                  th:if="${!logs.first}"
+                  th:href="@{/admin/moonblight/log(page=${logs.number - 1})}"
+                >
+                  ← Trước
+                </a>
+
+                <span th:each="i : ${#numbers.sequence(0, logs.totalPages - 1)}">
+
+                  <a
+                    class="btn btn-secondary"
+                    th:if="${i != logs.number}"
+                    th:href="@{/admin/moonblight/log(page=${i})}"
+                    th:text="${i + 1}"
+                  ></a>
+
+                  <span
+                    th:if="${i == logs.number}"
+                    class="btn"
+                    style="background:#d4af37; color:black; font-weight:bold;"
+                    th:text="${i + 1}"
+                  ></span>
+
+                </span>
+
+                <a
+                  class="btn btn-secondary"
+                  th:if="${!logs.last}"
+                  th:href="@{/admin/moonblight/log(page=${logs.number + 1})}"
+                >
+                  Sau →
+                </a>
+
+              </div>
+
+            </main>
           </div>
-        </main>
+
+        </div>
       </div>
     </div>
+
   </body>
 </html>

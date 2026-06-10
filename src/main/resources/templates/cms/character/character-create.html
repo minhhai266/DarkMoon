@@ -1,106 +1,145 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Tạo Nhân Vật</title>
-    <!-- outer css -->
-    <!-- 1. Nhúng CSS & JS của Quill -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-  </head>
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Tạo Nhân Vật</title>
 
-        <main>
-          <h2>Tạo Nhân Vật Mới</h2>
+  <link rel="stylesheet" th:href="@{/css/character.css}">
 
-          <div th:if="${errorMessage}" style="color: red; margin-bottom: 15px">
-            <strong th:text="${errorMessage}"></strong>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+</head>
+
+<body>
+
+  <div class="bg-image"></div>
+
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}">
+    </th:block>
+
+    <div class="content-wrapper">
+
+      <th:block th:replace="~{cms/fragments/header :: header}">
+      </th:block>
+
+      <main class="section-dark">
+
+        <div class="container-xl">
+
+          <div class="character-card">
+
+            <div class="section-header">
+              <span class="section-eyebrow">
+                Moonblight CMS
+              </span>
+
+              <h1 class="section-title">
+                Tạo Nhân Vật Mới
+              </h1>
+
+              <div class="section-divider"></div>
+            </div>
+
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+            </p>
+
+            <form class="character-form" th:action="@{/character/moonblight/create}" method="post"
+              th:object="${createGameCharacterRequest}" enctype="multipart/form-data">
+
+              <div class="form-group">
+                <label class="form-label">
+                  Tên nhân vật
+                </label>
+
+                <input class="form-control" type="text" th:field="*{name}">
+
+                <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  Chủng tộc
+                </label>
+
+                <input class="form-control" type="text" th:field="*{race}">
+
+                <div class="field-error" th:if="${#fields.hasErrors('race')}" th:errors="*{race}">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  Mô tả
+                </label>
+
+                <textarea id="content" th:field="*{description}" style="display:none">
+                                </textarea>
+
+                <div id="quill-editor" class="character-editor">
+                </div>
+
+                <div class="field-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  Quote
+                </label>
+
+                <input class="form-control" type="text" th:field="*{quote}">
+
+                <div class="field-error" th:if="${#fields.hasErrors('quote')}" th:errors="*{quote}">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  Độ ưu tiên (0 - 100)
+                </label>
+
+                <input class="form-control" type="number" th:field="*{priority}" min="0" max="100">
+
+                <div class="field-error" th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  Hình ảnh
+                </label>
+
+                <input class="file-input" type="file" name="imageFile" accept="image/*">
+              </div>
+
+              <div class="character-actions">
+
+                <button type="submit" class="btn btn-primary">
+                  Tạo nhân vật
+                </button>
+
+                <a th:href="@{/character/moonblight/list}" class="btn btn-secondary">
+                  Quay lại
+                </a>
+
+              </div>
+
+            </form>
+
           </div>
 
-          <form
-            th:action="@{/character/moonblight/create}"
-            method="post"
-            th:object="${createGameCharacterRequest}"
-            enctype="multipart/form-data"
-          >
-            <div style="margin-bottom: 10px">
-              <label>Tên nhân vật:</label><br />
-              <input type="text" th:field="*{name}" />
-              <span
-                th:if="${#fields.hasErrors('name')}"
-                th:errors="*{name}"
-                style="color: red"
-              ></span>
-            </div>
+        </div>
 
-            <div style="margin-bottom: 10px">
-              <label>Chủng tộc:</label><br />
-              <input type="text" th:field="*{race}" />
-              <span
-                th:if="${#fields.hasErrors('race')}"
-                th:errors="*{race}"
-                style="color: red"
-              ></span>
-            </div>
-
-            <div style="margin-bottom: 10px">
-              <label>Mô tả:</label><br />
-              <textarea
-                id="content"
-                th:field="*{description}"
-                style="display: none"
-              ></textarea>
-
-              <!-- Vùng hiển thị cho người dùng gõ (Quill sẽ bám vào đây) -->
-              <div id="quill-editor" style="height: 300px"></div>
-              <span
-                th:if="${#fields.hasErrors('description')}"
-                th:errors="*{description}"
-                style="color: red"
-              ></span>
-            </div>
-
-            <div style="margin-bottom: 10px">
-              <label>Quote:</label><br />
-              <input type="text" th:field="*{quote}" />
-              <span
-                th:if="${#fields.hasErrors('quote')}"
-                th:errors="*{quote}"
-                style="color: red"
-              ></span>
-            </div>
-
-            <div style="margin-bottom: 10px">
-              <label>Độ ưu tiên (0-100):</label><br />
-              <input type="number" th:field="*{priority}" />
-              <span
-                th:if="${#fields.hasErrors('priority')}"
-                th:errors="*{priority}"
-                style="color: red"
-              ></span>
-            </div>
-
-            <div style="margin-bottom: 15px">
-              <label>Hình ảnh:</label><br />
-              <input type="file" name="imageFile" accept="image/*" />
-            </div>
-
-            <button type="submit">Tạo nhân vật</button>
-            <a th:href="@{/character/moonblight/list}" style="margin-left: 10px"
-              >Hủy / Quay lại</a
-            >
-          </form>
-        </main>
-      </div>
+      </main>
     </div>
-  </body>
+  </div>
+
   <script th:src="@{/js/editor.js}"></script>
+
+</body>
+
 </html>

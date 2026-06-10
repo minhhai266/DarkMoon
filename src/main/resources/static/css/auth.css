@@ -1,0 +1,273 @@
+
+
+:root{
+    --blood-red:#8B0000;
+    --crimson:#C41E3A;
+    --dark-bg:#080604;
+    --dark-card:#1c1410;
+    --border-mid:#4A3028;
+    --cream:#DDD0B8;
+    --parchment:#C4A882;
+    --mid-grey:#8F7E76;
+    --amber:#C8720A;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:'Crimson Text', serif;
+
+    background:
+        radial-gradient(circle at top,
+        rgba(139,0,0,.25),
+        transparent 40%),
+        linear-gradient(
+        180deg,
+        #080604 0%,
+        #120908 100%);
+}
+
+/* CARD */
+
+.register-card{
+    width:400px;
+    max-width:90%;
+
+    padding:2rem;
+
+    background:
+        linear-gradient(
+        180deg,
+        rgba(28,20,16,.96),
+        rgba(8,6,4,.98));
+
+    border:1px solid var(--border-mid);
+
+    box-shadow:
+        0 0 50px rgba(0,0,0,.8),
+        0 0 25px rgba(139,0,0,.15);
+
+    position:relative;
+}
+
+.register-card::before{
+    content:"";
+
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+        90deg,
+        transparent,
+        var(--crimson),
+        transparent);
+}
+
+/* HEADER */
+
+.register-symbol{
+    text-align:center;
+
+    font-size:1.8rem;
+
+    color:var(--crimson);
+
+    margin-bottom:.5rem;
+}
+
+.register-eyebrow{
+    text-align:center;
+
+    color:var(--amber);
+
+    font-size:.75rem;
+
+    letter-spacing:.35em;
+
+    text-transform:uppercase;
+
+    margin-bottom:.8rem;
+}
+
+.register-title{
+    text-align:center;
+
+    color:var(--cream);
+
+    font-size:2.4rem;
+
+    font-family:'Cormorant Garamond', serif;
+
+    margin-bottom:.5rem;
+}
+
+.register-subtitle{
+    text-align:center;
+
+    color:var(--mid-grey);
+
+    font-style:italic;
+
+    font-size:.95rem;
+
+    margin-bottom:1rem;
+}
+
+.register-divider{
+    width:80px;
+    height:1px;
+
+    margin:0 auto 1.5rem;
+
+    background:
+        linear-gradient(
+        90deg,
+        transparent,
+        var(--crimson),
+        transparent);
+}
+
+/* FORM */
+
+.register-group{
+    margin-bottom:.9rem;
+}
+
+.register-group label{
+    display:block;
+
+    color:var(--parchment);
+
+    font-size:.72rem;
+
+    letter-spacing:.15em;
+
+    text-transform:uppercase;
+
+    margin-bottom:.35rem;
+}
+
+.register-group input{
+    width:100%;
+
+    height:46px;
+
+    padding:0 .9rem;
+
+    background:#0d0907;
+
+    border:1px solid var(--border-mid);
+
+    color:var(--cream);
+
+    outline:none;
+
+    transition:.3s;
+}
+
+.register-group input:focus{
+    border-color:var(--crimson);
+
+    box-shadow:
+        0 0 12px rgba(196,30,58,.25);
+}
+
+/* BUTTON */
+
+.register-btn{
+    width:100%;
+
+    height:48px;
+
+    margin-top:.8rem;
+
+    border:none;
+
+    background:var(--blood-red);
+
+    color:white;
+
+    font-size:.9rem;
+
+    letter-spacing:.18em;
+
+    text-transform:uppercase;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.register-btn:hover{
+    background:var(--crimson);
+
+    box-shadow:
+        0 0 20px rgba(196,30,58,.35);
+}
+
+/* LINK */
+
+.register-link{
+    display:block;
+
+    text-align:center;
+
+    margin-top:1rem;
+
+    color:var(--parchment);
+
+    text-decoration:none;
+}
+
+.register-link:hover{
+    color:var(--cream);
+}
+
+
+.bg-image{
+    position:fixed;
+    inset:0;
+
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,.65),
+            rgba(0,0,0,.85)
+        ),
+        url('img/back.png');
+
+    background-size:cover;
+    background-position:center;
+
+    z-index:-2;
+}
+
+.bg-image::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(196,30,58,.15),
+            transparent 35%
+        );
+
+    z-index:-1;
+}

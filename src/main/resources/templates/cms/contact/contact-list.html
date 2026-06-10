@@ -1,118 +1,161 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Danh sách liên hệ</title>
-  </head>
 
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Danh sách liên hệ</title>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
+  <link rel="stylesheet" th:href="@{/css/contact.css}">
+</head>
 
-        <main>
-          <h1>Danh sách liên hệ</h1>
+<body>
 
-          <p th:if="${successMessage}" th:text="${successMessage}"></p>
+  <div class="bg-image"></div>
 
-          <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}">
+    </th:block>
 
-          <p th:if="${messages.empty}">Chưa có tin nhắn liên hệ nào.</p>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}">
+      </th:block>
 
-          <table border="1" th:if="${!messages.empty}">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Người gửi</th>
-                <th>Email</th>
-                <th>Danh mục</th>
-                <th>Nền tảng</th>
-                <th>Trạng thái</th>
-                <th>Hành động</th>
-              </tr>
-            </thead>
+      <main class="section-dark">
+        <div class="container-xl">
 
-            <tbody>
-              <tr th:each="message : ${messages.content}">
-                <td th:text="${message.id}"></td>
+          <div class="contact-card">
 
-                <td th:text="${message.visitorName}"></td>
+            <div class="section-header">
+              <span class="section-eyebrow">
+                Moonblight CMS
+              </span>
 
-                <td>
-                  <a
-                    th:href="${'mailto:' + message.visitorEmail}"
-                    th:text="${message.visitorEmail}"
-                  ></a>
-                </td>
+              <h1 class="section-title">
+                Danh sách liên hệ
+              </h1>
 
-                <td
-                  th:text="${message.category != null ? message.category.displayName : ''}"
-                ></td>
-
-                <td
-                  th:text="${message.platform != null ? message.platform.displayName : ''}"
-                ></td>
-
-                <td th:text="${message.processed ? 'Đã xử lý' : 'Chưa xử lý'}"></td>
-
-                <td>
-                  <form
-                    th:action="@{/contact/blightmoon/{id}(id=${message.id})}"
-                    method="get"
-                  >
-                    <button type="submit">Chi tiết</button>
-                  </form>
-
-                  <form
-                    th:if="${!message.processed}"
-                    th:action="@{/contact/blightmoon/{id}/process(id=${message.id})}"
-                    method="post"
-                  >
-                    <button type="submit">Đánh dấu đã xử lý</button>
-                  </form>
-
-                  <!-- <form
-                    th:if="${message.processed}"
-                    th:action="@{/contact/blightmoon/{id}/unprocess(id=${message.id})}"
-                    method="post"
-                  >
-                    <button type="submit">Đánh dấu chưa xử lý</button>
-                  </form> -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <br />
-
-          <div th:if="${messages.totalPages > 1}">
-            <span>
-              Trang
-              <span th:text="${messages.number + 1}"></span>
-              /
-              <span th:text="${messages.totalPages}"></span>
-            </span>
-
-            <div>
-              <a
-                th:if="${messages.hasPrevious()}"
-                th:href="@{/contact/blightmoon/list(page=${messages.number - 1}, size=${messages.size})}"
-              >
-                Trang trước
-              </a>
-
-              <a
-                th:if="${messages.hasNext()}"
-                th:href="@{/contact/blightmoon/list(page=${messages.number + 1}, size=${messages.size})}"
-              >
-                Trang sau
-              </a>
+              <div class="section-divider"></div>
             </div>
+
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}">
+            </p>
+
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+            </p>
+
+            <div class="empty-state" th:if="${messages.empty}">
+              Chưa có tin nhắn liên hệ nào.
+            </div>
+
+            <div class="table-wrapper" th:if="${!messages.empty}">
+
+              <table class="contact-table">
+
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Người gửi</th>
+                    <th>Email</th>
+                    <th>Danh mục</th>
+                    <th>Nền tảng</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <tr th:each="message : ${messages.content}">
+
+                    <td th:text="${message.id}"></td>
+
+                    <td th:text="${message.visitorName}"></td>
+
+                    <td>
+                      <a class="email-link" th:href="${'mailto:' + message.visitorEmail}"
+                        th:text="${message.visitorEmail}">
+                      </a>
+                    </td>
+
+                    <td th:text="${message.category != null ? message.category.displayName : ''}">
+                    </td>
+
+                    <td th:text="${message.platform != null ? message.platform.displayName : ''}">
+                    </td>
+
+                    <td>
+
+                      <span th:if="${message.processed}" class="status-active">
+                        Đã xử lý
+                      </span>
+
+                      <span th:if="${!message.processed}" class="status-pending">
+                        Chưa xử lý
+                      </span>
+
+                    </td>
+
+                    <td>
+
+                      <div class="action-buttons">
+
+                        <form th:action="@{/contact/blightmoon/{id}(id=${message.id})}" method="get">
+
+                          <button type="submit" class="btn btn-secondary btn-sm">
+                            Chi tiết
+                          </button>
+
+                        </form>
+
+                        <form th:if="${!message.processed}"
+                          th:action="@{/contact/blightmoon/{id}/process(id=${message.id})}" method="post">
+
+                          <button type="submit" class="btn btn-success btn-sm">
+                            Đã xử lý
+                          </button>
+
+                        </form>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+            <div class="pagination" th:if="${messages.totalPages > 1}">
+
+              <a class="page-btn" th:if="${messages.hasPrevious()}"
+                th:href="@{/contact/blightmoon/list(page=${messages.number - 1}, size=${messages.size})}">
+                ←
+              </a>
+
+              <span class="page-current">
+                <span th:text="${messages.number + 1}"></span>
+                /
+                <span th:text="${messages.totalPages}"></span>
+              </span>
+
+              <a class="page-btn" th:if="${messages.hasNext()}"
+                th:href="@{/contact/blightmoon/list(page=${messages.number + 1}, size=${messages.size})}">
+                →
+              </a>
+
+            </div>
+
           </div>
-        </main>
-      </div>
+
+        </div>
+      </main>
+
     </div>
-  </body>
+  </div>
+
+</body>
+
 </html>

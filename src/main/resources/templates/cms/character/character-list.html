@@ -1,128 +1,147 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Danh sách nhân vật</title>
-  </head>
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
-      </div>
-      <main>
-        <h1>Danh sách nhân vật</h1>
 
-        <p
-          style="color: green"
-          th:if="${successMessage}"
-          th:text="${successMessage}"
-        ></p>
+<head>
+  <meta charset="UTF-8" />
+  <title>Danh sách nhân vật</title>
 
-        <p
-          style="color: red"
-          th:if="${errorMessage}"
-          th:text="${errorMessage}"
-        ></p>
+  <link rel="stylesheet" th:href="@{/css/character.css}" />
+</head>
 
-        <a th:href="@{/character/moonblight/create}"> Tạo nhân vật </a>
+<body>
 
-        <br /><br />
+  <div class="bg-image"></div>
 
-        <table border="1">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Ảnh</th>
-              <th>Tên</th>
-              <th>Chủng tộc</th>
-              <th>Ưu tiên</th>
-              <th>Trạng thái</th>
-              <th>Hành động</th>
-            </tr>
-          </thead>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
 
-          <tbody>
-            <tr th:each="character : ${characters.content}">
-              <td th:text="${character.id}"></td>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
 
-              <td>
-                <img
-                  th:if="${character.image != null}"
-                  th:src="${character.image}"
-                  style="max-width: 120px"
-                />
-              </td>
+      <main class="section-dark">
+        <div class="container-xl">
 
-              <td th:text="${character.name}"></td>
+          <div class="character-card">
 
-              <td th:text="${character.race}"></td>
+            <div class="section-header">
+              <span class="section-eyebrow">Moonblight CMS</span>
+              <h1 class="section-title">Danh Sách Nhân Vật</h1>
+              <div class="section-divider"></div>
+            </div>
 
-              <td th:text="${character.priority}"></td>
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}">
+            </p>
 
-              <td
-                th:text="${character.deleted ? 'Đã xóa' : 'Đang hiển thị'}"
-              ></td>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+            </p>
 
-              <td>
-                <form
-                  th:action="@{/character/moonblight/{id}/edit(id=${character.id})}"
-                  method="get"
-                >
-                  <button type="submit">Sửa</button>
-                </form>
+            <div class="table-header">
+              <a th:href="@{/character/moonblight/create}" class="btn btn-primary">
+                + Tạo Nhân Vật
+              </a>
+            </div>
 
-                <form
-                  th:if="${!character.deleted}"
-                  th:action="@{/character/moonblight/{id}/delete(id=${character.id})}"
-                  method="post"
-                >
-                  <button type="submit">Xóa</button>
-                </form>
+            <div class="table-wrapper">
 
-                <form
-                  th:if="${character.deleted}"
-                  th:action="@{/character/moonblight/{id}/restore(id=${character.id})}"
-                  method="post"
-                >
-                  <button type="submit">Khôi phục</button>
-                </form>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <br />
+              <table class="character-table">
 
-        <div th:if="${characters.totalPages > 1}">
-          <a
-            th:if="${!characters.first}"
-            th:href="@{/character/moonblight/list(page=${characters.number - 1})}"
-          >
-            ← Trước
-          </a>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Ảnh</th>
+                    <th>Tên</th>
+                    <th>Chủng tộc</th>
+                    <th>Ưu tiên</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                  </tr>
+                </thead>
 
-          <span th:each="i : ${#numbers.sequence(0, characters.totalPages - 1)}">
-            <a
-              th:if="${i != characters.number}"
-              th:href="@{/character/moonblight/list(page=${i})}"
-              th:text="${i + 1}"
-            ></a>
+                <tbody>
 
-            <span
-              th:if="${i == characters.number}"
-              th:text="${i + 1}"
-              style="font-weight: bold"
-            ></span>
-          </span>
+                  <tr th:each="character : ${characters.content}">
 
-          <a
-            th:if="${!characters.last}"
-            th:href="@{/character/moonblight/list(page=${characters.number + 1})}"
-          >
-            Sau →
-          </a>
+                    <td th:text="${character.id}"></td>
+                    <td>
+                      <img th:if="${character.image != null}" th:src="${character.image}" class="table-image"
+                        alt="Character">
+                    </td>
+                    <td th:text="${character.name}"></td>
+                    <td th:text="${character.race}"></td>
+                    <td th:text="${character.priority}"></td>
+
+                    <td>
+                      <span th:if="${!character.deleted}" class="status-active">
+                        Đang hiển thị
+                      </span>
+
+                      <span th:if="${character.deleted}" class="status-deleted">
+                        Đã xóa
+                      </span>
+                    </td>
+
+                    <td>
+                      <div class="action-buttons">
+
+                        <form th:action="@{/character/moonblight/{id}/edit(id=${character.id})}" method="get">
+                          <button type="submit" class="btn btn-secondary btn-sm">
+                            Sửa
+                          </button>
+                        </form>
+
+                        <form th:if="${!character.deleted}"
+                          th:action="@{/character/moonblight/{id}/delete(id=${character.id})}" method="post">
+
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            Xóa
+                          </button>
+
+                        </form>
+
+                        <form th:if="${character.deleted}"
+                          th:action="@{/character/moonblight/{id}/restore(id=${character.id})}" method="post">
+
+                          <button type="submit" class="btn btn-success btn-sm">
+                            Khôi phục
+                          </button>
+
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            <div class="pagination" th:if="${characters.totalPages > 1}">
+
+              <a class="page-btn" th:if="${!characters.first}"
+                th:href="@{/character/moonblight/list(page=${characters.number - 1})}">
+                ←
+              </a>
+
+              <span th:each="i : ${#numbers.sequence(0, characters.totalPages - 1)}">
+
+                <a th:if="${i != characters.number}" class="page-btn" th:href="@{/character/moonblight/list(page=${i})}"
+                  th:text="${i + 1}">
+                </a>
+
+                <span th:if="${i == characters.number}" class="page-current" th:text="${i + 1}">
+                </span>
+              </span>
+
+              <a class="page-btn" th:if="${!characters.last}"
+                th:href="@{/character/moonblight/list(page=${characters.number + 1})}">
+                →
+              </a>
+            </div>
+          </div>
         </div>
       </main>
     </div>
-  </body>
+  </div>
+
+</body>
+
 </html>

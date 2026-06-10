@@ -1,93 +1,125 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Chi tiết liên hệ</title>
-  </head>
 
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Chi tiết liên hệ</title>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
+  <link rel="stylesheet" th:href="@{/css/contact.css}">
+</head>
 
-        <main>
-          <h1>Chi tiết liên hệ</h1>
+<body>
 
-          <p th:if="${successMessage}" th:text="${successMessage}"></p>
+  <div class="bg-image"></div>
 
-          <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
 
-          <div>
-            <p>
-              <strong>ID:</strong>
-              <span th:text="${message.id}"></span>
-            </p>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
 
-            <p>
-              <strong>Người gửi:</strong>
-              <span th:text="${message.visitorName}"></span>
-            </p>
+      <main class="section-dark">
+        <div class="container-xl">
 
-            <p>
-              <strong>Email:</strong>
-              <a
-                th:href="${'mailto:' + message.visitorEmail}"
-                th:text="${message.visitorEmail}"
-              ></a>
-            </p>
+          <div class="contact-card">
 
-            <p>
-              <strong>Danh mục:</strong>
-              <span
-                th:text="${message.category != null ? message.category.displayName : ''}"
-              ></span>
-            </p>
+            <div class="section-header">
+              <span class="section-eyebrow">
+                Moonblight CMS
+              </span>
 
-            <p>
-              <strong>Nền tảng:</strong>
-              <span
-                th:text="${message.platform != null ? message.platform.displayName : ''}"
-              ></span>
-            </p>
+              <h1 class="section-title">
+                Chi tiết liên hệ
+              </h1>
 
-            <p>
-              <strong>Trạng thái:</strong>
-              <span
-                th:text="${message.processed ? 'Đã xử lý' : 'Chưa xử lý'}"
-              ></span>
-            </p>
-
-            <div>
-              <strong>Nội dung:</strong>
-              <pre th:text="${message.message}"></pre>
+              <div class="section-divider"></div>
             </div>
+
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}">
+            </p>
+
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+            </p>
+
+            <div class="contact-detail">
+
+              <div class="detail-row">
+                <span class="detail-label">ID</span>
+                <span th:text="${message.id}"></span>
+              </div>
+
+              <div class="detail-row">
+                <span class="detail-label">Người gửi</span>
+                <span th:text="${message.visitorName}"></span>
+              </div>
+
+              <div class="detail-row">
+                <span class="detail-label">Email</span>
+
+                <a class="email-link" th:href="${'mailto:' + message.visitorEmail}" th:text="${message.visitorEmail}">
+                </a>
+              </div>
+
+              <div class="detail-row">
+                <span class="detail-label">Danh mục</span>
+
+                <span th:text="${message.category != null ? message.category.displayName : ''}">
+                </span>
+              </div>
+
+              <div class="detail-row">
+                <span class="detail-label">Nền tảng</span>
+
+                <span th:text="${message.platform != null ? message.platform.displayName : ''}">
+                </span>
+              </div>
+
+              <div class="detail-row">
+                <span class="detail-label">Trạng thái</span>
+
+                <span th:if="${message.processed}" class="status-active">
+                  Đã xử lý
+                </span>
+
+                <span th:if="${!message.processed}" class="status-pending">
+                  Chưa xử lý
+                </span>
+              </div>
+
+              <div class="message-box">
+                <div class="detail-label">
+                  Nội dung
+                </div>
+
+                <pre th:text="${message.message}"></pre>
+              </div>
+
+            </div>
+
+            <div class="contact-actions">
+
+              <form th:if="${!message.processed}" th:action="@{/contact/blightmoon/{id}/process(id=${message.id})}"
+                method="post">
+
+                <button type="submit" class="btn btn-success">
+                  Đánh dấu đã xử lý
+                </button>
+
+              </form>
+
+              <a th:href="@{/contact/blightmoon/list}" class="btn btn-secondary">
+                Quay lại danh sách
+              </a>
+
+            </div>
+
           </div>
 
-          <div>
-            <form
-              th:if="${!message.processed}"
-              th:action="@{/contact/blightmoon/{id}/process(id=${message.id})}"
-              method="post"
-            >
-              <button type="submit">Đánh dấu đã xử lý</button>
-            </form>
-
-            <!-- <form
-              th:if="${message.processed}"
-              th:action="@{/contact/blightmoon/{id}/unprocess(id=${message.id})}"
-              method="post"
-            >
-              <button type="submit">Đánh dấu chưa xử lý</button>
-            </form> -->
-          </div>
-
-          <br />
-
-          <a th:href="@{/contact/blightmoon/list}">Quay lại danh sách</a>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
-  </body>
+  </div>
+
+</body>
+
 </html>

@@ -1,139 +1,112 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Danh sách tài khoản</title>
 
-    <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <title>Danh sách tài khoản</title>
 
-      th,
-      td {
-        border: 1px solid #ccc;
-        padding: 10px;
-        text-align: left;
-      }
-    </style>
-  </head>
+  <link rel="stylesheet" th:href="@{/css/account.css}" />
+</head>
 
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/admin-sidebar :: sidebar}"> </th:block>
+<body>
+  <div class="bg-image"></div>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/admin-sidebar :: sidebar}"></th:block>
 
-        <main>
-          <h1>Danh sách tài khoản</h1>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
 
-          <p
-            th:if="${successMessage}"
-            th:text="${successMessage}"
-            style="color: green"
-          ></p>
+      <main class="section-dark">
+        <div class="container-xl">
 
-          <p
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-            style="color: red"
-          ></p>
+          <div class="story-card">
 
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Họ tên</th>
-                <th>Vai trò</th>
-                <th>Trạng thái</th>
-                <th>Ngày tạo</th>
-                <!-- <th>Chi tiết</th> -->
-              </tr>
-            </thead>
+            <div class="section-header">
+              <span class="section-eyebrow">Moonblight CMS</span>
+              <h1 class="section-title">Danh sách tài khoản</h1>
+              <div class="section-divider"></div>
+            </div>
 
-            <tbody>
-              <tr th:each="account : ${accounts.content}">
-                <td th:text="${account.id}"></td>
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}">
+            </p>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+            </p>
 
-                <td th:text="${account.username}"></td>
+            <div class="table-wrapper">
+              <table class="account-table">
 
-                <td th:text="${account.email}"></td>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Họ tên</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái</th>
+                    <th>Chi tiết</th>
+                  </tr>
+                </thead>
 
-                <td th:text="${account.fullName}"></td>
+                <tbody>
+                  <tr th:each="account : ${accounts.content}">
 
-                <td th:text="${account.role}"></td>
+                    <td th:text="${account.id}"></td>
+                    <td th:text="${account.username}"></td>
+                    <td th:text="${account.email}"></td>
+                    <td th:text="${account.fullName}"></td>
+                    <td th:text="${account.role}"></td>
 
-                <td>
+                    <td>
+                      <span th:if="${account.active}" class="status-active">
+                        Đang hoạt động
+                      </span>
 
-                  <span
-                    th:if="${account.active}"
-                    style="color: green"
-                  >
-                    Đang hoạt động
-                  </span>
+                      <span th:if="${!account.active}" class="status-deleted">
+                        Đã khóa
+                      </span>
+                    </td>
 
-                  <span
-                    th:if="${!account.active}"
-                    style="color: red"
-                  >
-                    Đã khóa
-                  </span>
-                </td>
+                    <td>
+                      <a class="btn btn-secondary btn-sm" th:href="@{/admin/moonblight/account/{id}(id=${account.id})}">
+                        Xem chi tiết
+                      </a>
+                    </td>
 
-                <!-- <td th:text="${account.createdAt}"></td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-                <td>
-                  <a
-                    th:href="@{/admin/moonblight/account/{id}(id=${account.id})}"
-                  >
-                    Xem chi tiết
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <div class="pagination" th:if="${accounts.totalPages > 1}">
 
-          <br />
-
-          <div th:if="${accounts.totalPages > 1}">
-            <a
-              th:if="${!accounts.first}"
-              th:href="@{/admin/moonblight/list(page=${accounts.number - 1})}"
-            >
-              ← Trước
-            </a>
-
-            <span
-              th:each="i : ${#numbers.sequence(0, accounts.totalPages - 1)}"
-            >
-              <a
-                th:if="${i != accounts.number}"
-                th:href="@{/admin/moonblight/list(page=${i})}"
-                th:text="${i + 1}"
-              >
+              <a class="page-btn" th:if="${!accounts.first}"
+                th:href="@{/admin/moonblight/list(page=${accounts.number - 1})}">
+                ←
               </a>
 
-              <span
-                th:if="${i == accounts.number}"
-                th:text="${i + 1}"
-                style="font-weight: bold"
-              >
-              </span>
-            </span>
+              <span th:each="i : ${#numbers.sequence(0, accounts.totalPages - 1)}">
 
-            <a
-              th:if="${!accounts.last}"
-              th:href="@{/admin/moonblight/list(page=${accounts.number + 1})}"
-            >
-              Sau →
-            </a>
+                <a th:if="${i != accounts.number}" class="page-btn" th:href="@{/admin/moonblight/list(page=${i})}"
+                  th:text="${i + 1}">
+                </a>
+
+                <span th:if="${i == accounts.number}" class="page-current" th:text="${i + 1}">
+                </span>
+
+              </span>
+
+              <a class="page-btn" th:if="${!accounts.last}"
+                th:href="@{/admin/moonblight/list(page=${accounts.number + 1})}">
+                →
+              </a>
+
+            </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

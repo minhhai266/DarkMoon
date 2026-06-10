@@ -1,0 +1,226 @@
+/* ==========================================================
+   EDIT PAGE
+   ========================================================== */
+
+.story-image-preview {
+    max-width: 300px;
+
+    border: 1px solid #4a3028;
+    border-radius: 8px;
+
+    display: block;
+
+    box-shadow:
+        0 0 20px rgba(0, 0, 0, .4);
+}
+
+.textarea-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.field-error {
+    margin-top: 8px;
+
+    color: #ff8a80;
+
+    font-size: .9rem;
+}
+
+.story-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.story-actions .btn {
+    min-width: 180px;
+    justify-content: center;
+}
+
+/* ==========================================================
+   EDIT PAGE
+   ========================================================== */
+
+.story-image-preview {
+    max-width: 300px;
+
+    border: 1px solid #4a3028;
+    border-radius: 8px;
+
+    display: block;
+
+    box-shadow:
+        0 0 20px rgba(0, 0, 0, .4);
+}
+
+.textarea-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.field-error {
+    margin-top: 8px;
+
+    color: #ff8a80;
+
+    font-size: .9rem;
+}
+
+.story-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.story-actions .btn {
+    min-width: 180px;
+    justify-content: center;
+}
+/* ==========================================================
+STORY LIST
+========================================================== */
+
+.container-xl{
+max-width:1400px;
+margin:auto;
+}
+
+.top-actions{
+margin-bottom:24px;
+}
+
+.table-wrapper{
+overflow-x:auto;
+}
+
+.story-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.story-table th{
+background:#1c1410;
+color:#c4a882;
+padding:14px;
+text-transform:uppercase;
+font-size:.75rem;
+letter-spacing:.1em;
+border:1px solid #4a3028;
+}
+
+.story-table td{
+padding:14px;
+border:1px solid #4a3028;
+color:#ddd0b8;
+vertical-align:middle;
+}
+
+.story-table tr:nth-child(even){
+background:rgba(255,255,255,.02);
+}
+
+.story-table tr:hover{
+background:rgba(196,30,58,.06);
+}
+
+.table-image{
+width:120px;
+border-radius:8px;
+border:1px solid #4a3028;
+}
+
+.action-group{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.status-active{
+color:#81c784;
+font-weight:600;
+}
+
+.status-deleted{
+color:#ff8a80;
+font-weight:600;
+}
+
+.btn-sm{
+min-width:90px;
+padding:8px 12px;
+}
+
+.btn-danger{
+background:#8b0000;
+}
+
+.btn-danger:hover
+
+.btn-success{
+background:#2e7d32;
+}
+
+.btn-success:hover
+
+/* ==========================================================
+PAGINATION
+========================================================== */
+
+.pagination{
+margin-top:30px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+.page-btn,
+.page-number{
+padding:10px 14px;
+text-decoration:none;
+color:#ddd0b8;
+border:1px solid #4a3028;
+background:#1c1410;
+transition:.3s;
+}
+
+.page-btn:hover,
+.page-number:hover
+
+.page-number.active{
+background:#8b0000;
+border-color:#8b0000;
+}
+
+@media (max-width:768px) {
+
+    .story-actions {
+        flex-direction: column;
+    }
+
+    .story-actions .btn {
+        width: 100%;
+    }
+
+    .story-image-preview {
+        max-width: 100%;
+    }
+}
+
+@media (max-width:768px) {
+
+    .story-actions {
+        flex-direction: column;
+    }
+
+    .story-actions .btn {
+        width: 100%;
+    }
+
+    .story-image-preview {
+        max-width: 100%;
+    }
+}

@@ -1,130 +1,108 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Danh sách FAQ</title>
-  </head>
 
-  <body>
-    <div class="layout">
-      <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
+<head>
+  <meta charset="UTF-8" />
+  <title>Danh sách FAQ</title>
+  <link rel="stylesheet" th:href="@{/css/faq.css}">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+</head>
 
-      <div class="content-wrapper">
-        <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+<body>
+  <div class="bg-image"></div>
+  <div class="layout">
+    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
 
-        <main>
-          <h1>Danh sách FAQ</h1>
+    <div class="content-wrapper">
+      <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
 
-          <p
-            style="color: green"
-            th:if="${successMessage}"
-            th:text="${successMessage}"
-          ></p>
+      <main class="section-dark">
+        <div class="container-xl">
+          <div class="faq-card">
 
-          <p
-            style="color: red"
-            th:if="${errorMessage}"
-            th:text="${errorMessage}"
-          ></p>
+            <div class="section-header">
+              <span class="section-eyebrow"> Moonblight CMS </span>
+              <h1 class="section-title"> Danh sách FAQ </h1>
+              <div class="section-divider"></div>
+            </div>
 
-          <a th:href="@{/faq/moonblight/create}"> Tạo FAQ </a>
+            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}"></p>
+            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
-          <br />
-          <br />
+            <div class="table-header">
+              <a th:href="@{/faq/moonblight/create}" class="btn btn-primary">
+                + Tạo FAQ </a>
+            </div>
 
-          <table border="1">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Tiêu đề</th>
-                <th>Priority</th>
-                <th>Trạng thái</th>
-                <th>Hành động</th>
-              </tr>
-            </thead>
 
-            <tbody>
-              <tr th:each="faq : ${faqs.content}">
-                <td th:text="${faq.id}"></td>
+            <div class="table-wrapper">
+              <table class="faq-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Priority</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                  </tr>
+                </thead>
 
-                <td th:text="${faq.title}"></td>
+                <tbody>
+                  <tr th:each="faq : ${faqs.content}">
+                    <td th:text="${faq.id}"></td>
 
-                <td th:text="${faq.priority}"></td>
+                    <td th:text="${faq.title}"></td>
 
-                <td th:text="${faq.deleted ? 'Đã xóa' : 'Đang hiển thị'}"></td>
+                    <td th:text="${faq.priority}"></td>
 
-                <td>
-                  <form
-                    th:action="@{/faq/moonblight/{id}/edit(id=${faq.id})}"
-                    method="get"
-                  >
-                    <button type="submit">Sửa</button>
-                  </form>
+                    <td>
+                      <span th:if="${!faq.deleted}" class="status-active">
+                        Đang hiển thị </span>
+                      <span th:if="${faq.deleted}" class="status-deleted">
+                        Đã xóa </span>
+                    </td>
+                    <td>
+                      <div class="action-buttons">
+                        <form th:action="@{/faq/moonblight/{id}/edit(id=${faq.id})}" method="get">
+                          <button type="submit" class="btn btn-secondary btn-sm">
+                            Sửa </button>
+                        </form>
+                        <form th:if="${!faq.deleted}" th:action="@{/faq/moonblight/{id}/delete(id=${faq.id})}"
+                          method="post">
+                          <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Bạn có chắc muốn xóa FAQ này?');">
+                            Xóa </button>
+                        </form>
+                        <form th:if="${faq.deleted}" th:action="@{/faq/moonblight/{id}/restore(id=${faq.id})}"
+                          method="post">
+                          <button type="submit" class="btn btn-success btn-sm"
+                            onclick="return confirm('Khôi phục FAQ này?');">
+                            Khôi phục </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-                  <form
-                    th:if="${!faq.deleted}"
-                    th:action="@{/faq/moonblight/{id}/delete(id=${faq.id})}"
-                    method="post"
-                  >
-                    <button
-                      type="submit"
-                      onclick="return confirm('Bạn có chắc muốn xóa FAQ này?');"
-                    >
-                      Xóa
-                    </button>
-                  </form>
-
-                  <form
-                    th:if="${faq.deleted}"
-                    th:action="@{/faq/moonblight/{id}/restore(id=${faq.id})}"
-                    method="post"
-                  >
-                    <button
-                      type="submit"
-                      onclick="return confirm('Khôi phục FAQ này?');"
-                    >
-                      Khôi phục
-                    </button>
-                  </form>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <br />
-
-          <div th:if="${faqs.totalPages > 1}">
-            <a
-              th:if="${!faqs.first}"
-              th:href="@{/faq/moonblight/list(page=${faqs.number - 1})}"
-            >
-              ← Trước
-            </a>
-
-            <span
-              th:each="i : ${#numbers.sequence(0, faqs.totalPages - 1)}"
-            >
-              <a
-                th:if="${i != faqs.number}"
-                th:href="@{/faq/moonblight/list(page=${i})}"
-                th:text="${i + 1}"
-              ></a>
-
-              <span
-                th:if="${i == faqs.number}"
-                th:text="${i + 1}"
-                style="font-weight: bold"
-              ></span>
-            </span>
-
-            <a
-              th:if="${!faqs.last}"
-              th:href="@{/faq/moonblight/list(page=${faqs.number + 1})}"
-            >
-              Sau →
-            </a>
+            <div class="pagination" th:if="${faqs.totalPages > 1}"> 
+                <a class="page-btn" th:if="${!faqs.first}" th:href="@{/faq/moonblight/list(page=${faqs.number - 1})}">
+                ← </a>
+                <span th:each="i : ${#numbers.sequence(0, faqs.totalPages - 1)}"> 
+                  <a th:if="${i != faqs.number}" class="page-btn" th:href="@{/faq/moonblight/list(page=${i})}" th:text="${i + 1}"> </a> 
+                  <span th:if="${i == faqs.number}" class="page-current" th:text="${i + 1}"> 
+                  </span> 
+                </span> 
+                <a class="page-btn" th:if="${!faqs.last}" th:href="@{/faq/moonblight/list(page=${faqs.number + 1})}"> →
+                </a> 
+            </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
+
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
