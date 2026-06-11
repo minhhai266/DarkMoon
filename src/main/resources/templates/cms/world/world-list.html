@@ -5,22 +5,25 @@
 <head>
   <meta charset="UTF-8" />
   <title>Danh sách thế giới</title>
+    <link rel="stylesheet" th:href="@{/css/world/world.css}">
+
 </head>
 
 <body>
   <div class="bg-image"></div>
+        <div th:replace="~{cms/fragments/header :: header}"></div>
+
   <div class="layout">
-    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"></th:block>
+    <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
 
     <div class="content-wrapper">
-      <th:block th:replace="~{cms/fragments/header :: header}"></th:block>
 
       <main class="section section-dark">
         <div class="bg-image"></div>
 
-        <div class="container-sm">
+        <div class="container-xl">
 
-          <div class="world-create-card">
+          <div class="world-card">
             <div class="section-header">
               <span class="section-eyebrow">Moonblight CMS</span>
               <h1 class="section-title">Danh Sách Thế Giới</h1>

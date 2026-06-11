@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <title>Tạo Nhân Vật</title>
 
-  <link rel="stylesheet" th:href="@{/css/character.css}">
+  <link rel="stylesheet" th:href="@{/css/character/character.css}" />
 
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 
@@ -15,15 +15,13 @@
 <body>
 
   <div class="bg-image"></div>
+        <div th:replace="~{cms/fragments/header :: header}"></div>
 
   <div class="layout">
-    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}">
-    </th:block>
+        <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
 
     <div class="content-wrapper">
 
-      <th:block th:replace="~{cms/fragments/header :: header}">
-      </th:block>
 
       <main class="section-dark">
 

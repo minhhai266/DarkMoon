@@ -7,21 +7,22 @@
   <title>Cập nhật thế giới</title>
   <!-- outer css -->
   <!-- 1. Nhúng CSS & JS của Quill -->
-  <link th:href="@{/css/world.css}" rel="stylesheet" />
+  <link th:href="@{/css/world/world.css}" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 </head>
 
 <body>
   <div class="bg-image"></div>
+          <div th:replace="~{cms/fragments/header :: header}"></div>
+
   <div class="layout">
-    <th:block th:replace="~{cms/fragments/sidebar :: sidebar}"> </th:block>
 
     <div class="content-wrapper">
-      <th:block th:replace="~{cms/fragments/header :: header}"> </th:block>
+    <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
 
       <main class="section section-dark">
-        <div class="container-sm">
+        <div class="container-xl">
 
           <div class="world-create-card">
             <div class="section-header">

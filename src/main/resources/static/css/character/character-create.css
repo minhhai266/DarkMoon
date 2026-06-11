@@ -1,0 +1,112 @@
+/* ==========================================================
+CREATE CHARACTER PAGE
+========================================================== */
+
+.character-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+/* ==========================================================
+VALIDATION ERRORS
+========================================================== */
+
+.field-error {
+    margin-top: .35rem;
+    padding-left: .25rem;
+
+    color: #ff8a80;
+    font-size: .8rem;
+
+    border-left: 2px solid #b71c1c;
+}
+
+.form-control:invalid {
+    box-shadow: none;
+}
+
+.form-control.error {
+    border-color: #b71c1c;
+}
+
+/* ==========================================================
+QUILL EDITOR
+========================================================== */
+
+.character-editor {
+    min-height: 320px;
+    background: rgba(10, 8, 7, .9);
+    border: 1px solid var(--border-mid);
+}
+
+.ql-toolbar {
+    background: rgba(28, 20, 16, .95) !important;
+    border: 1px solid var(--border-mid) !important;
+}
+
+.ql-container {
+    border: 1px solid var(--border-mid) !important;
+    background: rgba(10, 8, 7, .9);
+    color: var(--cream);
+}
+
+.ql-editor {
+    min-height: 280px;
+    color: var(--cream);
+    line-height: 1.7;
+    font-size: .95rem;
+}
+
+.ql-editor.ql-blank::before {
+    color: var(--mid-grey);
+    font-style: italic;
+}
+
+/* ==========================================================
+ACTIONS
+========================================================== */
+
+.character-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================
+FILE INPUT
+========================================================== */
+
+.file-input {
+    padding: .75rem;
+    background: rgba(10, 8, 7, .75);
+    border: 1px solid var(--border-mid);
+    color: var(--mid-grey);
+    transition: .25s ease;
+}
+
+.file-input:hover {
+    border-color: var(--amber);
+}
+
+/* ==========================================================
+RESPONSIVE
+========================================================== */
+
+@media (max-width: 768px) {
+
+    .character-actions {
+        flex-direction: column;
+    }
+
+    .character-actions .btn {
+        width: 100%;
+    }
+
+    .character-editor {
+        min-height: 250px;
+    }
+}

@@ -1,0 +1,319 @@
+@import "../dashboard-user.css";
+@import "character-create.css";
+@import "character-edit.css";
+
+
+.table-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.75rem 1.25rem;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    transition: all 0.25s ease;
+}
+
+.btn-primary {
+    color: var(--cream);
+
+    background: linear-gradient(
+        180deg,
+        rgba(196, 30, 58, .25),
+        rgba(139, 0, 0, .2)
+    );
+
+    border: 1px solid var(--crimson);
+
+    box-shadow:
+        0 0 12px rgba(196, 30, 58, .15);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+
+    background: linear-gradient(
+        180deg,
+        rgba(196, 30, 58, .4),
+        rgba(139, 0, 0, .35)
+    );
+
+    box-shadow:
+        0 0 20px rgba(196, 30, 58, .3);
+}
+/* ==========================================================
+CHARACTER LIST PAGE
+========================================================== */
+
+.character-card {
+    background: linear-gradient(180deg,
+            rgba(28, 20, 16, .96),
+            rgba(8, 6, 4, .98));
+    border: 1px solid var(--border-dark);
+    padding: 2rem;
+    box-shadow: 0 0 35px rgba(0, 0, 0, .65);
+    position: relative;
+    overflow: hidden;
+}
+
+.character-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--crimson),
+            transparent);
+}
+
+/* ==========================================================
+TABLE HEADER
+========================================================== */
+
+.table-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+/* ==========================================================
+TABLE
+========================================================== */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.character-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.character-table thead {
+    background: rgba(0, 0, 0, .4);
+}
+
+.character-table th {
+    text-align: left;
+    padding: 1rem;
+    font-size: .75rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--parchment);
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.character-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(74, 48, 40, .4);
+    color: var(--cream);
+    vertical-align: middle;
+}
+
+.character-table tbody tr {
+    transition: .25s ease;
+}
+
+.character-table tbody tr:hover {
+    background: rgba(196, 30, 58, .05);
+}
+
+/* ==========================================================
+IMAGE
+========================================================== */
+
+.table-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border: 1px solid var(--border-mid);
+    box-shadow: 0 0 12px rgba(0, 0, 0, .5);
+    transition: .25s ease;
+}
+
+.table-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(196, 30, 58, .2);
+}
+
+/* ==========================================================
+STATUS
+========================================================== */
+
+.status-active {
+    color: #81c784;
+    font-weight: 600;
+}
+
+.status-deleted {
+    color: #ff8a80;
+    font-weight: 600;
+}
+
+/* ==========================================================
+ACTION BUTTONS
+========================================================== */
+
+.action-buttons {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.btn-sm {
+    padding: .45rem .75rem;
+    font-size: .65rem;
+}
+
+.btn-success {
+    border-color: #2e7d32;
+    color: #81c784;
+}
+
+.btn-success:hover {
+    border-color: #4caf50;
+    box-shadow: 0 0 18px rgba(76, 175, 80, .25);
+}
+
+.btn-danger {
+    border-color: #b71c1c;
+    color: #ff8a80;
+}
+
+.btn-danger:hover {
+    box-shadow: 0 0 18px rgba(183, 28, 28, .25);
+}
+
+.btn-secondary {
+    border-color: var(--amber);
+    color: var(--amber);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 0 18px var(--glow-amber);
+}
+
+/* ==========================================================
+PAGINATION
+========================================================== */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .75rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    min-width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    color: var(--cream);
+
+    border: 1px solid var(--border-mid);
+
+    transition: .25s ease;
+}
+
+.page-btn:hover {
+    border-color: var(--crimson);
+    box-shadow: 0 0 12px rgba(196, 30, 58, .25);
+}
+
+.page-current {
+    min-width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--crimson);
+
+    color: white;
+
+    background: rgba(196, 30, 58, .15);
+
+    box-shadow: 0 0 15px rgba(196, 30, 58, .2);
+}
+
+/* ==========================================================
+MESSAGES
+========================================================== */
+
+.success-message,
+.error-message {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.success-message {
+    color: #81c784;
+    background: rgba(129, 199, 132, .08);
+    border: 1px solid rgba(129, 199, 132, .2);
+}
+
+.error-message {
+    color: #ff8a80;
+    background: rgba(255, 138, 128, .08);
+    border: 1px solid rgba(255, 138, 128, .2);
+}
+
+/* ==========================================================
+RESPONSIVE
+========================================================== */
+
+@media (max-width: 900px) {
+    .character-card {
+        padding: 1.5rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .character-card {
+        padding: 1rem;
+    }
+
+    .table-image {
+        width: 55px;
+        height: 55px;
+    }
+
+    .table-header {
+        justify-content: stretch;
+    }
+
+    .table-header .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,189 @@
+/* ==========================================================
+CREATE WORLD PAGE - FORM STYLES
+========================================================== */
+
+.section-dark {
+    position: relative;
+    padding: 2rem 0;
+}
+
+/* ==========================================================
+FORM CARD (reuse world-card nhưng tối ưu form spacing)
+========================================================== */
+
+.world-card {
+    background: linear-gradient(180deg,
+            rgba(28, 20, 16, .96),
+            rgba(8, 6, 4, .98));
+    border: 1px solid var(--border-dark);
+    padding: 2.5rem;
+    box-shadow: 0 0 35px rgba(0, 0, 0, .65);
+    position: relative;
+    overflow: hidden;
+}
+
+.world-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+}
+
+/* ==========================================================
+FORM LAYOUT
+========================================================== */
+
+.world-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.form-label {
+    font-size: .75rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--parchment);
+}
+
+/* ==========================================================
+INPUTS
+========================================================== */
+
+.form-control {
+    padding: .8rem 1rem;
+    background: rgba(10, 8, 7, .8);
+    border: 1px solid var(--border-mid);
+    color: var(--cream);
+    font-size: .9rem;
+    outline: none;
+    transition: .25s ease;
+}
+
+.form-control:focus {
+    border-color: var(--crimson);
+    box-shadow: 0 0 18px rgba(196, 30, 58, .15);
+}
+
+.file-input {
+    padding: .6rem;
+    background: rgba(10, 8, 7, .6);
+    border: 1px solid var(--border-mid);
+    color: var(--mid-grey);
+}
+
+/* ==========================================================
+QUILL EDITOR
+========================================================== */
+
+.world-editor {
+    min-height: 300px;
+    background: rgba(10, 8, 7, .85);
+    border: 1px solid var(--border-mid);
+    color: var(--cream);
+}
+
+.ql-toolbar {
+    background: rgba(28, 20, 16, .95) !important;
+    border: 1px solid var(--border-mid) !important;
+}
+
+.ql-toolbar button,
+.ql-toolbar .ql-picker {
+    color: var(--cream) !important;
+}
+
+.ql-container {
+    border: 1px solid var(--border-mid) !important;
+    background: rgba(10, 8, 7, .9);
+    color: var(--cream);
+    min-height: 250px;
+}
+
+.ql-editor {
+    min-height: 250px;
+    color: var(--cream);
+    font-size: .95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================
+ACTIONS
+========================================================== */
+
+.world-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================
+BUTTONS (ensure consistency if not loaded from list page)
+========================================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .65rem 1.2rem;
+    font-size: .75rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: 1px solid var(--border-mid);
+    cursor: pointer;
+    text-decoration: none;
+    transition: .25s ease;
+    background: linear-gradient(180deg,
+            rgba(28, 20, 16, .9),
+            rgba(10, 8, 7, .95));
+    color: var(--cream);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--crimson);
+    box-shadow: 0 0 18px rgba(196, 30, 58, .25);
+    color: #fff;
+}
+
+.btn-primary {
+    border-color: var(--crimson);
+}
+
+.btn-secondary {
+    border-color: var(--amber);
+    color: var(--amber);
+}
+
+/* ==========================================================
+RESPONSIVE
+========================================================== */
+
+@media (max-width: 768px) {
+    .world-card {
+        padding: 1.5rem;
+        
+    }
+
+    .world-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

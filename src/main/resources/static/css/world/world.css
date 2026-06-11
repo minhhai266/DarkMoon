@@ -1,0 +1,236 @@
+@import "../dashboard-user.css";
+@import "world-create.css";
+@import "world-edit.css";
+/* ==========================================================
+WORLD LIST PAGE (MISSING STYLES)
+========================================================== */
+
+.world-card {
+    background: linear-gradient(180deg,
+            rgba(28, 20, 16, .96),
+            rgba(8, 6, 4, .98));
+    border: 1px solid var(--border-dark);
+    padding: 2rem;
+    box-shadow: 0 0 35px rgba(0, 0, 0, .6);
+    position: relative;
+    overflow: hidden;
+}
+
+.world-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+}
+
+/* ==========================================================
+MESSAGES (match Thymeleaf class names)
+========================================================== */
+
+.success-message,
+.error-message {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: 2px;
+    font-size: .9rem;
+}
+
+.success-message {
+    color: #81c784;
+    background: rgba(129, 199, 132, .08);
+    border: 1px solid rgba(129, 199, 132, .2);
+}
+
+.error-message {
+    color: #ff8a80;
+    background: rgba(255, 138, 128, .08);
+    border: 1px solid rgba(255, 138, 128, .2);
+}
+
+/* ==========================================================
+BUTTONS
+========================================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .65rem 1.1rem;
+    font-size: .75rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: 1px solid var(--border-mid);
+    cursor: pointer;
+    text-decoration: none;
+    transition: .25s ease;
+    background: linear-gradient(180deg,
+            rgba(28, 20, 16, .9),
+            rgba(10, 8, 7, .95));
+    color: var(--cream);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--crimson);
+    box-shadow: 0 0 18px rgba(196, 30, 58, .25);
+    color: #fff;
+}
+
+.btn-primary {
+    border-color: var(--crimson);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 22px var(--glow-red);
+}
+
+.btn-danger {
+    border-color: #b71c1c;
+    color: #ff8a80;
+}
+
+.btn-danger:hover {
+    background: rgba(183, 28, 28, .2);
+    box-shadow: 0 0 18px rgba(183, 28, 28, .25);
+}
+
+.btn-secondary {
+    border-color: var(--amber);
+    color: var(--amber);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 0 18px var(--glow-amber);
+}
+
+.btn-small {
+    padding: .45rem .8rem;
+    font-size: .65rem;
+}
+
+/* ==========================================================
+LIST ACTIONS
+========================================================== */
+
+.list-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+/* ==========================================================
+TABLE
+========================================================== */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.world-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.world-table thead {
+    background: rgba(0, 0, 0, .4);
+}
+
+.world-table th {
+    text-align: left;
+    padding: 1rem;
+    font-size: .75rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--parchment);
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.world-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(74, 48, 40, .4);
+    color: var(--cream);
+    font-size: .9rem;
+}
+
+.world-table tbody tr {
+    transition: .2s ease;
+}
+
+.world-table tbody tr:hover {
+    background: rgba(196, 30, 58, .05);
+}
+
+/* ==========================================================
+IMAGE THUMB
+========================================================== */
+
+.world-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 1px solid var(--border-mid);
+    box-shadow: 0 0 12px rgba(0, 0, 0, .5);
+}
+
+/* ==========================================================
+STATUS
+========================================================== */
+
+.status-active {
+    color: #81c784;
+    font-weight: 600;
+}
+
+.status-deleted {
+    color: #ff8a80;
+    font-weight: 600;
+    opacity: .85;
+}
+
+/* ==========================================================
+ACTIONS GROUP
+========================================================== */
+
+.action-group {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================
+PAGINATION
+========================================================== */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .75rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.pagination a {
+    padding: .4rem .7rem;
+    border: 1px solid var(--border-mid);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: .75rem;
+    transition: .2s ease;
+}
+
+.pagination a:hover {
+    border-color: var(--crimson);
+    box-shadow: 0 0 12px rgba(196, 30, 58, .2);
+}
+
+.pagination span {
+    font-size: .85rem;
+    color: var(--parchment);
+}
