@@ -34,36 +34,36 @@
     </p>
 
     <!-- FORM -->
-    <form th:action="@{/user/moonblight/register}" method="post">
+    <form th:action="@{/user/moonblight/register}" method="post" th:object="${registerRequest}">
 
       <!-- USERNAME -->
       <div class="register-group">
         <label>Username</label>
-        <input type="text" name="username" minlength="3" maxlength="30" required>
+        <input type="text" th:field="*{username}" minlength="3" maxlength="30" required>
       </div>
 
       <!-- EMAIL -->
       <div class="register-group">
         <label>Email</label>
-        <input type="email" name="email" maxlength="255" required>
+        <input type="email" th:field="*{email}" maxlength="255" required>
       </div>
 
       <!-- FULL NAME -->
       <div class="register-group">
         <label>Họ và tên</label>
-        <input type="text" name="fullName" maxlength="255" required>
+        <input type="text" th:field="*{fullName}" maxlength="255" required>
       </div>
 
       <!-- PASSWORD -->
       <div class="register-group">
         <label>Mật khẩu</label>
-        <input type="password" name="password" minlength="8" required>
+        <input type="password" th:field="*{password}" minlength="8" required>
       </div>
 
       <!-- RE PASSWORD -->
       <div class="register-group">
         <label>Nhập lại mật khẩu</label>
-        <input type="password" name="rePassword" required>
+        <input type="password" th:field="*{rePassword}" required>
       </div>
 
       <button class="register-btn" type="submit">

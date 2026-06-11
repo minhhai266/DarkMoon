@@ -122,7 +122,11 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public StoryResponse getStoryDeletedFalseHighestPriority() {
-        return StoryResponse.fromEntity(storyRepository.findTopByDeletedFalseOrderByPriorityDesc());
+        Story story = storyRepository.findTopByDeletedFalseOrderByPriorityDesc();
+        if(story == null){
+            return null;
+        }
+        return StoryResponse.fromEntity(story);
     }
 
     @Override

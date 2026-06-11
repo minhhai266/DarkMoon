@@ -119,7 +119,14 @@ public class WorldServiceImpl implements WorldService {
 
     @Override
     public WorldResponse getWorldDeletedFalseHighestPriority() {
-        return WorldResponse.fromEntity(worldRepository.findTopByDeletedFalseOrderByPriorityDesc());
+        World world = worldRepository
+                .findTopByDeletedFalseOrderByPriorityDesc();
+
+        if (world == null) {
+            return null;
+        }
+
+        return WorldResponse.fromEntity(world);
     }
 
     @Override

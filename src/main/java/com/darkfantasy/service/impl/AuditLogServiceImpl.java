@@ -34,7 +34,7 @@ public class AuditLogServiceImpl implements AuditLogService {
 
         String username = SecurityUtil.getCurrentUserName();
 
-        if (username == null) {
+        if (username == null || "anonymousUser".equals(username)) {
             return;
         }
 

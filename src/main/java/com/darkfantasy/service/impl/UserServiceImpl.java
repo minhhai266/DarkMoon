@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
                 request.toEntity(hashPassword));
         auditLogService.log(
                 LogEntityType.USER,
-                savedUser.getId(),
+                null,
                 LogAction.CREATE,
                 "Đăng kí: " + savedUser.getUsername());
     }
