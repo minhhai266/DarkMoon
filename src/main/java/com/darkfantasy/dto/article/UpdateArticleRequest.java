@@ -1,6 +1,5 @@
 package com.darkfantasy.dto.article;
 
-import com.darkfantasy.entity.Article;
 import com.darkfantasy.entity.enums.ArticleType;
 
 import jakarta.validation.constraints.NotBlank;

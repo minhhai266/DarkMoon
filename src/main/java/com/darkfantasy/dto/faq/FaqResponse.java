@@ -1,7 +1,5 @@
 package com.darkfantasy.dto.faq;
 
-import com.darkfantasy.dto.article.ArticleResponse;
-import com.darkfantasy.entity.Article;
 import com.darkfantasy.entity.Faq;
 
 import lombok.AllArgsConstructor;
