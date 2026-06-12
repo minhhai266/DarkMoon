@@ -75,7 +75,7 @@
                       </span>
 
                       <span th:if="${world.deleted}" class="status-deleted">
-                        Đã xóa
+                        Đang ẩn
                       </span>
                     </td>
                     <td>
@@ -90,7 +90,7 @@
                         <form th:if="${!world.deleted}" th:action="@{/world/moonblight/{id}/delete(id=${world.id})}"
                           method="post">
                           <button class="btn btn-danger btn-small">
-                            Xóa
+                            Ẩn
                           </button>
                         </form>
 

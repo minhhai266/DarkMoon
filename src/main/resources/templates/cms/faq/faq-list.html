@@ -60,7 +60,7 @@
                       <span th:if="${!faq.deleted}" class="status-active">
                         Đang hiển thị </span>
                       <span th:if="${faq.deleted}" class="status-deleted">
-                        Đã xóa </span>
+                        Đang ẩn </span>
                     </td>
                     <td>
                       <div class="action-buttons">
@@ -71,8 +71,8 @@
                         <form th:if="${!faq.deleted}" th:action="@{/faq/moonblight/{id}/delete(id=${faq.id})}"
                           method="post">
                           <button type="submit" class="btn btn-danger btn-sm"
-                            onclick="return confirm('Bạn có chắc muốn xóa FAQ này?');">
-                            Xóa </button>
+                            onclick="return confirm('Bạn có chắc muốn ẩn FAQ này?');">
+                            Ẩn </button>
                         </form>
                         <form th:if="${faq.deleted}" th:action="@{/faq/moonblight/{id}/restore(id=${faq.id})}"
                           method="post">

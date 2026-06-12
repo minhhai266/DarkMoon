@@ -67,7 +67,7 @@
 
                     <td>
                       <span th:if="${!story.deleted}" class="status-active"> Đang hiển thị </span>
-                      <span th:if="${story.deleted}" class="status-deleted"> Đã ẩn </span>
+                      <span th:if="${story.deleted}" class="status-deleted"> Đang ẩn </span>
                     </td>
 
                     <td>
@@ -79,7 +79,7 @@
 
                         <form th:if="${!story.deleted}" th:action="@{/story/moonblight/{id}/delete(id=${story.id})}"
                           method="post">
-                          <button type="submit" class="btn btn-danger btn-sm"> Xóa </button>
+                          <button type="submit" class="btn btn-danger btn-sm"> Ẩn </button>
                         </form>
 
                         <form th:if="${story.deleted}" th:action="@{/story/moonblight/{id}/restore(id=${story.id})}"
