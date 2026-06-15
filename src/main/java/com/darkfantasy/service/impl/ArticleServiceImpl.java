@@ -94,7 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = findArticle(articleId);
         article.setDeleted(true);
         article.setUpdatedBy(currentUser);
-                auditLogService.log(
+        auditLogService.log(
                 LogEntityType.ARTICLE,
                 article.getId(),
                 LogAction.DELETE,
@@ -148,7 +148,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = findArticle(articleId);
         article.setDeleted(false);
         article.setUpdatedBy(currentUser);
-                auditLogService.log(
+        auditLogService.log(
                 LogEntityType.ARTICLE,
                 article.getId(),
                 LogAction.RESTORE,
@@ -189,5 +189,14 @@ public class ArticleServiceImpl implements ArticleService {
         return userRepository
                 .findUserByUsername(currentUsername)
                 .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy người dùng"));
+    }
+
+    @Override
+    public ArticleResponse getPublicArticleById(Long id) {
+        Article article = articleRepository
+                .findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy bài viết"));
+
+        return ArticleResponse.fromEntity(article);
     }
 }

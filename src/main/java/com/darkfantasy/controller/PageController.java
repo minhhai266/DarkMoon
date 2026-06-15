@@ -135,7 +135,7 @@ public class PageController {
     @GetMapping("news/{id}")
     public String newsDetail(@PathVariable("id") Long id,
             Model model) {
-        model.addAttribute("article", articleService.getArticleById(id));
+        model.addAttribute("article", articleService.getPublicArticleById(id));
         model.addAttribute("articles", articleService.getLatestArticlesExcept(id, 3));
         return "forward:/WEB-INF/views/news/newDetail.jsp";
     }
