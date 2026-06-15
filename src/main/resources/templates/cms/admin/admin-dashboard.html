@@ -1,111 +1,52 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard Quản trị</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Dashboard Quản trị</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+  </head>
 
-  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
-</head>
+  <body>
+    <div class="bg-image"></div>
+    <div th:replace="~{cms/fragments/header :: header}"></div>
+    <div class="layout">
+      <div th:replace="~{cms/fragments/admin-sidebar :: sidebar}"></div>
 
-<body>
-  <div class="bg-image"></div>
-  <div th:replace="~{cms/fragments/header :: header}"></div>
-  <div class="layout">
-    <div th:replace="~{cms/fragments/admin-sidebar :: sidebar}"></div>
+      <div class="content-wrapper">
+        <main class="section-dark">
+          <div class="container-xl">
+            <div class="story-card">
+              <div class="section-header">
+                <span class="section-eyebrow"> Moonblight CMS </span>
 
+                <h1 class="section-title">Dashboard Quản Trị</h1>
 
-    <div class="content-wrapper">
-
-      <main class="section-dark">
-        <div class="container-xl">
-
-          <div class="story-card">
-
-            <div class="section-header">
-              <span class="section-eyebrow">
-                Moonblight CMS
-              </span>
-
-              <h1 class="section-title">
-                Dashboard Quản Trị
-              </h1>
-
-              <div class="section-divider"></div>
-            </div>
-
-            <!-- STATS -->
-
-            <div class="stats-grid">
-
-              <div class="stat-card">
-                <span class="stat-label">Tổng tài khoản</span>
-                <h2 th:text="${totalUsers}">0</h2>
+                <div class="section-divider"></div>
               </div>
 
-              <div class="stat-card active">
-                <span class="stat-label">Đang hoạt động</span>
-                <h2 th:text="${activeUsers}">0</h2>
-              </div>
+              <!-- STATS -->
 
-              <div class="stat-card pending">
-                <span class="stat-label">Chờ duyệt</span>
-                <h2 th:text="${inActiveUsers}">0</h2>
-              </div>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <span class="stat-label">Tổng tài khoản</span>
+                  <h2 th:text="${totalUsers}">0</h2>
+                </div>
 
-            </div>
+                <div class="stat-card active">
+                  <span class="stat-label">Đang hoạt động</span>
+                  <h2 th:text="${activeUsers}">0</h2>
+                </div>
 
-            <!-- PENDING USERS -->
-
-            <div class="table-section">
-
-              <h2 class="table-title">
-                Tài khoản chờ duyệt
-              </h2>
-
-              <div class="table-wrapper">
-
-                <table class="dashboard-table">
-
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Username</th>
-                      <th>Email</th>
-                      <th>Họ tên</th>
-                      <th>Chi tiết</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-
-                    <tr th:if="${#lists.isEmpty(pendingAccounts)}">
-                      <td colspan="5" class="empty-state">
-                        Không có tài khoản nào chờ duyệt
-                      </td>
-                    </tr>
-
-                    <tr th:each="account : ${pendingAccounts}">
-                      <td th:text="${account.id}"></td>
-                      <td th:text="${account.username}"></td>
-                      <td th:text="${account.email}"></td>
-                      <td th:text="${account.fullName}"></td>
-                      <td>
-                        <a class="btn btn-secondary" th:href="@{/admin/moonblight/account/{id}(id=${account.id})}">
-                          Xem
-                        </a>
-                      </td>
-                    </tr>
-
-                  </tbody>
-                </table>
+                <div class="stat-card pending">
+                  <span class="stat-label">Chờ duyệt</span>
+                  <h2 th:text="${inActiveUsers}">0</h2>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>
