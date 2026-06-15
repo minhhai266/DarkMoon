@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.darkfantasy.constant.CmsMenu;
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.dto.story.CreateStoryRequest;
 import com.darkfantasy.dto.story.StoryResponse;
 import com.darkfantasy.dto.story.UpdateStoryRequest;
@@ -26,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/story/moonblight/")
+@RequestMapping(Routes.STORY + "/")
 public class StoryController {
     private final StoryService storyService;
     private final FileStorageService fileStorageService;

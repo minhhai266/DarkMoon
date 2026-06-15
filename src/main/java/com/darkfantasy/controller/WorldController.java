@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.darkfantasy.constant.CmsMenu;
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.dto.world.CreateWorldRequest;
 import com.darkfantasy.dto.world.UpdateWorldRequest;
 import com.darkfantasy.dto.world.WorldResponse;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/world/moonblight/")
+@RequestMapping(Routes.WORLD + "/")
 public class WorldController {
     private final WorldService worldService;
     private final FileStorageService fileStorageService;

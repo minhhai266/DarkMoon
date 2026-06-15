@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.darkfantasy.constant.CmsMenu;
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.dto.gamecharacter.CreateGameCharacterRequest;
 import com.darkfantasy.dto.gamecharacter.GameCharacterResponse;
 import com.darkfantasy.dto.gamecharacter.UpdateGameCharacterRequest;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@RequestMapping("/character/moonblight/")
+@RequestMapping(Routes.CHARACTER + "/")
 @RequiredArgsConstructor
 public class GameCharacterController {
     private final GameCharacterService gameCharacterService;

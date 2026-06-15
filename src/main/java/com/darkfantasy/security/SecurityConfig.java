@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.entity.enums.Role;
 
 @Configuration
@@ -27,18 +28,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/moonblight/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers(Routes.ADMIN + "/**").hasRole(Role.ADMIN.name())
                         .requestMatchers(
-                                "/dashboard/moonblight/**",
-                                "/article/moonblight/**",   
-                                "/character/moonblight/**",
-                                "/world/moonblight/**",
-                                "/story/moonblight/**",
-                                "/faq/moonblight/**",
-                                "/contact/moonblight/**")
+                                Routes.DASHBOARD + "/**",
+                                Routes.ARTICLE + "/**",
+                                Routes.CHARACTER + "/**",
+                                Routes.WORLD + "/**",
+                                Routes.STORY + "/**",
+                                Routes.FAQ + "/**",
+                                Routes.CONTACT + "/**")
                         .hasRole(Role.STAFF.name())
                         .anyRequest().permitAll());
-                // .csrf(csrf -> csrf.disable());
+        // .csrf(csrf -> csrf.disable());
         return http.build();
     }
 

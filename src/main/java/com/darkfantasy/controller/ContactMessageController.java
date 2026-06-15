@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.darkfantasy.constant.CmsMenu;
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.service.ContactMessageService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/contact/blightmoon/")
+@RequestMapping(Routes.CONTACT + "/")
 public class ContactMessageController {
     private final ContactMessageService contactMessageService;
 

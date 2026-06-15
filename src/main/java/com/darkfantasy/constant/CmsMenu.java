@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CmsMenu {
+public final class CmsMenu {
     public static final String DASHBOARD = "dashboard";
 
     public static final String ARTICLE = "article";

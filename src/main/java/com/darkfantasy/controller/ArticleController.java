@@ -2,7 +2,6 @@ package com.darkfantasy.controller;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.darkfantasy.constant.CmsMenu;
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.dto.article.ArticleResponse;
 import com.darkfantasy.dto.article.CreateArticleRequest;
 import com.darkfantasy.dto.article.UpdateArticleRequest;
@@ -27,7 +27,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/article/moonblight/")
+@RequestMapping(Routes.ARTICLE + "/")
 @RequiredArgsConstructor
 public class ArticleController {
 
@@ -139,7 +139,6 @@ public class ArticleController {
         ArticleResponse article = articleService.getArticleById(id);
 
         model.addAttribute("article", article);
-        
 
         return "cms/article/article-edit";
     }

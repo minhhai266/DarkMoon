@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.dto.user.UserResponse;
 import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.UserService;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin/moonblight/")
+@RequestMapping(Routes.ADMIN + "/")
 public class AdminController {
         private final AuditLogService auditLogService;
         private final UserService userService;

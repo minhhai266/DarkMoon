@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.dto.user.ChangePasswordRequest;
 import com.darkfantasy.dto.user.ForgotPasswordRequest;
 import com.darkfantasy.dto.user.LoginRequest;
@@ -41,7 +42,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/user/moonblight/")
+@RequestMapping(Routes.USER + "/")
 public class UserController {
     private final UserService userService;
     private final AuditLogService auditLogService;

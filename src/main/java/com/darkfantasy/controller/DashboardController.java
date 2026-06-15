@@ -2,10 +2,12 @@ package com.darkfantasy.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.RouteMatcher.Route;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.darkfantasy.constant.CmsMenu;
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.service.ArticleService;
 import com.darkfantasy.service.ContactMessageService;
 import com.darkfantasy.service.FaqService;
@@ -17,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/dashboard/moonblight")
+@RequestMapping(Routes.DASHBOARD)
 
 public class DashboardController {
     private final ArticleService articleService;
@@ -27,7 +29,7 @@ public class DashboardController {
     private final FaqService faqService;
     private final ContactMessageService contactMessageService;
 
-    @GetMapping
+    @GetMapping({"","/"})
     public String toDashboard(Model model) {
         model.addAttribute("activeMenu", CmsMenu.DASHBOARD);
 

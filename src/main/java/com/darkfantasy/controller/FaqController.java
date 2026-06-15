@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.darkfantasy.constant.CmsMenu;
+import com.darkfantasy.constant.Routes;
 import com.darkfantasy.dto.faq.CreateFaqRequest;
 import com.darkfantasy.dto.faq.FaqResponse;
 import com.darkfantasy.dto.faq.UpdateFaqRequest;
@@ -23,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/faq/moonblight/")
+@RequestMapping(Routes.FAQ + "/")
 public class FaqController {
     private final FaqService faqService;
 
