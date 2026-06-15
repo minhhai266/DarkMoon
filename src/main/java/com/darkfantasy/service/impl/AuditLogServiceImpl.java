@@ -3,6 +3,7 @@ package com.darkfantasy.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.darkfantasy.dto.log.AuditLogResponse;
@@ -61,4 +62,23 @@ public class AuditLogServiceImpl implements AuditLogService {
                 .map(AuditLogResponse::fromEntity);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void logAuthenticated(
+            User user,
+            LogEntityType entityType,
+            Long entityId,
+            LogAction action,
+            String description) {
+
+        AuditLog log = AuditLog.builder()
+                .user(user)
+                .entityType(entityType)
+                .entityId(entityId)
+                .action(action)
+                .description(description)
+                .build();
+
+        auditLogRepository.save(log);
+    }
 }
