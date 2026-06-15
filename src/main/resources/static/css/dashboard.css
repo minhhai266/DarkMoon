@@ -37,6 +37,7 @@ body {
     color: var(--cream);
     font-family: 'Crimson Text', serif;
     overflow-x: hidden;
+    margin: 10px;
 }
 
 /* =========================

@@ -5,34 +5,34 @@ DASHBOARD - MOON BLIGHT CMS
 ========================================================== */
 
 :root {
---blood-red: #8B0000;
---crimson: #C41E3A;
---deep-red: #4A0808;
+    --blood-red: #8B0000;
+    --crimson: #C41E3A;
+    --deep-red: #4A0808;
 
 
---black-coal: #080604;
---dark-bg: #0D0A07;
---dark-surface: #160E0A;
---dark-card: #1C1410;
+    --black-coal: #080604;
+    --dark-bg: #0D0A07;
+    --dark-surface: #160E0A;
+    --dark-card: #1C1410;
 
---burnt-orange: #A84800;
---amber: #C8720A;
+    --burnt-orange: #A84800;
+    --amber: #C8720A;
 
---ash-grey: #4A4240;
---mid-grey: #8F7E76;
+    --ash-grey: #4A4240;
+    --mid-grey: #8F7E76;
 
---light-grey: #C8C1BC;
---parchment: #C4A882;
---cream: #DDD0B8;
+    --light-grey: #C8C1BC;
+    --parchment: #C4A882;
+    --cream: #DDD0B8;
 
---gold: #C9A44C;
+    --gold: #C9A44C;
 
---border-dark: #2E201A;
---border-mid: #4A3028;
+    --border-dark: #2E201A;
+    --border-mid: #4A3028;
 
---shadow-red: rgba(139, 0, 0, .25);
---glow-red: rgba(196, 30, 58, .4);
---glow-amber: rgba(200, 114, 10, .35);
+    --shadow-red: rgba(139, 0, 0, .25);
+    --glow-red: rgba(196, 30, 58, .4);
+    --glow-amber: rgba(200, 114, 10, .35);
 
 
 }
@@ -42,20 +42,20 @@ BASE
 ========================================================== */
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-background: var(--black-coal);
-color: var(--cream);
+    background: var(--black-coal);
+    color: var(--cream);
 
 
-font-family: "Crimson Text", serif;
+    font-family: "Crimson Text", serif;
 
-overflow-x: hidden;
-
+    overflow-x: hidden;
+    margin: 10px;
 }
 
 /* ==========================================================
@@ -63,38 +63,32 @@ BACKGROUND
 ========================================================== */
 
 .bg-image {
-position: fixed;
-inset: 0;
+    position: fixed;
+    inset: 0;
 
-background:
-    linear-gradient(
-        rgba(0, 0, 0, .45),
-        rgba(0, 0, 0, .65)
-    ),
-    url("/img/back.png") center/cover no-repeat;
+    background:
+        linear-gradient(rgba(0, 0, 0, .45),
+            rgba(0, 0, 0, .65)),
+        url("/img/back.png") center/cover no-repeat;
 
-filter:
-    brightness(.65)
-    saturate(.85)
-    sepia(.2);
+    filter:
+        brightness(.65) saturate(.85) sepia(.2);
 
-z-index: -10;
+    z-index: -10;
 
 }
 
 .bg-image::after {
-content: "";
+    content: "";
 
 
-position: absolute;
-inset: 0;
+    position: absolute;
+    inset: 0;
 
-background:
-    radial-gradient(
-        circle at top,
-        rgba(139, 0, 0, .12),
-        transparent 45%
-    );
+    background:
+        radial-gradient(circle at top,
+            rgba(139, 0, 0, .12),
+            transparent 45%);
 
 }
 
@@ -103,17 +97,17 @@ LAYOUT
 ========================================================== */
 
 .layout {
-display: flex;
-min-height: calc(100vh - 70px);
+    display: flex;
+    min-height: calc(100vh - 70px);
 }
 
 .content-wrapper {
-flex: 1;
-padding: 2.5rem;
+    flex: 1;
+    padding: 2.5rem;
 }
 
 .container-xl {
-width: 100%;
+    width: 100%;
 }
 
 /* ==========================================================
@@ -121,45 +115,41 @@ PANEL
 ========================================================== */
 
 .dashboard-panel {
-position: relative;
+    position: relative;
 
 
-padding: 2rem;
+    padding: 2rem;
 
-background:
-    linear-gradient(
-        180deg,
-        rgba(28, 20, 16, .96),
-        rgba(10, 8, 7, .98)
-    );
+    background:
+        linear-gradient(180deg,
+            rgba(28, 20, 16, .96),
+            rgba(10, 8, 7, .98));
 
-border: 1px solid var(--border-dark);
+    border: 1px solid var(--border-dark);
 
-overflow: hidden;
+    overflow: hidden;
 
-box-shadow:
-    0 0 40px rgba(0, 0, 0, .75),
-    0 0 25px rgba(139, 0, 0, .08);
+    box-shadow:
+        0 0 40px rgba(0, 0, 0, .75),
+        0 0 25px rgba(139, 0, 0, .08);
 
 }
 
 .dashboard-panel::before {
-content: "";
-position: absolute;
+    content: "";
+    position: absolute;
 
-top: 0;
-left: 0;
-right: 0;
-height: 2px;
-background:
-    linear-gradient(
-        90deg,
-        transparent,
-        var(--crimson),
-        transparent
-    );
-box-shadow:
-    0 0 12px var(--glow-red);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background:
+        linear-gradient(90deg,
+            transparent,
+            var(--crimson),
+            transparent);
+    box-shadow:
+        0 0 12px var(--glow-red);
 }
 
 /* ==========================================================
@@ -167,44 +157,42 @@ HEADER
 ========================================================== */
 
 .section-header {
-text-align: center;
-margin-bottom: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
 .section-eyebrow {
-font-size: .75rem;
-letter-spacing: .35em;
-text-transform: uppercase;
-color: var(--crimson);
-margin-bottom: .75rem;
+    font-size: .75rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: .75rem;
 }
 
 .section-title {
-font-family: "Cormorant Garamond", serif;
-font-size: clamp(2rem, 4vw, 3.5rem);
-color: var(--cream);
-text-shadow:
-    0 0 25px rgba(196, 30, 58, .25),
-    2px 3px 15px rgba(0, 0, 0, .8);
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: var(--cream);
+    text-shadow:
+        0 0 25px rgba(196, 30, 58, .25),
+        2px 3px 15px rgba(0, 0, 0, .8);
 
 }
 
 .section-divider {
-width: 140px;
-height: 1px;
-margin: 1rem auto;
-background:
-    linear-gradient(
-        90deg,
-        transparent,
-        var(--crimson),
-        transparent
-    );
+    width: 140px;
+    height: 1px;
+    margin: 1rem auto;
+    background:
+        linear-gradient(90deg,
+            transparent,
+            var(--crimson),
+            transparent);
 }
 
 .subtitle {
-color: var(--mid-grey);
-font-size: 1rem;
+    color: var(--mid-grey);
+    font-size: 1rem;
 }
 
 /* ==========================================================
@@ -212,31 +200,31 @@ MESSAGE
 ========================================================== */
 
 .messages {
-margin-bottom: 2rem;
+    margin-bottom: 2rem;
 }
 
 .msg-success,
 .msg-error {
-padding: 1rem 1.25rem;
-margin-bottom: 1rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .msg-success {
-color: #81c784;
-background:
-    rgba(129, 199, 132, .08);
-border:
-    1px solid rgba(129, 199, 132, .2);
+    color: #81c784;
+    background:
+        rgba(129, 199, 132, .08);
+    border:
+        1px solid rgba(129, 199, 132, .2);
 
 }
 
 .msg-error {
-color: #ff8a80;
-background:
-    rgba(255, 138, 128, .08);
+    color: #ff8a80;
+    background:
+        rgba(255, 138, 128, .08);
 
-border:
-    1px solid rgba(255, 138, 128, .2);
+    border:
+        1px solid rgba(255, 138, 128, .2);
 }
 
 /* ==========================================================
@@ -244,71 +232,67 @@ STATS
 ========================================================== */
 
 .dashboard-grid {
-display: grid;
-grid-template-columns:
-    repeat(auto-fit, minmax(220px, 1fr));
-gap: 1.5rem;
-margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .stat-card {
-position: relative;
-padding: 2rem;
-background:
-    linear-gradient(
-        180deg,
-        rgba(28, 20, 16, .95),
-        rgba(8, 6, 4, .95)
-    );
-border: 1px solid var(--border-dark);
-transition: .3s ease;
+    position: relative;
+    padding: 2rem;
+    background:
+        linear-gradient(180deg,
+            rgba(28, 20, 16, .95),
+            rgba(8, 6, 4, .95));
+    border: 1px solid var(--border-dark);
+    transition: .3s ease;
 }
 
 .stat-card::before {
-content: "";
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-height: 2px;
-background:
-    linear-gradient(
-        90deg,
-        transparent,
-        var(--crimson),
-        transparent
-    );
-opacity: 0;
-transition: .3s;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background:
+        linear-gradient(90deg,
+            transparent,
+            var(--crimson),
+            transparent);
+    opacity: 0;
+    transition: .3s;
 }
 
 .stat-card:hover {
-transform: translateY(-5px);
-border-color: var(--border-mid);
-box-shadow:
-    0 8px 30px rgba(0,0,0,.6),
-    0 0 25px var(--shadow-red);
+    transform: translateY(-5px);
+    border-color: var(--border-mid);
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, .6),
+        0 0 25px var(--shadow-red);
 }
 
 .stat-card:hover::before {
-opacity: 1;
+    opacity: 1;
 }
 
 .stat-card h2 {
-font-size: 2.5rem;
-color: var(--crimson);
-margin-bottom: .5rem;
+    font-size: 2.5rem;
+    color: var(--crimson);
+    margin-bottom: .5rem;
 }
 
 .stat-card p {
-font-size: .75rem;
-letter-spacing: .18em;
-text-transform: uppercase;
-color: var(--mid-grey);
+    font-size: .75rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--mid-grey);
 }
 
 .stat-card.pending h2 {
-color: var(--amber);
+    color: var(--amber);
 }
 
 /* ==========================================================
@@ -316,16 +300,16 @@ ALERT
 ========================================================== */
 
 .alert-card {
-margin-bottom: 2rem;
-padding: 1.25rem 1.5rem;
-border-left: 4px solid var(--amber);
-background:
-    rgba(200, 114, 10, .08);
-color: var(--cream);
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--amber);
+    background:
+        rgba(200, 114, 10, .08);
+    color: var(--cream);
 }
 
 .alert-card strong {
-color: var(--amber);
+    color: var(--amber);
 }
 
 /* ==========================================================
@@ -333,50 +317,48 @@ QUICK ACTIONS
 ========================================================== */
 
 .quick-actions {
-margin-top: 2rem;
+    margin-top: 2rem;
 }
 
 .table-title {
-font-size: 1.6rem;
-color: var(--parchment);
-margin-bottom: 1rem;
+    font-size: 1.6rem;
+    color: var(--parchment);
+    margin-bottom: 1rem;
 }
 
 .action-grid {
-display: grid;
-grid-template-columns:
-    repeat(auto-fit, minmax(220px, 1fr));
-gap: 1rem;
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
 }
 
 .action-btn {
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 58px;
-padding: 1rem;
-text-decoration: none;
-color: var(--cream);
-font-size: .75rem;
-font-weight: 700;
-letter-spacing: .15em;
-text-transform: uppercase;
-border: 1px solid var(--border-mid);
-background:
-    linear-gradient(
-        180deg,
-        rgba(28,20,16,.9),
-        rgba(10,8,7,.95)
-    );
-transition: .3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 58px;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--cream);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    border: 1px solid var(--border-mid);
+    background:
+        linear-gradient(180deg,
+            rgba(28, 20, 16, .9),
+            rgba(10, 8, 7, .95));
+    transition: .3s ease;
 }
 
 .action-btn:hover {
-transform: translateY(-3px);
-border-color: var(--crimson);
-box-shadow:
-    0 0 20px rgba(196,30,58,.25);
-color: #fff;
+    transform: translateY(-3px);
+    border-color: var(--crimson);
+    box-shadow:
+        0 0 20px rgba(196, 30, 58, .25);
+    color: #fff;
 }
 
 /* ==========================================================
@@ -384,27 +366,27 @@ RESPONSIVE
 ========================================================== */
 
 @media (max-width: 900px) {
-.content-wrapper {
-    padding: 1rem;
-}
+    .content-wrapper {
+        padding: 1rem;
+    }
 
-.dashboard-grid {
-    grid-template-columns: 1fr;
-}
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
 
-.action-grid {
-    grid-template-columns: 1fr;
-}
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
 
-.dashboard-panel {
-    padding: 1.5rem;
-}
+    .dashboard-panel {
+        padding: 1.5rem;
+    }
 
-.section-title {
-    font-size: 2rem;
-}
+    .section-title {
+        font-size: 2rem;
+    }
 
 }

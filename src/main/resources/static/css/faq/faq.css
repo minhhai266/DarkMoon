@@ -1,217 +1,338 @@
 
-@import "../dashboard.css";
 @import "faq-edit.css";
 @import "faq-create.css";
+@import "../dashboard-user.css";
+
 /* ==========================================================
-FAQ PAGE - MOON BLIGHT STYLE EXTENSION
-========================================================== */
-
-.section-dark {
-    padding: 2rem 0;
+   FAQ LIST
+   ========================================================== */
+body {
+    margin: 10px;
 }
-
-/* CARD CONTAINER */
 .faq-card {
-    padding: 2rem;
-    background: linear-gradient(180deg,
-            rgba(28, 20, 16, .96),
-            rgba(10, 8, 7, .98));
-    border: 1px solid var(--border-dark);
-    box-shadow:
-        0 0 40px rgba(0, 0, 0, .7),
-        0 0 25px rgba(139, 0, 0, .08);
     position: relative;
+    padding: 2rem;
+
+    background: linear-gradient(
+        180deg,
+        rgba(28, 20, 16, .96),
+        rgba(10, 8, 7, .98)
+    );
+
+    border: 1px solid var(--border-dark);
+
     overflow: hidden;
+
+    box-shadow:
+        0 0 40px rgba(0, 0, 0, .75),
+        0 0 25px rgba(139, 0, 0, .08);
 }
 
 .faq-card::before {
     content: "";
+
     position: absolute;
+
     top: 0;
     left: 0;
     right: 0;
+
     height: 2px;
-    background: linear-gradient(90deg,
-            transparent,
-            var(--crimson),
-            transparent);
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--crimson),
+        transparent
+    );
+
     box-shadow: 0 0 12px var(--glow-red);
 }
 
-/* HEADER MESSAGE */
+/* ==========================================================
+   MESSAGE
+   ========================================================== */
+
 .success-message {
-    color: #81c784;
-    background: rgba(129, 199, 132, .08);
-    border: 1px solid rgba(129, 199, 132, .2);
-    padding: 1rem;
     margin-bottom: 1rem;
+    padding: 1rem 1.25rem;
+
+    color: #81c784;
+
+    background: rgba(129, 199, 132, .08);
+
+    border: 1px solid rgba(129, 199, 132, .2);
 }
 
 .error-message {
-    color: #ff8a80;
-    background: rgba(255, 138, 128, .08);
-    border: 1px solid rgba(255, 138, 128, .2);
-    padding: 1rem;
     margin-bottom: 1rem;
+    padding: 1rem 1.25rem;
+
+    color: #ff8a80;
+
+    background: rgba(255, 138, 128, .08);
+
+    border: 1px solid rgba(255, 138, 128, .2);
 }
 
-/* TABLE HEADER */
+/* ==========================================================
+   TOP ACTION
+   ========================================================== */
+
 .table-header {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 1rem;
+
+    margin-bottom: 1.5rem;
 }
 
-/* BUTTON SYSTEM */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: .6rem 1rem;
-    font-size: .75rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid var(--border-mid);
-    background: linear-gradient(180deg,
-            rgba(28, 20, 16, .9),
-            rgba(10, 8, 7, .95));
-    color: var(--cream);
-    cursor: pointer;
-    transition: .3s ease;
-}
+/* ==========================================================
+   TABLE
+   ========================================================== */
 
-.btn:hover {
-    transform: translateY(-3px);
-    border-color: var(--crimson);
-    box-shadow: 0 0 20px rgba(196, 30, 58, .25);
-    color: #fff;
-}
-
-.btn-primary {
-    border-color: var(--crimson);
-}
-
-.btn-danger {
-    border-color: var(--blood-red);
-}
-
-.btn-success {
-    border-color: var(--amber);
-}
-
-.btn-secondary {
-    border-color: var(--border-mid);
-}
-
-.btn-sm {
-    padding: .4rem .75rem;
-    font-size: .65rem;
-}
-
-/* TABLE WRAPPER */
 .table-wrapper {
     overflow-x: auto;
+
     border: 1px solid var(--border-dark);
+
+    background: rgba(8, 6, 4, .65);
 }
 
-/* TABLE */
 .faq-table {
     width: 100%;
     border-collapse: collapse;
-    background: rgba(8, 6, 4, .6);
 }
 
 .faq-table thead {
-    background: rgba(28, 20, 16, .95);
-    border-bottom: 1px solid var(--border-dark);
+    background: linear-gradient(
+        180deg,
+        rgba(12, 8, 6, .95),
+        rgba(8, 6, 4, .98)
+    );
 }
 
 .faq-table th {
-    text-align: left;
     padding: 1rem;
-    font-size: .75rem;
+
+    text-align: left;
+
+    font-size: .72rem;
     letter-spacing: .15em;
     text-transform: uppercase;
+
     color: var(--parchment);
+
+    border-bottom: 1px solid var(--border-dark);
 }
 
 .faq-table td {
     padding: 1rem;
-    border-bottom: 1px solid rgba(74, 48, 40, .3);
-    color: var(--cream);
-    font-size: .9rem;
+
+    vertical-align: middle;
+
+    color: var(--light-grey);
+
+    border-bottom: 1px solid rgba(74, 48, 40, .35);
+}
+
+.faq-table tbody tr {
+    transition: .25s ease;
 }
 
 .faq-table tbody tr:hover {
-    background: rgba(139, 0, 0, .06);
+    background: rgba(139, 0, 0, .08);
 }
 
-/* STATUS */
+/* ==========================================================
+   STATUS
+   ========================================================== */
+
 .status-active {
+    display: inline-flex;
+    align-items: center;
+
+    padding: .35rem .8rem;
+
+    border-radius: 999px;
+
     color: #81c784;
-    font-size: .75rem;
-    letter-spacing: .1em;
-    text-transform: uppercase;
+
+    background: rgba(129, 199, 132, .08);
+
+    border: 1px solid rgba(129, 199, 132, .2);
+
+    font-size: .85rem;
+    font-weight: 600;
 }
 
 .status-deleted {
+    display: inline-flex;
+    align-items: center;
+
+    padding: .35rem .8rem;
+
+    border-radius: 999px;
+
     color: #ff8a80;
-    font-size: .75rem;
-    letter-spacing: .1em;
-    text-transform: uppercase;
+
+    background: rgba(255, 138, 128, .08);
+
+    border: 1px solid rgba(255, 138, 128, .2);
+
+    font-size: .85rem;
+    font-weight: 600;
 }
 
-/* ACTION BUTTONS */
+/* ==========================================================
+   ACTION BUTTONS
+   ========================================================== */
+
 .action-buttons {
     display: flex;
-    gap: .5rem;
     flex-wrap: wrap;
+
+    gap: .5rem;
 }
 
-/* PAGINATION */
+.action-buttons form {
+    margin: 0;
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.75rem 1.25rem;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    transition: all 0.25s ease;
+}
+
+.btn-primary {
+    color: var(--cream);
+
+    background: linear-gradient(
+        180deg,
+        rgba(196, 30, 58, .25),
+        rgba(139, 0, 0, .2)
+    );
+
+    border: 1px solid var(--crimson);
+
+    box-shadow:
+        0 0 12px rgba(196, 30, 58, .15);
+}
+
+.btn-primary:hover {
+    background: var(--crimson);
+
+    color: #fff;
+
+    box-shadow:
+        0 0 20px rgba(196, 30, 58, .3);
+}
+/* ==========================================================
+   PAGINATION
+   ========================================================== */
+
 .pagination {
     display: flex;
+
     justify-content: center;
     align-items: center;
+
+    flex-wrap: wrap;
+
     gap: .5rem;
+
     margin-top: 2rem;
 }
 
 .page-btn,
 .page-current {
-    padding: .5rem .75rem;
-    font-size: .75rem;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 42px;
+    height: 42px;
+
+    padding: 0 .8rem;
+
     text-decoration: none;
-    border: 1px solid var(--border-mid);
-    background: rgba(28, 20, 16, .6);
+
+    border-radius: 8px;
+}
+
+.page-btn {
     color: var(--cream);
-    transition: .3s ease;
+
+    border: 1px solid var(--border-dark);
+
+    background: rgba(255,255,255,.02);
+
+    transition: .25s ease;
 }
 
 .page-btn:hover {
     border-color: var(--crimson);
-    box-shadow: 0 0 10px rgba(196, 30, 58, .2);
-    transform: translateY(-2px);
+
+    background: rgba(196, 30, 58, .12);
 }
 
 .page-current {
-    border-color: var(--crimson);
     color: #fff;
-    box-shadow: 0 0 15px rgba(196, 30, 58, .25);
+
+    background: var(--crimson);
+
+    border: 1px solid var(--crimson);
+
+    font-weight: 600;
 }
 
-/* RESPONSIVE */
+/* ==========================================================
+   PAGE CONTENT
+   ========================================================== */
+
+.section-dark {
+    width: 100%;
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 1200px) {
+
+    .faq-table {
+        min-width: 900px;
+    }
+}
+
 @media (max-width: 768px) {
+
     .faq-card {
-        padding: 1.2rem;
+        padding: 1.5rem;
+    }
+
+    .table-header {
+        justify-content: center;
     }
 
     .action-buttons {
         flex-direction: column;
     }
 
-    .table-header {
-        justify-content: center;
+    .action-buttons .btn {
+        width: 100%;
     }
 }

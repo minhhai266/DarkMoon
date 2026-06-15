@@ -5,131 +5,129 @@
 <head>
   <meta charset="UTF-8" />
   <title>Danh sách thế giới</title>
-    <link rel="stylesheet" th:href="@{/css/world/world.css}">
+  <link rel="stylesheet" th:href="@{/css/world/world.css}">
 
 </head>
 
 <body>
-  <div class="bg-image"></div>
-        <div th:replace="~{cms/fragments/header :: header}"></div>
+    <div class="bg-image"></div>
+    <div th:replace="~{cms/fragments/header :: header}"></div>
 
-  <div class="layout">
-    <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
+    <div class="layout">
+      <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
 
-    <div class="content-wrapper">
+      <div class="content-wrapper">
 
-      <main class="section section-dark">
-        <div class="bg-image"></div>
+        <main class="section-dark">
 
-        <div class="container-xl">
+          <div class="container-xl">
+            <div class="world-card">
+              <div class="section-header">
+                <span class="section-eyebrow">Moonblight CMS</span>
+                <h1 class="section-title">Danh Sách Thế Giới</h1>
+                <div class="section-divider"></div>
+              </div>
 
-          <div class="world-card">
-            <div class="section-header">
-              <span class="section-eyebrow">Moonblight CMS</span>
-              <h1 class="section-title">Danh Sách Thế Giới</h1>
-              <div class="section-divider"></div>
-            </div>
+              <p class="success-message" th:if="${successMessage}" th:text="${successMessage}"></p>
 
-            <p class="success-message" th:if="${successMessage}" th:text="${successMessage}"></p>
+              <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
-            <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+              <div class="list-actions">
+                <a th:href="@{/world/moonblight/create}" class="btn btn-primary">
+                  + Tạo thế giới mới
+                </a>
+              </div>
 
-            <div class="list-actions">
-              <a th:href="@{/world/moonblight/create}" class="btn btn-primary">
-                + Tạo thế giới mới
-              </a>
-            </div>
+              <div class="table-wrapper">
+                <table class="world-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Ảnh</th>
+                      <th>Ưu tiên</th>
+                      <th>Tag</th>
+                      <th>Tiêu đề</th>
+                      <th>Trạng thái</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
 
-            <div class="table-wrapper">
-              <table class="world-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Ảnh</th>
-                    <th>Ưu tiên</th>
-                    <th>Tag</th>
-                    <th>Tiêu đề</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                  </tr>
-                </thead>
+                  <tbody>
+                    <tr th:each="world : ${worlds.content}">
+                      <td th:text="${world.id}"></td>
 
-                <tbody>
-                  <tr th:each="world : ${worlds.content}">
-                    <td th:text="${world.id}"></td>
+                      <td>
+                        <img th:if="${world.image != null}" th:src="${world.image}" alt="World Image"
+                          class="world-thumb" />
+                      </td>
 
-                    <td>
-                      <img th:if="${world.image != null}" th:src="${world.image}" alt="World Image"
-                        class="world-thumb" />
-                    </td>
+                      <td th:text="${world.priority}"></td>
 
-                    <td th:text="${world.priority}"></td>
+                      <td th:text="${world.tag}"></td>
 
-                    <td th:text="${world.tag}"></td>
+                      <td th:text="${world.title}"></td>
 
-                    <td th:text="${world.title}"></td>
+                      <td>
+                        <span th:if="${!world.deleted}" class="status-active">
+                          Đang hiển thị
+                        </span>
 
-                    <td>
-                      <span th:if="${!world.deleted}" class="status-active">
-                        Đang hiển thị
-                      </span>
+                        <span th:if="${world.deleted}" class="status-deleted">
+                          Đang ẩn
+                        </span>
+                      </td>
+                      <td>
+                        <div class="action-group">
 
-                      <span th:if="${world.deleted}" class="status-deleted">
-                        Đang ẩn
-                      </span>
-                    </td>
-                    <td>
-                      <div class="action-group">
+                          <form th:action="@{/world/moonblight/{id}/edit(id=${world.id})}" method="get">
+                            <button class="btn btn-primary btn-small">
+                              Sửa
+                            </button>
+                          </form>
 
-                        <form th:action="@{/world/moonblight/{id}/edit(id=${world.id})}" method="get">
-                          <button class="btn btn-primary btn-small">
-                            Sửa
-                          </button>
-                        </form>
+                          <form th:if="${!world.deleted}" th:action="@{/world/moonblight/{id}/delete(id=${world.id})}"
+                            method="post">
+                            <button class="btn btn-danger btn-small">
+                              Ẩn
+                            </button>
+                          </form>
 
-                        <form th:if="${!world.deleted}" th:action="@{/world/moonblight/{id}/delete(id=${world.id})}"
-                          method="post">
-                          <button class="btn btn-danger btn-small">
-                            Ẩn
-                          </button>
-                        </form>
+                          <form th:if="${world.deleted}" th:action="@{/world/moonblight/{id}/restore(id=${world.id})}"
+                            method="post">
+                            <button class="btn btn-secondary btn-small">
+                              Khôi phục
+                            </button>
+                          </form>
 
-                        <form th:if="${world.deleted}" th:action="@{/world/moonblight/{id}/restore(id=${world.id})}"
-                          method="post">
-                          <button class="btn btn-secondary btn-small">
-                            Khôi phục
-                          </button>
-                        </form>
-
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
 
-            <div class="pagination" th:if="${worlds.totalPages > 1}">
-              <a th:if="${!worlds.first}" th:href="@{/world/moonblight/list(page=${worlds.number - 1})}">
-                ← Trước
-              </a>
+              <div class="pagination" th:if="${worlds.totalPages > 1}">
+                <a th:if="${!worlds.first}" th:href="@{/world/moonblight/list(page=${worlds.number - 1})}">
+                  ← Trước
+                </a>
 
-              <span th:each="i : ${#numbers.sequence(0, worlds.totalPages - 1)}">
-                <a th:if="${i != worlds.number}" th:href="@{/world/moonblight/list(page=${i})}" th:text="${i + 1}"></a>
+                <span th:each="i : ${#numbers.sequence(0, worlds.totalPages - 1)}">
+                  <a th:if="${i != worlds.number}" th:href="@{/world/moonblight/list(page=${i})}"
+                    th:text="${i + 1}"></a>
 
-                <span th:if="${i == worlds.number}" th:text="${i + 1}" style="font-weight: bold"></span>
-              </span>
+                  <span th:if="${i == worlds.number}" th:text="${i + 1}" style="font-weight: bold"></span>
+                </span>
 
-              <a th:if="${!worlds.last}" th:href="@{/world/moonblight/list(page=${worlds.number + 1})}">
-                Sau →
-              </a>
+                <a th:if="${!worlds.last}" th:href="@{/world/moonblight/list(page=${worlds.number + 1})}">
+                  Sau →
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+      </div>
+      </main>
     </div>
-    </main>
-  </div>
-  </div>
 </body>
 
 </html>
