@@ -203,7 +203,7 @@
   </div>
 </section>
 
-<!-- NEWSLETTER -->
+<!-- NEWSLETTER
 <section
   style="
     background: var(--dark-card);
@@ -260,6 +260,6 @@
       </button>
     </form>
   </div>
-</section>
+</section> -->
 
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

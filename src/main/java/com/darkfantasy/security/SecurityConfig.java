@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/moonblight/**").hasRole(Role.ADMIN.name())
                         .requestMatchers(
                                 "/dashboard/moonblight/**",
-                                "/article/moonblight/**",
+                                "/article/moonblight/**",   
                                 "/character/moonblight/**",
                                 "/world/moonblight/**",
                                 "/story/moonblight/**",

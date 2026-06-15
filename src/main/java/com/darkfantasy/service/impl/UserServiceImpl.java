@@ -8,6 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +45,7 @@ public class UserServiceImpl implements UserService {
         private final AuditLogService auditLogService;
         private final PasswordResetTokenRepository tokenRepository;
         private final JavaMailSender mailSender;
+        private final AuthenticationManager authenticationManager;
 
         @Transactional
         @Override
@@ -60,16 +66,23 @@ public class UserServiceImpl implements UserService {
                                 "Đăng kí: " + savedUser.getUsername());
         }
 
+        @Transactional
         @Override
         public UserResponse login(LoginRequest request) {
-                User user = findUser(request.getLogin())
+
+                Authentication authentication = authenticationManager.authenticate(
+                                new UsernamePasswordAuthenticationToken(
+                                                request.getLogin(),
+                                                request.getPassword()));
+
+                SecurityContext context = SecurityContextHolder.createEmptyContext();
+
+                context.setAuthentication(authentication);
+
+                SecurityContextHolder.setContext(context);
+
+                User user = findUser(authentication.getName())
                                 .orElseThrow(() -> new IllegalArgumentException("Sai tài khoản hoặc mật khẩu"));
-                if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                        throw new IllegalArgumentException("Sai tài khoản hoặc mật khẩu");
-                }
-                if (!user.isActive()) {
-                        throw new IllegalArgumentException("Sai tài khoản hoặc mật khẩu");
-                }
 
                 auditLogService.logAuthenticated(
                                 user,
@@ -77,11 +90,12 @@ public class UserServiceImpl implements UserService {
                                 user.getId(),
                                 LogAction.LOGIN,
                                 "Đăng nhập: " + user.getUsername());
+
                 return UserResponse.fromEntity(user);
         }
 
-        @Override
         @Transactional
+        @Override
         public void changeCurrentUserPassword(
                         ChangePasswordRequest request) {
 

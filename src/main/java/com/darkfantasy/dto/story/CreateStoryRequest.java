@@ -44,6 +44,7 @@ public class CreateStoryRequest {
                 .image(this.image)
                 .quoteContent(this.quoteContent)
                 .quoteAuthor(this.quoteAuthor)
+                .priority(this.priority)
                 .build();
     }
 }

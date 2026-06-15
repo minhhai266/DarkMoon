@@ -44,9 +44,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user/moonblight/")
 public class UserController {
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
     private final AuditLogService auditLogService;
-    private final JavaMailSender mailSender;
 
     @GetMapping({ "login", "login/" })
     public String toLoginPage(Model model) {
@@ -71,39 +69,36 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public String login(@Valid @ModelAttribute LoginRequest request, BindingResult result, Model model,
+    public String login(
+            @Valid @ModelAttribute LoginRequest request,
+            BindingResult result,
+            Model model,
             HttpServletRequest req) {
+
         if (result.hasErrors()) {
             return "cms/auth/login";
         }
+
         try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            request.getLogin(),
-                            request.getPassword()));
 
-            SecurityContext context = SecurityContextHolder.createEmptyContext();
-
-            context.setAuthentication(authentication);
-
-            SecurityContextHolder.setContext(context);
+            UserResponse user = userService.login(request);
 
             req.getSession(true).setAttribute(
                     HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-                    context);
+                    SecurityContextHolder.getContext());
 
-            boolean isAdmin = authentication
-                    .getAuthorities()
-                    .stream()
-                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-
-            if (isAdmin) {
+            if ("ADMIN".equals(user.getRole())) {
                 return "redirect:/admin/moonblight/dashboard";
             }
 
             return "redirect:/dashboard/moonblight";
+
         } catch (AuthenticationException e) {
-            model.addAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không đúng.");
+
+            model.addAttribute(
+                    "errorMessage",
+                    "Tên đăng nhập hoặc mật khẩu không đúng.");
+
             return "cms/auth/login";
         }
     }
@@ -126,7 +121,7 @@ public class UserController {
         new SecurityContextLogoutHandler()
                 .logout(request, response, authentication);
 
-        return "redirect:/";
+        return "redirect:/user/moonblight/login";
     }
 
     @PostMapping("register")
