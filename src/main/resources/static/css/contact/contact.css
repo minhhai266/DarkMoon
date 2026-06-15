@@ -8,17 +8,16 @@ CONTACT PAGE - MOON BLIGHT CMS
 body {
     margin: 10px;
 }
+
 .contact-card {
     position: relative;
 
     padding: 2rem;
 
     background:
-        linear-gradient(
-            180deg,
+        linear-gradient(180deg,
             rgba(28, 20, 16, .96),
-            rgba(10, 8, 7, .98)
-        );
+            rgba(10, 8, 7, .98));
 
     border: 1px solid var(--border-dark);
 
@@ -40,12 +39,10 @@ body {
     height: 2px;
 
     background:
-        linear-gradient(
-            90deg,
+        linear-gradient(90deg,
             transparent,
             var(--crimson),
-            transparent
-        );
+            transparent);
 
     box-shadow: 0 0 12px var(--glow-red);
 }
@@ -178,15 +175,35 @@ BUTTONS (reuse consistent CMS style)
     color: var(--cream);
 
     background:
-        linear-gradient(
-            180deg,
-            rgba(28,20,16,.95),
-            rgba(8,6,4,.95)
-        );
+        linear-gradient(180deg,
+            rgba(28, 20, 16, .95),
+            rgba(8, 6, 4, .95));
 
     cursor: pointer;
 
     transition: .3s ease;
+}
+
+.btn-primary {
+    color: var(--cream);
+    background: linear-gradient(180deg,
+
+            rgba(196, 30, 58, .25),
+
+            rgba(139, 0, 0, .2));
+
+    border: 1px solid var(--crimson);
+    box-shadow:
+        0 0 12px rgba(196, 30, 58, .15);
+
+}
+
+.btn-secondary {
+
+    border-color: var(--amber);
+
+    color: rgb(56, 245, 56);
+
 }
 
 .btn:hover {
@@ -198,21 +215,9 @@ BUTTONS (reuse consistent CMS style)
     box-shadow: 0 0 15px var(--glow-amber);
 }
 
-.btn-success {
-    border-color: #2e7d32;
-    color: #a5d6a7;
-}
 
-.btn-success:hover {
-    background: rgba(46,125,50,.15);
-    box-shadow: 0 0 12px rgba(46,125,50,.25);
-}
 
-/* SMALL BUTTON */
-.btn-sm {
-    padding: .45rem .75rem;
-    font-size: .7rem;
-}
+
 
 /* ==========================================================
 PAGINATION
@@ -245,11 +250,9 @@ PAGINATION
     text-decoration: none;
 
     background:
-        linear-gradient(
-            180deg,
-            rgba(28,20,16,.95),
-            rgba(8,6,4,.95)
-        );
+        linear-gradient(180deg,
+            rgba(28, 20, 16, .95),
+            rgba(8, 6, 4, .95));
 
     transition: .25s ease;
 }

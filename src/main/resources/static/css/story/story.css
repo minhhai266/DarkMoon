@@ -277,6 +277,13 @@ body {
     box-shadow:
         0 0 12px rgba(196, 30, 58, .15);
 }
+.btn-secondary {
+
+    border-color: var(--amber);
+
+    color: var(--amber);
+
+}
 .page-btn,
 .page-number {
     color: var(--cream);

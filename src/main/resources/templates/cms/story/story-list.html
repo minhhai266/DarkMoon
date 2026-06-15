@@ -74,17 +74,17 @@
 
                       <div class="action-group">
                         <form th:action="@{/story/moonblight/{id}/edit(id=${story.id})}" method="get">
-                          <button type="submit" class="btn btn-secondary btn-sm"> Sửa </button>
+                          <button type="submit" class="btn btn-primary btn-small"> Sửa </button>
                         </form>
 
                         <form th:if="${!story.deleted}" th:action="@{/story/moonblight/{id}/delete(id=${story.id})}"
                           method="post">
-                          <button type="submit" class="btn btn-danger btn-sm"> Ẩn </button>
+                          <button type="submit" class="btn btn-danger btn-small"> Ẩn </button>
                         </form>
 
                         <form th:if="${story.deleted}" th:action="@{/story/moonblight/{id}/restore(id=${story.id})}"
                           method="post">
-                          <button type="submit" class="btn btn-success btn-sm"> Khôi phục </button>
+                          <button type="submit" class="btn btn-secondary btn-small"> Khôi phục </button>
                         </form>
                       </div>
 
