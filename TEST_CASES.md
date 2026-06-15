@@ -1,0 +1,104 @@
+# Test Cases - DarkMoon / Moon Blight
+
+| Test Case ID | Mô tả | Pre-condition | Steps | Expected Result | Actual Result | Status |
+|---|---|---|---|---|---|---|
+| TC-PUB-001 | Kiểm tra trang chủ hiển thị đúng dữ liệu nổi bật | Ứng dụng chạy, có dữ liệu article/character/story/world chưa xóa | 1. Mở `/` 2. Quan sát banner, latest articles, characters, top story, top world | Trang chủ load thành công, hiển thị tối đa 3 bài viết mới, 4 nhân vật, story/world ưu tiên cao nhất |  | Chưa chạy |
+| TC-PUB-002 | Kiểm tra trang chủ khi chưa có dữ liệu nổi bật | Database không có dữ liệu public hoặc toàn bộ dữ liệu đã soft-delete | 1. Mở `/` 2. Quan sát các khu vực dữ liệu động | Trang không lỗi 500, các khu vực trống/ẩn hợp lý |  | Chưa chạy |
+| TC-PUB-003 | Kiểm tra trang Story public | Có ít nhất 2 story chưa xóa với priority khác nhau | 1. Mở `/story` 2. Quan sát danh sách story | Chỉ hiển thị story chưa xóa, sắp xếp priority giảm dần |  | Chưa chạy |
+| TC-PUB-004 | Kiểm tra trang Characters public | Có nhân vật chưa xóa và nhân vật đã xóa | 1. Mở `/characters` 2. Quan sát danh sách | Chỉ hiển thị nhân vật chưa xóa, sắp xếp priority giảm dần |  | Chưa chạy |
+| TC-PUB-005 | Kiểm tra trang World public | Có world chưa xóa và world đã xóa | 1. Mở `/world` 2. Quan sát danh sách | Chỉ hiển thị world chưa xóa, sắp xếp priority giảm dần |  | Chưa chạy |
+| TC-PUB-006 | Kiểm tra trang News public mặc định | Có ít nhất 7 bài viết chưa xóa | 1. Mở `/news` 2. Quan sát số bài viết và nút load thêm | Hiển thị 6 bài viết, `hasMore` đúng, có nextLimit = 12 |  | Chưa chạy |
+| TC-PUB-007 | Kiểm tra trang News với tham số limit | Có ít nhất 12 bài viết chưa xóa | 1. Mở `/news?limit=12` 2. Đếm số bài viết | Hiển thị tối đa 12 bài viết, nextLimit = 18 nếu còn dữ liệu |  | Chưa chạy |
+| TC-PUB-008 | Kiểm tra bài viết quan trọng nổi bật trong News | Có bài viết type IMPORTANT chưa xóa mới nhất | 1. Mở `/news` 2. Kiểm tra khu vực featured article | Featured article là bài IMPORTANT mới nhất chưa xóa |  | Chưa chạy |
+| TC-PUB-009 | Kiểm tra chi tiết tin tức hợp lệ | Có bài viết chưa xóa với ID hợp lệ | 1. Mở `/news/{id}` 2. Quan sát nội dung và bài liên quan | Hiển thị đúng bài viết, danh sách liên quan không chứa chính bài đang xem |  | Chưa chạy |
+| TC-PUB-010 | Kiểm tra chi tiết tin tức ID không tồn tại | Không có article với ID test | 1. Mở `/news/999999` | Hệ thống xử lý lỗi hợp lý, không lộ stack trace cho người dùng |  | Chưa chạy |
+| TC-CON-001 | Kiểm tra trang Support hiển thị form và FAQ | Có FAQ chưa xóa | 1. Mở `/support` 2. Quan sát form liên hệ và FAQ | Trang hiển thị categories, platforms và FAQ chưa xóa |  | Chưa chạy |
+| TC-CON-002 | Gửi contact message hợp lệ | Người dùng ở trang `/support` | 1. Nhập tên, email hợp lệ, category, platform, message 2. Submit | Lưu contact message với processed = false, redirect `/support`, hiển thị thông báo thành công |  | Chưa chạy |
+| TC-CON-003 | Gửi contact thiếu tên | Người dùng ở trang `/support` | 1. Để trống tên 2. Nhập các trường còn lại hợp lệ 3. Submit | Không lưu dữ liệu, ở lại trang support, hiển thị lỗi kiểm tra thông tin |  | Chưa chạy |
+| TC-CON-004 | Gửi contact email sai định dạng | Người dùng ở trang `/support` | 1. Nhập email `abc` 2. Nhập các trường khác hợp lệ 3. Submit | Không lưu dữ liệu, hiển thị lỗi email không hợp lệ |  | Chưa chạy |
+| TC-CON-005 | Gửi contact thiếu category | Người dùng ở trang `/support` | 1. Không chọn category 2. Nhập các trường khác hợp lệ 3. Submit | Không lưu dữ liệu, hiển thị lỗi chọn danh mục |  | Chưa chạy |
+| TC-CON-007 | Gửi contact thiếu nội dung | Người dùng ở trang `/support` | 1. Để trống message 2. Nhập các trường khác hợp lệ 3. Submit | Không lưu dữ liệu, hiển thị lỗi nhập nội dung |  | Chưa chạy |
+| TC-CON-008 | Gửi contact message vượt quá 5000 ký tự | Người dùng ở trang `/support` | 1. Nhập message 5001 ký tự 2. Submit | Không lưu dữ liệu, hiển thị lỗi độ dài nội dung |  | Chưa chạy |
+| TC-CON-009 | Xem danh sách contact trong CMS | Có tài khoản STAFF đã đăng nhập, có contact messages | 1. Mở `/contact/blightmoon/list` | Hiển thị danh sách contact phân trang size 20 |  | Chưa chạy |
+| TC-CON-010 | Kiểm tra phân quyền contact CMS khi chưa đăng nhập | Chưa đăng nhập | 1. Mở `/contact/blightmoon/list` | Kỳ vọng bảo mật: bị chặn hoặc chuyển login. Nếu truy cập được là lỗi cấu hình route |  | Chưa chạy |
+| TC-AUTH-002 | Đăng nhập STAFF hợp lệ | Có tài khoản STAFF active, mật khẩu đúng | 1. Nhập username/email và password 2. Submit login | Đăng nhập thành công, tạo session, redirect `/dashboard/moonblight`, ghi audit LOGIN |  | Chưa chạy |
+| TC-AUTH-003 | Đăng nhập ADMIN hợp lệ | Có tài khoản ADMIN active, mật khẩu đúng | 1. Nhập credentials admin 2. Submit login | Đăng nhập thành công, redirect `/admin/moonblight/dashboard`, ghi audit LOGIN |  | Chưa chạy |
+| TC-AUTH-004 | Đăng nhập sai mật khẩu | Có tài khoản hợp lệ | 1. Nhập username/email đúng 2. Nhập password sai 3. Submit | Ở lại login, hiển thị `Tên đăng nhập hoặc mật khẩu không đúng.` |  | Chưa chạy |
+| TC-AUTH-005 | Đăng nhập thiếu username/email | Chưa đăng nhập | 1. Để trống login 2. Nhập password hợp lệ 3. Submit | Validation lỗi, không gọi authenticate, ở lại login |  | Chưa chạy |
+| TC-AUTH-007 | Đăng nhập mật khẩu dưới 8 ký tự | Chưa đăng nhập | 1. Nhập login 2. Nhập password 7 ký tự 3. Submit | Validation lỗi mật khẩu tối thiểu 8 ký tự |  | Chưa chạy |
+| TC-AUTH-008 | Đăng nhập tài khoản bị khóa | Có STAFF isActive = false | 1. Nhập credentials tài khoản bị khóa 2. Submit | Đăng nhập thất bại hoặc bị Spring Security từ chối, không vào dashboard |  | Chưa chạy |
+| TC-AUTH-010 | Đăng ký tài khoản STAFF hợp lệ | Username/email chưa tồn tại | 1. Nhập username 3-30 ký tự chữ/số, email hợp lệ, password >= 8, rePassword khớp, fullName 2. Submit | Tạo user role STAFF, isActive = false, password BCrypt, redirect login, thông báo thành công |  | Chưa chạy |
+| TC-AUTH-011 | Đăng ký username đã tồn tại | Database có username test | 1. Nhập username đã tồn tại 2. Nhập thông tin khác hợp lệ 3. Submit | Không tạo user, hiển thị `Tên đăng nhập đã tồn tại!`, xóa password trên form |  | Chưa chạy |
+| TC-AUTH-012 | Đăng ký email đã tồn tại | Database có email test | 1. Nhập email đã tồn tại 2. Nhập thông tin khác hợp lệ 3. Submit | Không tạo user, hiển thị `Email này đã được đăng ký!`, xóa password trên form |  | Chưa chạy |
+| TC-AUTH-017 | Đăng ký mật khẩu và xác nhận không khớp | Chưa đăng nhập | 1. Nhập password và rePassword khác nhau 2. Submit | Validation lỗi password confirmation, không tạo user |  | Chưa chạy |
+| TC-AUTH-018 | Đăng xuất khi đã đăng nhập | User đã đăng nhập | 1. POST `/user/moonblight/logout` | Session bị clear, redirect login, ghi audit LOGOUT |  | Chưa chạy |
+| TC-AUTH-020 | Gửi OTP cho email tồn tại | Có user với email hợp lệ | 1. Nhập email tồn tại 2. Submit forgot-password | Tạo OTP 6 chữ số, hết hạn sau 5 phút, gửi email, session `OTP_EMAIL`, redirect verify-otp |  | Chưa chạy |
+| TC-AUTH-021 | Gửi OTP cho email không tồn tại | Email chưa có trong DB | 1. Nhập email chưa đăng ký 2. Submit | Ở lại forgot-password, hiển thị `Email không tồn tại` |  | Chưa chạy |
+| TC-AUTH-022 | Verify OTP hợp lệ | Đã gửi OTP, OTP chưa hết hạn | 1. Mở verify-otp 2. Nhập OTP đúng 3. Submit | Session lưu RESET_EMAIL và RESET_OTP, redirect reset-password |  | Chưa chạy |
+| TC-AUTH-023 | Verify OTP sai | Đã gửi OTP | 1. Nhập OTP sai 2. Submit | Ở lại verify-otp, hiển thị `OTP không hợp lệ` |  | Chưa chạy |
+| TC-AUTH-024 | Verify OTP hết hạn | OTP đã quá 5 phút | 1. Nhập OTP hết hạn 2. Submit | Ở lại verify-otp, hiển thị `OTP đã hết hạn` |  | Chưa chạy |
+| TC-AUTH-025 | Reset password hợp lệ sau OTP | Session có RESET_EMAIL và RESET_OTP hợp lệ | 1. Mở reset-password 2. Nhập newPassword >= 8 và confirm khớp 3. Submit | Password được mã hóa mới, OTP marked used, session reset bị xóa, redirect login |  | Chưa chạy |
+| TC-AUTH-027 | Reset password xác nhận không khớp | Session OTP hợp lệ | 1. Nhập newPassword và confirmPassword khác nhau 2. Submit | Validation lỗi, ở lại reset-password |  | Chưa chạy |
+| TC-AUTH-028 | Reset password dưới 8 ký tự | Session OTP hợp lệ | 1. Nhập newPassword 7 ký tự 2. Submit | Validation lỗi min 8, không đổi mật khẩu |  | Chưa chạy |
+| TC-AUTH-029 | Đổi mật khẩu current user hợp lệ | User đã đăng nhập | 1. Mở `/user/moonblight/change-password` 2. Nhập oldPassword đúng, newPassword >= 8, confirm khớp 3. Submit | Password đổi thành công, mustChangePassword = false, redirect theo role, ghi audit UPDATE |  | Chưa chạy |
+| TC-AUTH-031 | Đổi mật khẩu xác nhận không khớp | User đã đăng nhập | 1. Nhập oldPassword đúng 2. Nhập newPassword và confirm khác nhau 3. Submit | Validation/lỗi xác nhận không khớp, không đổi mật khẩu |  | Chưa chạy |
+| TC-SEC-001 | Chặn truy cập dashboard STAFF khi chưa đăng nhập | Chưa đăng nhập | 1. Mở `/dashboard/moonblight` | Không cho xem dashboard, chuyển tới trang login hoặc trả 403 theo cấu hình Spring Security |  | Chưa chạy |
+| TC-SEC-002 | Chặn truy cập CMS Article khi chưa đăng nhập | Chưa đăng nhập | 1. Mở `/article/moonblight/list` | Không cho xem danh sách article CMS |  | Chưa chạy |
+| TC-SEC-003 | Chặn STAFF truy cập admin dashboard | Đăng nhập STAFF active | 1. Mở `/admin/moonblight/dashboard` | Bị từ chối 403 hoặc chuyển trang lỗi, không thấy dữ liệu admin |  | Chưa chạy |
+| TC-SEC-004 | Cho ADMIN truy cập admin dashboard | Đăng nhập ADMIN active | 1. Mở `/admin/moonblight/dashboard` | Hiển thị dashboard admin với totalUsers, activeUsers, inActiveUsers |  | Chưa chạy |
+| TC-SEC-005 | Cho STAFF truy cập CMS content | Đăng nhập STAFF active | 1. Mở `/article/moonblight/list` 2. Mở `/story/moonblight/list` | STAFF truy cập được các trang CMS content |  | Chưa chạy |
+| TC-SEC-007 | Force change password redirect | User đăng nhập có mustChangePassword = true | 1. Mở `/dashboard/moonblight` | Bị redirect tới `/user/moonblight/change-password` |  | Chưa chạy |
+| TC-SEC-008 | Force change password cho phép mở trang change-password | User đăng nhập có mustChangePassword = true | 1. Mở `/user/moonblight/change-password` | Trang đổi mật khẩu hiển thị, không bị redirect vòng lặp |  | Chưa chạy |
+| TC-SEC-010 | Kiểm tra API hash password internal public | Chưa đăng nhập | 1. Gọi `/api/moonblight/internal/hash?password=12345678` | Kỳ vọng bảo mật: API nội bộ không nên public. Nếu trả BCrypt khi chưa đăng nhập là rủi ro cần ghi nhận |  | Chưa chạy |
+| TC-ADM-001 | Xem danh sách tài khoản | Đăng nhập ADMIN | 1. Mở `/admin/moonblight/list` | Hiển thị accounts phân trang size 10, sắp xếp id tăng dần |  | Chưa chạy |
+| TC-ADM-002 | Xem chi tiết tài khoản hợp lệ | Đăng nhập ADMIN, có user ID hợp lệ | 1. Mở `/admin/moonblight/account/{id}` | Hiển thị đúng thông tin account |  | Chưa chạy |
+| TC-ADM-004 | Approve tài khoản STAFF chờ duyệt | Đăng nhập ADMIN, STAFF isActive = false | 1. POST `/admin/moonblight/account/{id}/approve` | User isActive = true, redirect detail, thông báo duyệt thành công, ghi audit UNLOCK |  | Chưa chạy |
+| TC-ADM-006 | Khóa tài khoản STAFF | Đăng nhập ADMIN, STAFF active | 1. POST `/admin/moonblight/account/{id}/lock` | User isActive = false, thông báo khóa thành công, ghi audit LOCK |  | Chưa chạy |
+| TC-ADM-007 | Mở khóa tài khoản STAFF | Đăng nhập ADMIN, STAFF inactive | 1. POST `/admin/moonblight/account/{id}/unlock` | User isActive = true, thông báo mở khóa thành công, ghi audit UNLOCK |  | Chưa chạy |
+| TC-ADM-008 | Không cho khóa tài khoản ADMIN | Đăng nhập ADMIN, target user role ADMIN | 1. POST `/admin/moonblight/account/{adminId}/lock` | Không đổi trạng thái admin, hiển thị lỗi `Không có thẩm quyền` hoặc xử lý lỗi phù hợp |  | Chưa chạy |
+| TC-ADM-009 | Xem audit log | Đăng nhập ADMIN, có audit logs | 1. Mở `/admin/moonblight/log` | Hiển thị logs size 20, sort createdAt giảm dần, activeMenu audit-log |  | Chưa chạy |
+| TC-ADM-010 | Dashboard admin thống kê user | Đăng nhập ADMIN, DB có active/inactive users | 1. Mở `/admin/moonblight/dashboard` | totalUsers = activeUsers + inActiveUsers, số liệu đúng DB |  | Chưa chạy |
+| TC-DASH-001 | Dashboard STAFF hiển thị thống kê content | Đăng nhập STAFF active | 1. Mở `/dashboard/moonblight` | Hiển thị count article/story/world/character/faq và contact chưa xử lý |  | Chưa chạy |
+| TC-ART-001 | Xem danh sách bài viết CMS | Đăng nhập STAFF, có articles | 1. Mở `/article/moonblight/list` | Hiển thị tất cả article kể cả đã xóa, phân trang size 10 |  | Chưa chạy |
+| TC-ART-003 | Tạo bài viết hợp lệ không thumbnail | Đăng nhập STAFF | 1. Nhập title, content, type 2. Không chọn thumbnail 3. Submit | Tạo article, createdBy là current user, redirect list, flash success, ghi audit CREATE |  | Chưa chạy |
+| TC-ART-004 | Tạo bài viết hợp lệ có thumbnail | Đăng nhập STAFF, có file ảnh hợp lệ | 1. Chọn thumbnail 2. Nhập thông tin hợp lệ 3. Submit | File lưu vào `uploads/articles`, thumbnailUrl được set, tạo article thành công |  | Chưa chạy |
+| TC-ART-005 | Tạo bài viết thiếu title | Đăng nhập STAFF | 1. Để trống title 2. Nhập content/type 3. Submit | Không tạo article, ở lại form, hiển thị lỗi title không được trống |  | Chưa chạy |
+| TC-ART-006 | Tạo bài viết title trên 255 ký tự | Đăng nhập STAFF | 1. Nhập title 256 ký tự 2. Nhập content/type 3. Submit | Không tạo article, hiển thị lỗi tiêu đề quá dài |  | Chưa chạy |
+| TC-ART-007 | Tạo bài viết thiếu content | Đăng nhập STAFF | 1. Nhập title/type 2. Để trống content 3. Submit | Không tạo article, hiển thị lỗi nội dung không được trống |  | Chưa chạy |
+| TC-ART-008 | Tạo bài viết thiếu type | Đăng nhập STAFF | 1. Nhập title/content 2. Không chọn type 3. Submit | Không tạo article, hiển thị lỗi loại bài viết không được trống |  | Chưa chạy |
+| TC-ART-009 | Sửa bài viết hợp lệ không đổi thumbnail | Đăng nhập STAFF, có article | 1. Mở `/article/moonblight/{id}/edit` 2. Sửa title/content/type 3. Không chọn thumbnail 4. Submit | Article cập nhật, thumbnailUrl cũ được giữ, updatedBy set, audit UPDATE |  | Chưa chạy |
+| TC-ART-011 | Soft-delete bài viết | Đăng nhập STAFF, có article chưa xóa | 1. POST `/article/moonblight/{id}/delete` | Article deleted = true, public news không còn hiển thị, CMS vẫn thấy, audit DELETE |  | Chưa chạy |
+| TC-ART-012 | Restore bài viết | Đăng nhập STAFF, có article deleted = true | 1. POST `/article/moonblight/{id}/restore` | Article deleted = false, public news hiển thị lại, audit RESTORE |  | Chưa chạy |
+| TC-STO-001 | Xem danh sách story CMS | Đăng nhập STAFF | 1. Mở `/story/moonblight/list` | Hiển thị stories phân trang size 10, activeMenu STORY |  | Chưa chạy |
+| TC-STO-002 | Tạo story hợp lệ có ảnh | Đăng nhập STAFF, có file ảnh | 1. Mở create 2. Nhập tag, title, content, quoteContent, quoteAuthor, priority 3. Chọn image 4. Submit | Tạo story thành công, lưu ảnh `uploads/stories`, audit CREATE |  | Chưa chạy |
+| TC-STO-005 | Tạo story priority nhỏ hơn 0 | Đăng nhập STAFF | 1. Nhập priority = -1 2. Submit | Không tạo story, hiển thị lỗi priority 0-100 |  | Chưa chạy |
+| TC-STO-006 | Tạo story priority lớn hơn 100 | Đăng nhập STAFF | 1. Nhập priority = 101 2. Submit | Không tạo story, hiển thị lỗi priority 0-100 |  | Chưa chạy |
+| TC-STO-007 | Sửa story không đổi ảnh | Đăng nhập STAFF, có story | 1. Mở edit 2. Sửa title/content/priority 3. Không chọn image 4. Submit | Story cập nhật, giữ image cũ, audit UPDATE |  | Chưa chạy |
+| TC-STO-008 | Soft-delete story | Đăng nhập STAFF, có story chưa xóa | 1. POST `/story/moonblight/{id}/delete` | Story deleted = true, public `/story` không hiển thị, audit DELETE |  | Chưa chạy |
+| TC-STO-009 | Restore story | Đăng nhập STAFF, có story deleted = true | 1. POST `/story/moonblight/{id}/restore` | Story deleted = false, public `/story` hiển thị lại, audit RESTORE |  | Chưa chạy |
+| TC-WLD-001 | Xem danh sách world CMS | Đăng nhập STAFF | 1. Mở `/world/moonblight/list` | Hiển thị worlds phân trang size 10, activeMenu WORLD |  | Chưa chạy |
+| TC-WLD-002 | Tạo world hợp lệ có ảnh | Đăng nhập STAFF, có file ảnh | 1. Mở create 2. Nhập tag, title, content, priority 3. Chọn image 4. Submit | Tạo world thành công, lưu ảnh `uploads/worlds`, audit CREATE |  | Chưa chạy |
+| TC-WLD-003 | Tạo world thiếu title | Đăng nhập STAFF | 1. Để trống title 2. Nhập các trường khác hợp lệ 3. Submit | Không tạo world, hiển thị lỗi tiêu đề không được trống |  | Chưa chạy |
+| TC-WLD-005 | Tạo world thiếu content | Đăng nhập STAFF | 1. Để trống content 2. Submit form | Không tạo world, hiển thị lỗi nội dung không được trống |  | Chưa chạy |
+| TC-WLD-007 | Sửa world hợp lệ không đổi ảnh | Đăng nhập STAFF, có world | 1. Mở edit 2. Sửa tag/title/content/priority 3. Không chọn image 4. Submit | World cập nhật, giữ image cũ, audit UPDATE |  | Chưa chạy |
+| TC-WLD-008 | Soft-delete world | Đăng nhập STAFF, có world chưa xóa | 1. POST `/world/moonblight/{id}/delete` | World deleted = true, public `/world` không hiển thị, audit DELETE |  | Chưa chạy |
+| TC-WLD-009 | Restore world | Đăng nhập STAFF, có world deleted = true | 1. POST `/world/moonblight/{id}/restore` | World deleted = false, public `/world` hiển thị lại, audit RESTORE |  | Chưa chạy |
+| TC-CHR-001 | Xem danh sách character CMS | Đăng nhập STAFF | 1. Mở `/character/moonblight/list` | Hiển thị characters phân trang size 10, activeMenu CHARACTER |  | Chưa chạy |
+| TC-CHR-002 | Tạo character hợp lệ có ảnh | Đăng nhập STAFF, có file ảnh | 1. Mở create 2. Nhập name, race, description, quote, priority 3. Chọn image 4. Submit | Tạo character thành công, lưu ảnh `uploads/characters`, audit CREATE |  | Chưa chạy |
+| TC-CHR-003 | Tạo character thiếu name | Đăng nhập STAFF | 1. Để trống name 2. Submit form hợp lệ còn lại | Không tạo character, hiển thị lỗi tên nhân vật không được trống |  | Chưa chạy |
+| TC-CHR-005 | Tạo character thiếu race | Đăng nhập STAFF | 1. Để trống race 2. Submit | Không tạo character, hiển thị lỗi chủng tộc không được trống |  | Chưa chạy |
+| TC-CHR-008 | Tạo character priority ngoài biên | Đăng nhập STAFF | 1. Nhập priority = 101 hoặc -1 2. Submit | Không tạo character, hiển thị lỗi priority 0-100 |  | Chưa chạy |
+| TC-CHR-009 | Sửa character không đổi ảnh | Đăng nhập STAFF, có character | 1. Mở edit 2. Sửa name/race/description/priority 3. Không chọn image 4. Submit | Character cập nhật, giữ image cũ, audit UPDATE |  | Chưa chạy |
+| TC-CHR-010 | Soft-delete character | Đăng nhập STAFF, có character chưa xóa | 1. POST `/character/moonblight/{id}/delete` | Character deleted = true, public `/characters` không hiển thị, audit DELETE |  | Chưa chạy |
+| TC-CHR-011 | Restore character | Đăng nhập STAFF, có character deleted = true | 1. POST `/character/moonblight/{id}/restore` | Character deleted = false, public `/characters` hiển thị lại, audit RESTORE |  | Chưa chạy |
+| TC-FAQ-001 | Xem danh sách FAQ CMS | Đăng nhập STAFF | 1. Mở `/faq/moonblight/list` | Hiển thị FAQs phân trang size 10, activeMenu FAQ |  | Chưa chạy |
+| TC-FAQ-002 | Tạo FAQ hợp lệ | Đăng nhập STAFF | 1. Mở create 2. Nhập title, content, priority 3. Submit | Tạo FAQ thành công, redirect list, audit CREATE |  | Chưa chạy |
+| TC-FAQ-003 | Tạo FAQ thiếu title | Đăng nhập STAFF | 1. Để trống title 2. Nhập content/priority 3. Submit | Không tạo FAQ, hiển thị lỗi tiêu đề không được trống |  | Chưa chạy |
+| TC-FAQ-006 | Sửa FAQ hợp lệ | Đăng nhập STAFF, có FAQ | 1. Mở `/faq/moonblight/{id}/edit` 2. Sửa title/content/priority 3. Submit | FAQ cập nhật, redirect list, audit UPDATE |  | Chưa chạy |
+| TC-FAQ-007 | Soft-delete FAQ | Đăng nhập STAFF, có FAQ chưa xóa | 1. POST `/faq/moonblight/{id}/delete` | FAQ deleted = true, public support không hiển thị FAQ đó, audit DELETE |  | Chưa chạy |
+| TC-FAQ-008 | Restore FAQ | Đăng nhập STAFF, có FAQ deleted = true | 1. POST `/faq/moonblight/{id}/restore` | FAQ deleted = false, public support hiển thị lại, audit RESTORE |  | Chưa chạy |
+| TC-UPL-001 | Upload ảnh editor hợp lệ | Đăng nhập STAFF hoặc user được phép truy cập editor, có file ảnh | 1. POST `/api/upload` với multipart field `image` | Trả JSON `{url: ...}`, file lưu trong `uploads/editor` |  | Chưa chạy |
+| TC-UPL-002 | Upload ảnh editor file rỗng | Có quyền gọi API upload | 1. POST `/api/upload` với file rỗng | Trả HTTP 400 và JSON error `File upload không hợp lệ` |  | Chưa chạy |
+| TC-AUD-003 | Đánh dấu contact đã xử lý | Đăng nhập STAFF, có contact chưa xử lý | 1. POST `/contact/blightmoon/{id}/process` | Contact processed = true, redirect list, flash success, audit PROCESS |  | Chưa chạy |
+| TC-AUD-004 | Đánh dấu contact chưa xử lý | Đăng nhập STAFF, có contact đã xử lý | 1. POST `/contact/blightmoon/{id}/unprocess` | Contact processed = false, redirect list, flash success |  | Chưa chạy |
+| TC-AUD-005 | Xem chi tiết contact | Đăng nhập STAFF, có contact ID hợp lệ | 1. Mở `/contact/blightmoon/{id}` | Hiển thị đúng visitorName, visitorEmail, category, platform, message, processed |  | Chưa chạy |

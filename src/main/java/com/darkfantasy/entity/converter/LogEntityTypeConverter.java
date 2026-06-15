@@ -3,7 +3,9 @@ package com.darkfantasy.entity.converter;
 import com.darkfantasy.entity.enums.LogEntityType;
 
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
+@Converter(autoApply = true)
 public class LogEntityTypeConverter implements AttributeConverter<LogEntityType, Long>{
 
     @Override

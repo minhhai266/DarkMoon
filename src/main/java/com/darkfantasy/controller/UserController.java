@@ -86,12 +86,11 @@ public class UserController {
             req.getSession(true).setAttribute(
                     HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                     SecurityContextHolder.getContext());
-
-            if ("ADMIN".equals(user.getRole())) {
-                return "redirect:/admin/moonblight/dashboard";
-            }
-
-            return "redirect:/dashboard/moonblight";
+            return switch (user.getRole()) {
+                case "ADMIN" -> "redirect:/admin/moonblight/dashboard";
+                case "STAFF" -> "redirect:/dashboard/moonblight";
+                default -> "redirect:/";
+            };
 
         } catch (AuthenticationException e) {
 

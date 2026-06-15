@@ -2,7 +2,6 @@ package com.darkfantasy.entity;
 
 import java.time.Instant;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.darkfantasy.entity.enums.ContactCategory;
