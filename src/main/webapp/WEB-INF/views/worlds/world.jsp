@@ -41,8 +41,8 @@
             </c:forEach>
         </section>
 
-        <!-- LOCATIONS GRID -->
-        <section class="section section-dark">
+   
+        <!-- <section class="section section-dark">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Vùng đất</span>
@@ -215,10 +215,10 @@
 
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- THE HAMLET -->
-        <section class="section section-surface">
+        <!-- <section class="section section-surface">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Your Base</span>
@@ -262,6 +262,6 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

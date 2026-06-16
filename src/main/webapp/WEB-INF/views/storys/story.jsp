@@ -58,7 +58,7 @@
             </c:if>
         </c:forEach>
 
-        <!-- ACT III TEASER -->
+        <!-- ACT III TEASER
         <section class="section section-dark">
             <div class="container">
                 <div class="section-header">
@@ -98,7 +98,7 @@
             </div>
         </section>
 
-        <!-- LORE FRAGMENTS -->
+        
         <section class="section section-surface">
             <div class="container">
                 <div class="section-header">
@@ -155,6 +155,6 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
