@@ -10,8 +10,6 @@ import com.darkfantasy.entity.ContactMessage;
 @Repository
 public interface ContactMessageRepository extends JpaRepository<ContactMessage, Long> {
     Page<ContactMessage> findByProcessedFalse(Pageable pageable);
-
     Page<ContactMessage> findByProcessedTrue(Pageable pageable);
-
     Long countByProcessedFalse();
 }

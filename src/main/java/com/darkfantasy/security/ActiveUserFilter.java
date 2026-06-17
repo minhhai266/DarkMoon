@@ -43,15 +43,11 @@ public class ActiveUserFilter extends OncePerRequestFilter {
             User user = userRepository.findByUsername(username).orElse(null);
 
             if (user == null || !user.isActive()) {
-
                 SecurityContextHolder.clearContext();
-
                 HttpSession session = request.getSession(false);
-
                 if (session != null) {
                     session.invalidate();
                 }
-
                 response.sendRedirect(Routes.USER + "/login");
                 return;
             }

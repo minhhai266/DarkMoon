@@ -12,8 +12,6 @@ import com.darkfantasy.entity.World;
 @Repository
 public interface WorldRepository extends JpaRepository<World, Long> {
     Page<World> findAllByOrderByIdAsc(Pageable pageable);
-
     List<World> findByDeletedFalseOrderByPriorityDesc();
-
     World findTopByDeletedFalseOrderByPriorityDesc();
 }

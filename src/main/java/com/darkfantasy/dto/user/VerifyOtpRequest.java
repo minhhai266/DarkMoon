@@ -9,6 +9,6 @@ public class VerifyOtpRequest {
     @NotBlank
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "OTP không được trống")
     private String otp;
 }

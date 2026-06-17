@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RegisterPasswordMatch
+@RegisterPasswordMatch(message = "Mật khẩu xác nhận không đúng")
 public class RegisterRequest {
     @NotBlank(message = "Tên đăng nhập không được để trống")
     @Size(min = 3, max = 30, message = "Tên đăng nhập phải có độ dài từ 3 đến 30 ký tự")

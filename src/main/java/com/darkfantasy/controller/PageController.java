@@ -16,10 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.darkfantasy.dto.article.ArticleResponse;
 import com.darkfantasy.dto.contact.CreateContactMessageRequest;
+import com.darkfantasy.dto.contributor.ContributorResponse;
 import com.darkfantasy.entity.enums.ContactCategory;
 import com.darkfantasy.entity.enums.ContactPlatform;
 import com.darkfantasy.service.ArticleService;
 import com.darkfantasy.service.ContactMessageService;
+import com.darkfantasy.service.ContributorService;
 import com.darkfantasy.service.FaqService;
 import com.darkfantasy.service.GameCharacterService;
 import com.darkfantasy.service.StoryService;
@@ -38,7 +40,7 @@ public class PageController {
     private final StoryService storyService;
     private final FaqService faqService;
     private final ContactMessageService contactMessageService;
-
+    private final ContributorService contributorService;
     @GetMapping
     public String index(Model model) {
 
@@ -126,9 +128,34 @@ public class PageController {
     }
 
     @GetMapping("aboutUs")
-    public String community(Model model) {
-        model.addAttribute("activePage", "community");
-        model.addAttribute("pageTitle", "Community - Moon Blight");
+    public String community(
+            @RequestParam(defaultValue = "4") int limit,
+            Model model) {
+
+        Pageable pageable = PageRequest.of(0, limit);
+
+        Page<ContributorResponse> page = contributorService.getContributorsDeletedFalse(pageable);
+
+        model.addAttribute(
+                "contributors",
+                page.getContent());
+
+        model.addAttribute(
+                "hasMore",
+                page.getTotalElements() > limit);
+
+        model.addAttribute(
+                "nextLimit",
+                limit + 4);
+
+        model.addAttribute(
+                "activePage",
+                "community");
+
+        model.addAttribute(
+                "pageTitle",
+                "Community - Moon Blight");
+
         return "forward:/WEB-INF/views/community/aboutUs.jsp";
     }
 

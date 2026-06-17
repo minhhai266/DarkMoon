@@ -10,6 +10,7 @@ import com.darkfantasy.constant.CmsMenu;
 import com.darkfantasy.constant.Routes;
 import com.darkfantasy.service.ArticleService;
 import com.darkfantasy.service.ContactMessageService;
+import com.darkfantasy.service.ContributorService;
 import com.darkfantasy.service.FaqService;
 import com.darkfantasy.service.GameCharacterService;
 import com.darkfantasy.service.StoryService;
@@ -22,40 +23,24 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(Routes.DASHBOARD)
 
 public class DashboardController {
-    private final ArticleService articleService;
-    private final GameCharacterService gameCharacterService;
-    private final WorldService worldService;
-    private final StoryService storyService;
-    private final FaqService faqService;
-    private final ContactMessageService contactMessageService;
+        private final ArticleService articleService;
+        private final GameCharacterService gameCharacterService;
+        private final WorldService worldService;
+        private final StoryService storyService;
+        private final FaqService faqService;
+        private final ContributorService contributorService;
+        private final ContactMessageService contactMessageService;
 
-    @GetMapping({"","/"})
-    public String toDashboard(Model model) {
-        model.addAttribute("activeMenu", CmsMenu.DASHBOARD);
-
-        model.addAttribute(
-                "articleCount",
-                articleService.count());
-
-        model.addAttribute(
-                "storyCount",
-                storyService.count());
-
-        model.addAttribute(
-                "worldCount",
-                worldService.count());
-
-        model.addAttribute(
-                "characterCount",
-                gameCharacterService.count());
-
-        model.addAttribute(
-                "faqCount",
-                faqService.count());
-
-        model.addAttribute(
-                "unprocessedContactCount",
-                contactMessageService.countByProcessedFalse());
-        return "cms/dashboard";
-    }
+        @GetMapping({ "", "/" })
+        public String toDashboard(Model model) {
+                model.addAttribute("activeMenu", CmsMenu.DASHBOARD);
+                model.addAttribute("articleCount", articleService.count());
+                model.addAttribute("storyCount", storyService.count());
+                model.addAttribute("worldCount", worldService.count());
+                model.addAttribute("characterCount", gameCharacterService.count());
+                model.addAttribute("faqCount", faqService.count());
+                model.addAttribute("contributorCount", contributorService.count());
+                model.addAttribute("unprocessedContactCount", contactMessageService.countByProcessedFalse());
+                return "cms/dashboard";
+        }
 }

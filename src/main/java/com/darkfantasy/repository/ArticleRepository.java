@@ -12,12 +12,7 @@ import com.darkfantasy.entity.enums.ArticleType;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-
-        Page<Article> findByDeletedFalseOrderByCreatedAtDesc(
-                        Pageable pageable);
-
-        Optional<Article> findFirstByTypeAndDeletedFalseOrderByCreatedAtDesc(
-                        ArticleType type);
-
+        Page<Article> findByDeletedFalseOrderByCreatedAtDesc(Pageable pageable);
+        Optional<Article> findFirstByTypeAndDeletedFalseOrderByCreatedAtDesc(ArticleType type);
         Optional<Article> findByIdAndDeletedFalse(Long id);
 }

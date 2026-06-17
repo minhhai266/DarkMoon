@@ -15,17 +15,13 @@ public class WebConfig implements WebMvcConfigurer {
     private final ForceChangePasswordInterceptor interceptor;
 
     @Override
-    public void addResourceHandlers(
-            ResourceHandlerRegistry registry) {
-
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:uploads/");
     }
 
     @Override
-    public void addInterceptors(
-            InterceptorRegistry registry) {
-
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor);
     }
 }

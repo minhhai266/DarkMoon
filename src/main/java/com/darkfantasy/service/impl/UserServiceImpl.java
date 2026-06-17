@@ -1,5 +1,6 @@
 package com.darkfantasy.service.impl;
 
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.Random;
@@ -29,6 +30,7 @@ import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.enums.LogAction;
 import com.darkfantasy.entity.enums.LogEntityType;
 import com.darkfantasy.entity.enums.Role;
+import com.darkfantasy.exception.custom.ResourceNotFoundException;
 import com.darkfantasy.repository.PasswordResetTokenRepository;
 import com.darkfantasy.repository.UserRepository;
 import com.darkfantasy.service.AuditLogService;
@@ -59,9 +61,9 @@ public class UserServiceImpl implements UserService {
                 String hashPassword = passwordEncoder.encode(request.getPassword());
                 User savedUser = userRepository.save(
                                 request.toEntity(hashPassword));
-                auditLogService.log(
+                auditLogService.log(savedUser,
                                 LogEntityType.USER,
-                                null,
+                                savedUser.getId(),
                                 LogAction.CREATE,
                                 "Đăng kí: " + savedUser.getUsername());
         }
@@ -76,15 +78,14 @@ public class UserServiceImpl implements UserService {
                                                 request.getPassword()));
 
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
-
                 context.setAuthentication(authentication);
-
                 SecurityContextHolder.setContext(context);
 
                 User user = findUser(authentication.getName())
-                                .orElseThrow(() -> new IllegalArgumentException("Tên đăng nhập hoặc mật khẩu không đúng."));
+                                .orElseThrow(() -> new IllegalArgumentException(
+                                                "Tên đăng nhập hoặc mật khẩu không đúng."));
 
-                auditLogService.logAuthenticated(
+                auditLogService.log(
                                 user,
                                 LogEntityType.USER,
                                 user.getId(),
@@ -96,31 +97,24 @@ public class UserServiceImpl implements UserService {
 
         @Transactional
         @Override
-        public void changeCurrentUserPassword(
-                        ChangePasswordRequest request) {
+        public void changeCurrentUserPassword(ChangePasswordRequest request) {
 
                 User currentUser = getCurrentUser();
 
                 if (!passwordEncoder.matches(
                                 request.getOldPassword(),
                                 currentUser.getPassword())) {
-
-                        throw new IllegalArgumentException(
-                                        "Mật khẩu hiện tại không đúng");
+                        throw new IllegalArgumentException("Mật khẩu hiện tại không đúng");
                 }
 
                 if (!request.getNewPassword()
                                 .equals(request.getConfirmPassword())) {
-
-                        throw new IllegalArgumentException(
-                                        "Mật khẩu xác nhận không khớp");
+                        throw new IllegalArgumentException("Mật khẩu xác nhận không khớp");
                 }
 
-                currentUser.setPassword(
-                                passwordEncoder.encode(
-                                                request.getNewPassword()));
-
+                currentUser.setPassword(passwordEncoder.encode(request.getNewPassword()));
                 currentUser.setMustChangePassword(false);
+
                 auditLogService.log(
                                 LogEntityType.USER,
                                 currentUser.getId(),
@@ -145,28 +139,24 @@ public class UserServiceImpl implements UserService {
                 if (id == null)
                         throw new IllegalArgumentException("Id không thể là null");
                 User user = userRepository.findById(id)
-                                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy người dùng"));
-
+                                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy người dùng"));
                 return UserResponse.fromEntity(user);
         }
 
         private User getCurrentUser() {
-
                 String currentUsername = SecurityUtil.getCurrentUserName();
 
                 if (currentUsername == null) {
                         throw new IllegalStateException("Không tìm thấy người dùng hiện tại");
                 }
 
-                return userRepository
-                                .findUserByUsername(currentUsername)
+                return userRepository.findUserByUsername(currentUsername)
                                 .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy người dùng"));
         }
 
         @Override
         public Page<UserResponse> getAccounts(Pageable pageable) {
-                return userRepository
-                                .findAllByOrderByIdAsc(pageable)
+                return userRepository.findAllByOrderByIdAsc(pageable)
                                 .map(UserResponse::fromEntity);
         }
 
@@ -223,58 +213,33 @@ public class UserServiceImpl implements UserService {
         @Transactional
         @Override
         public void sendOtp(ForgotPasswordRequest request) {
-
-                User user = userRepository
-                                .findUserByEmail(
-                                                request.getEmail())
-                                .orElseThrow(() -> new IllegalArgumentException(
-                                                "Email không tồn tại"));
-
-                String otp = String.format(
-                                "%06d",
-                                new Random().nextInt(1000000));
-
+                User user = userRepository.findUserByEmail(request.getEmail())
+                                .orElseThrow(() -> new IllegalArgumentException("Email không tồn tại"));
+                tokenRepository.invalidateAllUnusedByEmail(user.getEmail());
+                String otp = String.format("%06d", new SecureRandom().nextInt(1000000));
                 PasswordResetToken token = PasswordResetToken.builder()
                                 .email(user.getEmail())
                                 .otp(otp)
-                                .expiredAt(
-                                                Instant.now()
-                                                                .plusSeconds(300))
+                                .expiredAt(Instant.now().plusSeconds(300))
                                 .used(false)
                                 .build();
-
                 tokenRepository.save(token);
-
                 SimpleMailMessage message = new SimpleMailMessage();
-
                 message.setTo(user.getEmail());
-
-                message.setSubject(
-                                "Mã OTP đặt lại mật khẩu");
-
-                message.setText(
-                                "Mã OTP của bạn là: "
-                                                + otp
-                                                + "\n\nMã có hiệu lực trong 5 phút.");
+                message.setSubject("Mã OTP đặt lại mật khẩu");
+                message.setText("Mã OTP của bạn là: " + otp + "\n\nMã có hiệu lực trong 5 phút.");
                 mailSender.send(message);
-
         }
 
         @Transactional(readOnly = true)
         @Override
-        public void verifyOtp(
-                        VerifyOtpRequest request) {
-
+        public void verifyOtp(VerifyOtpRequest request) {
                 PasswordResetToken token = tokenRepository
                                 .findTopByEmailAndOtpAndUsedFalseOrderByIdDesc(
                                                 request.getEmail(),
                                                 request.getOtp())
-                                .orElseThrow(() -> new IllegalArgumentException(
-                                                "OTP không hợp lệ"));
-
-                if (token.getExpiredAt()
-                                .isBefore(Instant.now())) {
-
+                                .orElseThrow(() -> new IllegalArgumentException("OTP không hợp lệ"));
+                if (token.getExpiredAt().isBefore(Instant.now())) {
                         throw new IllegalArgumentException(
                                         "OTP đã hết hạn");
                 }
@@ -283,29 +248,17 @@ public class UserServiceImpl implements UserService {
         @Transactional
         @Override
         public void resetPassword(ResetPasswordRequest request) {
-
                 PasswordResetToken token = tokenRepository
                                 .findTopByEmailAndOtpAndUsedFalseOrderByIdDesc(
                                                 request.getEmail(),
                                                 request.getOtp())
-                                .orElseThrow(() -> new IllegalArgumentException(
-                                                "OTP không hợp lệ"));
-
-                if (token.getExpiredAt()
-                                .isBefore(Instant.now())) {
-
-                        throw new IllegalArgumentException(
-                                        "OTP đã hết hạn");
+                                .orElseThrow(() -> new IllegalArgumentException("OTP không hợp lệ"));
+                if (token.getExpiredAt().isBefore(Instant.now())) {
+                        throw new IllegalArgumentException("OTP đã hết hạn");
                 }
-
-                User user = userRepository
-                                .findUserByEmail(request.getEmail())
-                                .orElseThrow(() -> new IllegalArgumentException(
-                                                "Không tìm thấy người dùng"));
-
-                user.setPassword(
-                                passwordEncoder.encode(
-                                                request.getNewPassword()));
+                User user = userRepository.findUserByEmail(request.getEmail())
+                                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy người dùng"));
+                user.setPassword(passwordEncoder.encode(request.getNewPassword()));
                 token.setUsed(true);
         }
 }

@@ -16,6 +16,7 @@ import com.darkfantasy.entity.User;
 import com.darkfantasy.entity.enums.ArticleType;
 import com.darkfantasy.entity.enums.LogAction;
 import com.darkfantasy.entity.enums.LogEntityType;
+import com.darkfantasy.exception.custom.ResourceNotFoundException;
 import com.darkfantasy.repository.ArticleRepository;
 import com.darkfantasy.repository.UserRepository;
 import com.darkfantasy.service.ArticleService;
@@ -103,8 +104,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Page<ArticleResponse> getArticlesDeletedFalse(Pageable pageable) {
-        return articleRepository
-                .findByDeletedFalseOrderByCreatedAtDesc(pageable)
+        return articleRepository.findByDeletedFalseOrderByCreatedAtDesc(pageable)
                 .map(ArticleResponse::fromEntity);
     }
 
@@ -113,8 +113,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         Pageable pageable = PageRequest.of(0, limit);
 
-        return articleRepository
-                .findByDeletedFalseOrderByCreatedAtDesc(pageable)
+        return articleRepository.findByDeletedFalseOrderByCreatedAtDesc(pageable)
                 .stream()
                 .map(ArticleResponse::fromEntity)
                 .toList();
@@ -123,9 +122,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleResponse getLatestImportantArticle() {
 
-        return articleRepository
-                .findFirstByTypeAndDeletedFalseOrderByCreatedAtDesc(
-                        ArticleType.IMPORTANT)
+        return articleRepository.findFirstByTypeAndDeletedFalseOrderByCreatedAtDesc(
+                ArticleType.IMPORTANT)
                 .map(ArticleResponse::fromEntity)
                 .orElse(null);
     }
@@ -159,8 +157,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleResponse> getLatestArticlesExcept(Long id, int limit) {
         Pageable pageable = PageRequest.of(0, limit + 1);
 
-        return articleRepository
-                .findByDeletedFalseOrderByCreatedAtDesc(pageable)
+        return articleRepository.findByDeletedFalseOrderByCreatedAtDesc(pageable)
                 .stream()
                 .filter(article -> !article.getId().equals(id))
                 .limit(limit)
@@ -175,7 +172,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private Article findArticle(Long id) {
         return articleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy bài viết với ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy bài viết với ID: " + id));
     }
 
     private User getCurrentUser() {
@@ -186,16 +183,14 @@ public class ArticleServiceImpl implements ArticleService {
             throw new IllegalStateException("Không tìm thấy người dùng hiện tại");
         }
 
-        return userRepository
-                .findUserByUsername(currentUsername)
-                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy người dùng"));
+        return userRepository.findUserByUsername(currentUsername)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy người dùng"));
     }
 
     @Override
     public ArticleResponse getPublicArticleById(Long id) {
-        Article article = articleRepository
-                .findByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy bài viết"));
+        Article article = articleRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy bài viết"));
 
         return ArticleResponse.fromEntity(article);
     }

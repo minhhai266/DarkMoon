@@ -9,6 +9,5 @@ import com.darkfantasy.entity.AuditLog;
 
 @Repository
 public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
-    Page<AuditLog> findAllByOrderByCreatedAtDesc(
-            Pageable pageable);
+    Page<AuditLog> findAllByOrderByCreatedAtDesc(Pageable pageable);
 }

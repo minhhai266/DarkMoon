@@ -5,17 +5,13 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.NoHandlerFoundException;
+
+import com.darkfantasy.exception.custom.BadRequestException;
+import com.darkfantasy.exception.custom.ResourceNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String badRequest() {
-        return "error/400";
-    }
-
-    @ExceptionHandler(NoHandlerFoundException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String notFound() {
         return "error/404";
@@ -27,6 +23,12 @@ public class GlobalExceptionHandler {
         return "error/403";
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String badRequest() {
+        return "error/400";
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String internalServerError(Exception ex) {
@@ -35,4 +37,5 @@ public class GlobalExceptionHandler {
 
         return "error/500";
     }
+
 }

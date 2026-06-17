@@ -1,62 +1,62 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xác nhận OTP</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xác nhận OTP</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}" />
 
-  <link rel="stylesheet" th:href="@{/css/auth.css}">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Cormorant+Garamond+Decorative:wght@700&family=Crimson+Text:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Cormorant+Garamond+Decorative:wght@700&family=Crimson+Text:wght@400;600&display=swap"
-    rel="stylesheet">
-</head>
+  <body>
+    <div class="bg-image"></div>
 
-<body>
+    <div class="layouts">
+      <div class="register-card">
+        <div class="register-eyebrow">MOONBLIGHT ACCOUNT</div>
 
-  <div class="bg-image"></div>
+        <h2 class="register-title">Xác nhận OTP</h2>
 
-  <div class="layouts">
-    <div class="register-card">
+        <div class="register-divider"></div>
+        <div
+          class="error-message"
+          th:if="${errorMessage}"
+          th:text="${errorMessage}"
+        ></div>
+        <!-- form -->
+        <form
+          th:action="@{/user/moonblight/verify-otp}"
+          th:object="${verifyOtpRequest}"
+          method="post"
+        >
+          <!-- hidden email -->
+          <input type="hidden" th:field="*{email}" />
 
-      <div class="register-eyebrow">
-        MOONBLIGHT ACCOUNT
-      </div>
+          <div class="register-group">
+            <label>OTP</label>
+            <input type="text" th:field="*{otp}" placeholder="Nhập mã OTP" />
 
-      <h2 class="register-title">Xác nhận OTP</h2>
-
-      <div class="register-divider"></div>
-
-      <!-- form -->
-      <form th:action="@{/user/moonblight/verify-otp}" th:object="${verifyOtpRequest}" method="post">
-
-        <!-- hidden email -->
-        <input type="hidden" th:field="*{email}" />
-
-        <div class="register-group">
-          <label>OTP</label>
-          <input type="text" th:field="*{otp}" placeholder="Nhập mã OTP" />
-
-          <div class="error-message" th:if="${#fields.hasErrors('otp')}" th:text="${#fields.errors('otp')[0]}">
+            <div
+              class="error-message"
+              th:if="${#fields.hasErrors('otp')}"
+              th:text="${#fields.errors('otp')[0]}"
+            ></div>
           </div>
-        </div>
 
-        <button class="register-btn" type="submit">
-          Xác nhận OTP
-        </button>
+          <button class="register-btn" type="submit">Xác nhận OTP</button>
+        </form>
 
-      </form>
+        <hr style="margin: 1rem 0; opacity: 0.2" />
 
-      <hr style="margin: 1rem 0; opacity: 0.2;" />
-
-      <a class="register-link" th:href="@{/user/moonblight/login}">
-        Quay lại đăng nhập
-      </a>
-
+        <a class="register-link" th:href="@{/user/moonblight/login}">
+          Quay lại đăng nhập
+        </a>
+      </div>
     </div>
-  </div>
-
-</body>
-
+  </body>
 </html>

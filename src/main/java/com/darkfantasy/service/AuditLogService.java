@@ -15,7 +15,7 @@ public interface AuditLogService {
             LogAction action,
             String description);
 
-    void logAuthenticated(
+    void log(
         User user,
         LogEntityType entityType,
         Long entityId,

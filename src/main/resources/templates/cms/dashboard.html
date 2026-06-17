@@ -1,151 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard-user.css}" />
+  </head>
 
-  <link rel="stylesheet" th:href="@{/css/dashboard-user.css}">
-</head>
+  <body>
+    <!-- Background -->
+    <div class="bg-image"></div>
 
-<body>
+    <div th:replace="~{cms/fragments/header :: header}"></div>
 
-  <!-- Background -->
-  <div class="bg-image"></div>
+    <div class="layout">
+      <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
 
-  <div th:replace="~{cms/fragments/header :: header}"></div>
+      <div class="content-wrapper">
+        <main class="section-dark">
+          <div class="container-xl">
+            <div class="dashboard-panel">
+              <!-- Page Header -->
+              <div class="section-header">
+                <div class="section-eyebrow">Moon Blight CMS</div>
 
-  <div class="layout">
+                <h1 class="section-title">Dashboard</h1>
 
-    <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
+                <div class="section-divider"></div>
 
-    <div class="content-wrapper">
-
-      <main class="section-dark">
-
-        <div class="container-xl">
-
-          <div class="dashboard-panel">
-
-            <!-- Page Header -->
-            <div class="section-header">
-
-              <div class="section-eyebrow">
-                Moon Blight CMS
+                <p class="subtitle">Chào mừng đến với Moon Blight CMS.</p>
               </div>
 
-              <h1 class="section-title">
-                Dashboard
-              </h1>
+              <!-- Messages -->
+              <div class="messages">
+                <p
+                  class="msg-success"
+                  th:if="${successMessage}"
+                  th:text="${successMessage}"
+                ></p>
 
-              <div class="section-divider"></div>
+                <p
+                  class="msg-error"
+                  th:if="${errorMessage}"
+                  th:text="${errorMessage}"
+                ></p>
+              </div>
 
-              <p class="subtitle">
-                Chào mừng đến với Moon Blight CMS.
-              </p>
+              <!-- Statistics -->
+              <div class="dashboard-grid">
+                <div class="stat-card">
+                  <h2 th:text="${articleCount}">0</h2>
+                  <p>Articles</p>
+                </div>
 
+                <div class="stat-card">
+                  <h2 th:text="${storyCount}">0</h2>
+                  <p>Stories</p>
+                </div>
+
+                <div class="stat-card">
+                  <h2 th:text="${worldCount}">0</h2>
+                  <p>Worlds</p>
+                </div>
+
+                <div class="stat-card">
+                  <h2 th:text="${characterCount}">0</h2>
+                  <p>Characters</p>
+                </div>
+
+                <div class="stat-card">
+                  <h2 th:text="${faqCount}">0</h2>
+                  <p>FAQs</p>
+                </div>
+                <div class="stat-card">
+                  <h2 th:text="${contributorCount}">0</h2>
+                  <p>Contributors</p>
+                </div>
+
+                <div class="stat-card pending">
+                  <h2 th:text="${unprocessedContactCount}">0</h2>
+                  <p>Chưa xử lý</p>
+                </div>
+              </div>
+
+              <!-- Alert -->
+              <div
+                class="alert-card"
+                th:if="${unprocessedContactCount != null and unprocessedContactCount > 0}"
+              >
+                <strong>Cần chú ý:</strong>
+
+                Có
+                <span th:text="${unprocessedContactCount}">0</span>
+                tin nhắn liên hệ chưa được xử lý.
+              </div>
+
+              <!-- Quick Actions -->
+              <div class="quick-actions">
+                <h2 class="table-title">Truy cập nhanh</h2>
+
+                <div class="action-grid">
+                  <a class="action-btn" th:href="@{/article/moonblight/create}">
+                    + Tạo Article
+                  </a>
+
+                  <a class="action-btn" th:href="@{/story/moonblight/create}">
+                    + Tạo Story
+                  </a>
+
+                  <a class="action-btn" th:href="@{/world/moonblight/create}">
+                    + Tạo World
+                  </a>
+
+                  <a
+                    class="action-btn"
+                    th:href="@{/character/moonblight/create}"
+                  >
+                    + Tạo Character
+                  </a>
+
+                  <a class="action-btn" th:href="@{/faq/moonblight/create}">
+                    + Tạo FAQ
+                  </a>
+                </div>
+              </div>
             </div>
-
-            <!-- Messages -->
-            <div class="messages">
-
-              <p class="msg-success" th:if="${successMessage}" th:text="${successMessage}">
-              </p>
-
-              <p class="msg-error" th:if="${errorMessage}" th:text="${errorMessage}">
-              </p>
-
-            </div>
-
-            <!-- Statistics -->
-            <div class="dashboard-grid">
-
-              <div class="stat-card">
-                <h2 th:text="${articleCount}">0</h2>
-                <p>Articles</p>
-              </div>
-
-              <div class="stat-card">
-                <h2 th:text="${storyCount}">0</h2>
-                <p>Stories</p>
-              </div>
-
-              <div class="stat-card">
-                <h2 th:text="${worldCount}">0</h2>
-                <p>Worlds</p>
-              </div>
-
-              <div class="stat-card">
-                <h2 th:text="${characterCount}">0</h2>
-                <p>Characters</p>
-              </div>
-
-              <div class="stat-card">
-                <h2 th:text="${faqCount}">0</h2>
-                <p>FAQs</p>
-              </div>
-
-              <div class="stat-card pending">
-                <h2 th:text="${unprocessedContactCount}">0</h2>
-                <p>Chưa xử lý</p>
-              </div>
-
-            </div>
-
-            <!-- Alert -->
-            <div class="alert-card" th:if="${unprocessedContactCount != null and unprocessedContactCount > 0}">
-
-              <strong>Cần chú ý:</strong>
-
-              Có
-              <span th:text="${unprocessedContactCount}">0</span>
-              tin nhắn liên hệ chưa được xử lý.
-
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-
-              <h2 class="table-title">
-                Truy cập nhanh
-              </h2>
-
-              <div class="action-grid">
-
-                <a class="action-btn" th:href="@{/article/moonblight/create}">
-                  + Tạo Article
-                </a>
-
-                <a class="action-btn" th:href="@{/story/moonblight/create}">
-                  + Tạo Story
-                </a>
-
-                <a class="action-btn" th:href="@{/world/moonblight/create}">
-                  + Tạo World
-                </a>
-
-                <a class="action-btn" th:href="@{/character/moonblight/create}">
-                  + Tạo Character
-                </a>
-
-                <a class="action-btn" th:href="@{/faq/moonblight/create}">
-                  + Tạo FAQ
-                </a>
-
-              </div>
-
-            </div>
-
           </div>
-
-        </div>
-
-      </main>
-
+        </main>
+      </div>
     </div>
-
-  </div>
-
-</body>
-
+  </body>
 </html>

@@ -1,0 +1,194 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Danh sách người đóng góp</title>
+    <link rel="stylesheet" th:href="@{/css/contributor/contributor.css}" />
+  </head>
+
+  <body>
+    <div class="bg-image"></div>
+
+    <div th:replace="~{cms/fragments/header :: header}"></div>
+
+    <div class="layout">
+      ```
+      <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
+
+      <div class="content-wrapper">
+        <main class="section-dark">
+          <div class="container-xl">
+            <div class="contributor-card">
+              <div class="section-header">
+                <span class="section-eyebrow">Moonblight CMS</span>
+                <h1 class="section-title">Danh Sách Người Đóng Góp</h1>
+                <div class="section-divider"></div>
+              </div>
+
+              <p
+                class="success-message"
+                th:if="${successMessage}"
+                th:text="${successMessage}"
+              ></p>
+
+              <p
+                class="error-message"
+                th:if="${errorMessage}"
+                th:text="${errorMessage}"
+              ></p>
+
+              <div class="table-header">
+                <a
+                  th:href="@{/contributor/moonblight/create}"
+                  class="btn btn-primary"
+                >
+                  + Tạo Người Đóng Góp
+                </a>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="contributor-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Ảnh đại diện</th>
+                      <th>Tên</th>
+                      <th>Chức danh</th>
+                      <th>Ưu tiên</th>
+                      <th>Trạng thái</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr th:each="contributor : ${contributors.content}">
+                      <td th:text="${contributor.id}"></td>
+
+                      <td>
+                        <img
+                          th:if="${contributor.avatar != null and !#strings.isEmpty(contributor.avatar)}"
+                          th:src="${contributor.avatar}"
+                          class="table-image"
+                          alt="Contributor"
+                        />
+
+                        <span
+                          th:if="${contributor.avatar == null or #strings.isEmpty(contributor.avatar)}"
+                        >
+                          -
+                        </span>
+                      </td>
+
+                      <td th:text="${contributor.name}"></td>
+
+                      <td th:text="${contributor.position}"></td>
+
+                      <td th:text="${contributor.priority}"></td>
+
+                      <td>
+                        <span
+                          th:if="${!contributor.deleted}"
+                          class="status-active"
+                        >
+                          Đang hiển thị
+                        </span>
+
+                        <span
+                          th:if="${contributor.deleted}"
+                          class="status-deleted"
+                        >
+                          Đang ẩn
+                        </span>
+                      </td>
+
+                      <td>
+                        <div class="action-buttons">
+                          <form
+                            th:action="@{/contributor/moonblight/{id}/edit(id=${contributor.id})}"
+                            method="get"
+                          >
+                            <button
+                              type="submit"
+                              class="btn btn-primary btn-small"
+                            >
+                              Sửa
+                            </button>
+                          </form>
+
+                          <form
+                            th:if="${!contributor.deleted}"
+                            th:action="@{/contributor/moonblight/{id}/delete(id=${contributor.id})}"
+                            method="post"
+                          >
+                            <button
+                              type="submit"
+                              class="btn btn-danger btn-small"
+                            >
+                              Ẩn
+                            </button>
+                          </form>
+
+                          <form
+                            th:if="${contributor.deleted}"
+                            th:action="@{/contributor/moonblight/{id}/restore(id=${contributor.id})}"
+                            method="post"
+                          >
+                            <button
+                              type="submit"
+                              class="btn btn-secondary btn-small"
+                            >
+                              Khôi phục
+                            </button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="pagination" th:if="${contributors.totalPages > 1}">
+                <a
+                  class="page-btn"
+                  th:if="${!contributors.first}"
+                  th:href="@{/contributor/moonblight/list(page=${contributors.number - 1})}"
+                >
+                  ←
+                </a>
+
+                <span
+                  th:each="i : ${#numbers.sequence(0, contributors.totalPages - 1)}"
+                >
+                  <a
+                    th:if="${i != contributors.number}"
+                    class="page-btn"
+                    th:href="@{/contributor/moonblight/list(page=${i})}"
+                    th:text="${i + 1}"
+                  >
+                  </a>
+
+                  <span
+                    th:if="${i == contributors.number}"
+                    class="page-current"
+                    th:text="${i + 1}"
+                  >
+                  </span>
+                </span>
+
+                <a
+                  class="page-btn"
+                  th:if="${!contributors.last}"
+                  th:href="@{/contributor/moonblight/list(page=${contributors.number + 1})}"
+                >
+                  →
+                </a>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+      ```
+    </div>
+  </body>
+</html>

@@ -187,20 +187,14 @@
 
     </div>
         <c:if test="${hasMore}">
-
             <div class="text-center mt-4">
-
                 <a href="?limit=${nextLimit}#news-list"
                     class="btn btn-secondary">
-
                         Hiện thêm
-
                 </a>
-
             </div>
-
         </c:if>
-  </div>
+    </div>
 </section>
 
 <!-- NEWSLETTER

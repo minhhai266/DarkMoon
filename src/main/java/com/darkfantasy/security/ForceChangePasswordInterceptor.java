@@ -14,44 +14,28 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class ForceChangePasswordInterceptor
-                implements HandlerInterceptor {
-
+public class ForceChangePasswordInterceptor implements HandlerInterceptor {
         private final UserRepository userRepository;
-
+        
         @Override
         public boolean preHandle(
                         HttpServletRequest request,
                         HttpServletResponse response,
                         Object handler)
                         throws Exception {
-
                 String username = SecurityUtil.getCurrentUserName();
-
                 if (username == null) {
                         return true;
                 }
-
-                User user = userRepository
-                                .findUserByUsername(username)
-                                .orElse(null);
-
+                User user = userRepository.findUserByUsername(username).orElse(null);
                 if (user == null) {
                         return true;
                 }
-
                 String uri = request.getRequestURI();
-
-                if (user.isMustChangePassword()
-                                && !uri.startsWith(
-                                                Routes.USER + "/change-password")) {
-
-                        response.sendRedirect(
-                                        Routes.USER + "/change-password");
-
+                if (user.isMustChangePassword() && !uri.startsWith(Routes.USER + "/change-password")) {
+                        response.sendRedirect(Routes.USER + "/change-password");
                         return false;
                 }
-
                 return true;
         }
 }

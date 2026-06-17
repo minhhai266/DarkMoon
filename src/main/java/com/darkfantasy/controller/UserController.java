@@ -1,12 +1,7 @@
 package com.darkfantasy.controller;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -29,10 +24,8 @@ import com.darkfantasy.dto.user.UserResponse;
 import com.darkfantasy.dto.user.VerifyOtpRequest;
 import com.darkfantasy.entity.enums.LogAction;
 import com.darkfantasy.entity.enums.LogEntityType;
-import com.darkfantasy.entity.enums.Role;
 import com.darkfantasy.service.AuditLogService;
 import com.darkfantasy.service.UserService;
-import com.darkfantasy.util.SecurityUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -125,15 +118,17 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public String registerAccount(@Valid @ModelAttribute RegisterRequest request, BindingResult result,
-            Model model, RedirectAttributes redirectAttributes) {
+    public String registerAccount(@Valid @ModelAttribute RegisterRequest request,
+            BindingResult result,
+            Model model,
+            RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "cms/auth/register";
         }
         try {
             userService.register(request);
-            redirectAttributes.addFlashAttribute("successMessage", "Đăng ký thành công!");
-            return "redirect:" + Routes.USER + "/login";
+            redirectAttributes.addFlashAttribute("successMessage", "Đăng ký thành công! Chờ admin xác nhận");
+            return "redirect:" + Routes.USER + "/register";
         } catch (IllegalArgumentException e) {
             request.setPassword("");
             request.setRePassword("");
@@ -165,20 +160,13 @@ public class UserController {
 
         try {
 
-            userService.changeCurrentUserPassword(
-                    request);
+            userService.changeCurrentUserPassword(request);
 
             redirectAttributes.addFlashAttribute(
                     "successMessage",
                     "Đổi mật khẩu thành công");
 
-            Role role = SecurityUtil.getCurrentUserRole();
-
-            if (role == Role.ADMIN) {
-                return "redirect:" + Routes.ADMIN + "/dashboard";
-            }
-
-            return "redirect:" + Routes.DASHBOARD;
+            return "redirect:" + Routes.USER + "/change-password";
 
         } catch (Exception e) {
 
@@ -208,13 +196,8 @@ public class UserController {
 
     // }
     @GetMapping("forgot-password")
-    public String forgotPasswordPage(
-            Model model) {
-
-        model.addAttribute(
-                "forgotPasswordRequest",
-                new ForgotPasswordRequest());
-
+    public String forgotPasswordPage(Model model) {
+        model.addAttribute("forgotPasswordRequest", new ForgotPasswordRequest());
         return "cms/auth/forgot-password";
     }
 
@@ -223,40 +206,25 @@ public class UserController {
             @Valid @ModelAttribute ForgotPasswordRequest request,
             BindingResult result, HttpSession session,
             Model model) {
-
         if (result.hasErrors()) {
             return "cms/auth/forgot-password";
         }
-
         try {
-
             userService.sendOtp(request);
-            session.setAttribute(
-                    "OTP_EMAIL",
-                    request.getEmail());
+            session.setAttribute("OTP_EMAIL", request.getEmail());
             return "redirect:" + Routes.USER + "/verify-otp";
-
         } catch (Exception e) {
-
-            model.addAttribute(
-                    "errorMessage",
-                    e.getMessage());
-
+            model.addAttribute("errorMessage", e.getMessage());
             return "cms/auth/forgot-password";
         }
     }
 
     @GetMapping("verify-otp")
-    public String verifyOtpPage(HttpSession session,
-            Model model) {
+    public String verifyOtpPage(HttpSession session, Model model) {
         VerifyOtpRequest request = new VerifyOtpRequest();
-        request.setEmail(
-                (String) session.getAttribute(
-                        "OTP_EMAIL"));
+        request.setEmail((String) session.getAttribute("OTP_EMAIL"));
 
-        model.addAttribute(
-                "verifyOtpRequest",
-                request);
+        model.addAttribute("verifyOtpRequest", request);
         return "cms/auth/verify-otp";
     }
 
@@ -284,8 +252,7 @@ public class UserController {
 
         } catch (Exception e) {
             model.addAttribute(
-                    "errorMessage",
-                    e.getMessage());
+                    "errorMessage", e.getMessage());
 
             return "cms/auth/verify-otp";
         }
@@ -296,19 +263,16 @@ public class UserController {
             HttpSession session,
             Model model) {
         ResetPasswordRequest request = new ResetPasswordRequest();
-
         request.setEmail(
-                (String) session.getAttribute(
-                        "RESET_EMAIL"));
+                (String) session.getAttribute("RESET_EMAIL"));
 
         request.setOtp(
-                (String) session.getAttribute(
-                        "RESET_OTP"));
+                (String) session.getAttribute("RESET_OTP"));
 
-        model.addAttribute(
-                "resetPasswordRequest",
-                request);
-
+        model.addAttribute("resetPasswordRequest", request);
+        if (request.getEmail() == null || request.getOtp() == null) {
+            return "redirect:" + Routes.USER + "/forgot-password";
+        }
         return "cms/auth/reset-password";
     }
 
@@ -319,21 +283,13 @@ public class UserController {
             HttpSession session,
             Model model,
             RedirectAttributes redirectAttributes) {
-        System.out.println("RESET PASSWORD START");
         if (result.hasErrors()) {
-            System.out.println("VALIDATION FALL " + result.getErrorCount());
-            result.getAllErrors()
-                    .forEach(System.out::println);
             return "cms/auth/reset-password";
         }
 
         try {
-
-            String email = (String) session.getAttribute(
-                    "RESET_EMAIL");
-
-            String otp = (String) session.getAttribute(
-                    "RESET_OTP");
+            String email = (String) session.getAttribute("RESET_EMAIL");
+            String otp = (String) session.getAttribute("RESET_OTP");
             if (email == null || otp == null) {
                 return "redirect:" + Routes.USER + "/forgot-password";
             }

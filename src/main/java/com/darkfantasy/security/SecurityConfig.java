@@ -41,11 +41,14 @@ public class SecurityConfig {
                                 Routes.WORLD + "/**",
                                 Routes.STORY + "/**",
                                 Routes.FAQ + "/**",
+                                Routes.CONTRIBUTOR + "/**",
                                 Routes.CONTACT + "/**")
                         .hasRole(Role.STAFF.name())
+                        .requestMatchers(Routes.USER + "/change-password")
+                        .hasAnyRole(Role.ADMIN.name(), Role.STAFF.name())
                         .anyRequest().permitAll())
-                        .addFilterBefore(activeUserFilter, UsernamePasswordAuthenticationFilter.class);
-        // .csrf(csrf -> csrf.disable());     
+                .addFilterBefore(activeUserFilter, UsernamePasswordAuthenticationFilter.class);
+        // .csrf(csrf -> csrf.disable());
         return http.build();
     }
 

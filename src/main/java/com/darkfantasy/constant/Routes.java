@@ -13,5 +13,6 @@ public final class Routes {
     public static final String WORLD = "/world/moonblight";
     public static final String STORY = "/story/moonblight";
     public static final String FAQ = "/faq/moonblight";
+    public static final String CONTRIBUTOR = "/contributor/moonblight";
     public static final String CONTACT = "/contact/moonblight";
 }

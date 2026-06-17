@@ -5,7 +5,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.RouteMatcher.Route;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,17 +27,9 @@ public class AdminController {
 
         @GetMapping("dashboard")
         public String toDashboard(Model model) {
-                model.addAttribute(
-                                "totalUsers",
-                                userService.count());
-
-                model.addAttribute(
-                                "activeUsers",
-                                userService.countActiveUsers());
-
-                model.addAttribute(
-                                "inActiveUsers",
-                                userService.countInactiveUsers());
+                model.addAttribute("totalUsers", userService.count());
+                model.addAttribute("activeUsers", userService.countActiveUsers());
+                model.addAttribute("inActiveUsers", userService.countInactiveUsers());
                 return "cms/admin/admin-dashboard";
         }
 
@@ -46,11 +37,7 @@ public class AdminController {
         public String toAccountList(
                         @PageableDefault(size = 10) Pageable pageable,
                         Model model) {
-
-                model.addAttribute(
-                                "accounts",
-                                userService.getAccounts(pageable));
-
+                model.addAttribute("accounts", userService.getAccounts(pageable));
                 return "cms/admin/account-list";
         }
 
@@ -61,10 +48,7 @@ public class AdminController {
 
                 UserResponse response = userService.findAccountById(id);
 
-                model.addAttribute(
-                                "account",
-                                response);
-
+                model.addAttribute("account", response);
                 return "cms/admin/account-detail";
         }
 
@@ -73,14 +57,8 @@ public class AdminController {
                         @PageableDefault(size = 20, sort = "createdAt", direction = Direction.DESC) Pageable pageable,
                         Model model) {
 
-                model.addAttribute(
-                                "logs",
-                                auditLogService.getLogs(pageable));
-
-                model.addAttribute(
-                                "activeMenu",
-                                "audit-log");
-
+                model.addAttribute("logs", auditLogService.getLogs(pageable));
+                model.addAttribute("activeMenu", "audit-log");
                 return "cms/admin/audit-log";
         }
 
@@ -91,10 +69,7 @@ public class AdminController {
 
                 userService.unlockUser(id);
 
-                redirectAttributes.addFlashAttribute(
-                                "successMessage",
-                                "Duyệt tài khoản thành công");
-
+                redirectAttributes.addFlashAttribute("successMessage", "Duyệt tài khoản thành công");
                 return "redirect:" + Routes.ADMIN + "/account/" + id;
         }
 
@@ -105,10 +80,7 @@ public class AdminController {
 
                 userService.lockUser(id);
 
-                redirectAttributes.addFlashAttribute(
-                                "successMessage",
-                                "Từ chối tài khoản thành công");
-
+                redirectAttributes.addFlashAttribute("successMessage", "Từ chối tài khoản thành công");
                 return "redirect:" + Routes.ADMIN + "/account/" + id;
         }
 
@@ -119,10 +91,7 @@ public class AdminController {
 
                 userService.lockUser(id);
 
-                redirectAttributes.addFlashAttribute(
-                                "successMessage",
-                                "Khóa tài khoản thành công");
-
+                redirectAttributes.addFlashAttribute("successMessage", "Khóa tài khoản thành công");
                 return "redirect:" + Routes.ADMIN + "/account/" + id;
         }
 
@@ -133,10 +102,7 @@ public class AdminController {
 
                 userService.unlockUser(id);
 
-                redirectAttributes.addFlashAttribute(
-                                "successMessage",
-                                "Mở khóa tài khoản thành công");
-
+                redirectAttributes.addFlashAttribute("successMessage", "Mở khóa tài khoản thành công");
                 return "redirect:" + Routes.ADMIN + "/account/" + id;
         }
 

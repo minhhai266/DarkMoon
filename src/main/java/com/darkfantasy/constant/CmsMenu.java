@@ -11,5 +11,6 @@ public final class CmsMenu {
     public static final String WORLD = "world";
     public static final String CHARACTER = "character";
     public static final String FAQ = "faq";
+    public static final String CONTRIBUTOR = "contributor";
     public static final String CONTACT = "contact";
 }

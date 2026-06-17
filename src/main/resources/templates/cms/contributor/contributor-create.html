@@ -1,0 +1,122 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tạo người đóng góp</title>
+
+    ```
+    <link rel="stylesheet" th:href="@{/css/contributor/contributor.css}" />
+    ```
+  </head>
+
+  <body>
+    ```
+    <div class="bg-image"></div>
+
+    <div th:replace="~{cms/fragments/header :: header}"></div>
+
+    <div class="layout">
+      <div th:replace="~{cms/fragments/sidebar :: sidebar}"></div>
+
+      <div class="content-wrapper">
+        <main class="section-dark">
+          <div class="container-xl">
+            <div class="contributor-card">
+              <div class="section-header">
+                <span class="section-eyebrow"> Moonblight CMS </span>
+
+                <h1 class="section-title">Tạo Người Đóng Góp Mới</h1>
+
+                <div class="section-divider"></div>
+              </div>
+
+              <p
+                class="error-message"
+                th:if="${errorMessage}"
+                th:text="${errorMessage}"
+              ></p>
+
+              <form
+                class="contributor-form"
+                th:action="@{/contributor/moonblight/create}"
+                method="post"
+                enctype="multipart/form-data"
+                th:object="${createContributorRequest}"
+              >
+                <div class="form-group">
+                  <label class="form-label"> Tên người đóng góp </label>
+
+                  <input class="form-control" type="text" th:field="*{name}" />
+
+                  <div
+                    class="field-error"
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}"
+                  ></div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label"> Chức danh </label>
+
+                  <input
+                    class="form-control"
+                    type="text"
+                    th:field="*{position}"
+                  />
+
+                  <div
+                    class="field-error"
+                    th:if="${#fields.hasErrors('position')}"
+                    th:errors="*{position}"
+                  ></div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label"> Độ ưu tiên </label>
+
+                  <input
+                    class="form-control"
+                    type="number"
+                    th:field="*{priority}"
+                  />
+
+                  <div
+                    class="field-error"
+                    th:if="${#fields.hasErrors('priority')}"
+                    th:errors="*{priority}"
+                  ></div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label"> Ảnh đại diện </label>
+
+                  <input
+                    class="file-input"
+                    type="file"
+                    name="thumbnail"
+                    accept="image/*"
+                  />
+                </div>
+
+                <div class="contributor-actions">
+                  <button type="submit" class="btn btn-primary">
+                    Tạo người đóng góp
+                  </button>
+
+                  <a
+                    th:href="@{/contributor/moonblight/list}"
+                    class="btn btn-secondary"
+                  >
+                    Quay lại
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    ```
+  </body>
+</html>

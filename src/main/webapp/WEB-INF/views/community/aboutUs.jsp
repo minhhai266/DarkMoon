@@ -96,62 +96,50 @@
         </section>
 
 
-        <!-- FAN ART -->
-        <section class="section section-surface">
-            <div class="container">
-                <div class="section-header">
-                    <!-- <span class="section-eyebrow">Câu chuyện hình thành dự án</span> -->
-                    <h4 class="section-title">Các thành viên của dự án</h4>
-                    <p class="section-subtitle">Các nhà phát triển đã đóng góp vào sự thành công của Moon Blight.</p>
-                    <div class="section-divider"></div>
-                </div>
-                <div class="grid-4">
-                    <div class="card" style="overflow:hidden;">
-                        <img class="card-img" style="height:250px;"
-                            src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=500&q=80"
-                            alt="Fan Art 1" loading="lazy">
-                        <div class="card-body" style="padding:1rem;">
-                            <span class="card-tag">Thành viên</span>
-                            <p class="card-title" style="font-size:1.6rem;">Triệu Tử Long</p>
-                            <p class="card-text" style="font-size:1rem;">Nhà phát triển </p>
-                        </div>
-                    </div>
-                    <div class="card" style="overflow:hidden;">
-                        <img class="card-img" style="height:250px;"
-                            src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=500&q=80"
-                            alt="Fan Art 2" loading="lazy">
-                        <div class="card-body" style="padding:1rem;">
-                            <span class="card-tag">Leader</span>
-                            <p class="card-title" style="font-size:1.6rem;">Lưu Bị</p>
-                            <p class="card-text" style="font-size:1rem;">Trưởng nhóm phát triển</p>
-                        </div>
-                    </div>
-                    <div class="card" style="overflow:hidden;">
-                        <img class="card-img" style="height:250px;"
-                            src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&q=80"
-                            alt="Fan Art 3" loading="lazy">
-                        <div class="card-body" style="padding:1rem;">
-                            <span class="card-tag">Thành viên</span>
-                            <p class="card-title" style="font-size:1.6rem;">Quang Vũ</p>
-                            <p class="card-text" style="font-size:1rem;">Nhà phát triển </p>
-                        </div>
-                    </div>
-                    <div class="card" style="overflow:hidden;">
-                        <img class="card-img" style="height:250px;"
-                            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80"
-                            alt="Fan Art 4" loading="lazy">
-                        <div class="card-body" style="padding:1rem;">
-                            <span class="card-tag">Thành viên</span>
-                            <p class="card-title" style="font-size:1.6rem;">Lữu Bố</p>
-                            <p class="card-text" style="font-size:1rem;">Nhà phát triển </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-4">
-                    <a href="#" class="btn btn-secondary">Xem thêm</a>
-                </div>
+    <!-- MEMBER-->
+
+    <section id="member-list" class="section section-surface">
+        <div class="container">
+            <div class="section-header">
+                <h4 class="section-title">Các thành viên của dự án</h4>
+                <p class="section-subtitle">
+                    Các nhà phát triển đã đóng góp vào sự thành công của Moon Blight.
+                </p>
+                <div class="section-divider"></div>
             </div>
-        </section>
+            <div class="grid-4">
+                <c:forEach items="${contributors}" var="contributor">
+                    <div class="card" style="overflow:hidden;">
+                        <img class="card-img"
+                            style="height:250px;"
+                            src="${contributor.avatar}"
+                            alt="${contributor.name}"
+                            loading="lazy">
+                        <div class="card-body" style="padding:1rem;">
+                            <span class="card-tag">
+                                Thành viên
+                            </span>
+                            <p class="card-title" style="font-size:1.6rem;">
+                                ${contributor.name}
+                            </p>
+                            <p class="card-text" style="font-size:1rem;">
+                                ${contributor.position}
+                            </p>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <c:if test="${hasMore}">
+                <div class="text-center mt-4">
+                    <a href="?limit=${nextLimit}#member-list"
+                    class="btn btn-secondary">
+                        Xem thêm
+                    </a>
+                </div>
+            </c:if>
+         </div>
+    </section>
+
 
         <!-- STREAMER PROGRAM -->
         <section style="background:var(--dark-card); padding:5rem 2rem;">

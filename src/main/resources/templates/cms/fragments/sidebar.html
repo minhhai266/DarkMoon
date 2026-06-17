@@ -46,7 +46,11 @@
         FAQ
       </a>
     </li>
-
+    <li>
+      <a class="sidebar-link" th:href="@{/contributor/moonblight/list}" th:classappend="${activeMenu == 'contributor'} ? ' active'">
+        Contributor
+      </a>
+    </li>
     <li>
       <a class="sidebar-link" th:href="@{/contact/moonblight/list}"
         th:classappend="${activeMenu == 'contact'} ? ' active'">

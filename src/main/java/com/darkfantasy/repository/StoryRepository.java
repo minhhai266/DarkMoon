@@ -12,8 +12,6 @@ import com.darkfantasy.entity.Story;
 @Repository
 public interface StoryRepository extends JpaRepository<Story, Long> {
     Page<Story> findAllByOrderByIdAsc(Pageable pageable);
-
     List<Story> findByDeletedFalseOrderByPriorityDesc();
-
     Story findTopByDeletedFalseOrderByPriorityDesc();
 }

@@ -1,92 +1,135 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}" />
 
-  <link rel="stylesheet" th:href="@{/css/auth.css}">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Cormorant+Garamond+Decorative:wght@700&family=Crimson+Text:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Cormorant+Garamond+Decorative:wght@700&family=Crimson+Text:wght@400;600&display=swap"
-    rel="stylesheet">
-</head>
+  <body>
+    <div class="bg-image"></div>
+    <div class="layouts">
+      <div class="register-card">
+        <div class="register-eyebrow">MOONBLIGHT ACCOUNT</div>
 
-<body>
+        <h2 class="register-title">Đăng ký</h2>
 
-  <div class="bg-image"></div>
-  <div class="layouts">
+        <div class="register-divider"></div>
 
-    <div class="register-card">
+        <!-- MESSAGE -->
+        <p
+          class="success-message"
+          th:if="${successMessage}"
+          th:text="${successMessage}"
+        ></p>
 
-      <div class="register-eyebrow">
-        MOONBLIGHT ACCOUNT
+        <p
+          class="error-message"
+          th:if="${errorMessage}"
+          th:text="${errorMessage}"
+        ></p>
+
+        <!-- FORM -->
+        <form
+          th:action="@{/user/moonblight/register}"
+          method="post"
+          th:object="${registerRequest}"
+        >
+          <!-- USERNAME -->
+          <div class="register-group">
+            <label>Username</label>
+            <input
+              type="text"
+              th:field="*{username}"
+              minlength="3"
+              maxlength="30"
+              required
+            />
+            <span
+              class="error-text"
+              style="color: red; font-size: 0.8rem"
+              th:if="${#fields.hasErrors('username')}"
+              th:errors="*{username}"
+            ></span>
+          </div>
+
+          <!-- EMAIL -->
+          <div class="register-group">
+            <label>Email</label>
+            <input type="email" th:field="*{email}" maxlength="255" required />
+            <span
+              class="error-text"
+              style="color: red; font-size: 0.8rem"
+              th:if="${#fields.hasErrors('email')}"
+              th:errors="*{email}"
+            ></span>
+          </div>
+
+          <!-- FULL NAME -->
+          <div class="register-group">
+            <label>Họ và tên</label>
+            <input
+              type="text"
+              th:field="*{fullName}"
+              maxlength="255"
+              required
+            />
+            <span
+              class="error-text"
+              style="color: red; font-size: 0.8rem"
+              th:if="${#fields.hasErrors('fullName')}"
+              th:errors="*{fullName}"
+            ></span>
+          </div>
+
+          <!-- PASSWORD -->
+          <div class="register-group">
+            <label>Mật khẩu</label>
+            <input
+              type="password"
+              th:field="*{password}"
+              minlength="8"
+              required
+            />
+            <span
+              class="error-text"
+              style="color: red; font-size: 0.8rem"
+              th:if="${#fields.hasErrors('password')}"
+              th:errors="*{password}"
+            ></span>
+          </div>
+
+          <!-- RE PASSWORD -->
+          <div class="register-group">
+            <label>Nhập lại mật khẩu</label>
+            <input type="password" th:field="*{rePassword}" required />
+            <span
+              class="error-text"
+              style="color: red; font-size: 0.8rem"
+              th:if="${#fields.hasErrors('rePassword')}"
+              th:errors="*{rePassword}"
+            ></span>
+          </div>
+
+          <button class="register-btn" type="submit">Đăng ký</button>
+        </form>
+
+        <hr style="margin: 1rem 0; opacity: 0.2" />
+
+        <a class="register-link" th:href="@{/user/moonblight/login}">
+          Đã có tài khoản? Đăng nhập
+        </a>
+
+        <a class="register-link" th:href="@{/user/moonblight/forgot-password}">
+          Quên mật khẩu
+        </a>
       </div>
-
-      <h2 class="register-title">Đăng ký</h2>
-
-      <div class="register-divider"></div>
-
-      <!-- MESSAGE -->
-      <p class="success-message" th:if="${successMessage}" th:text="${successMessage}">
-      </p>
-
-      <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
-      </p>
-
-      <!-- FORM -->
-      <form th:action="@{/user/moonblight/register}" method="post">
-
-        <!-- USERNAME -->
-        <div class="register-group">
-          <label>Username</label>
-          <input type="text" name="username" minlength="3" maxlength="30" required>
-        </div>
-
-        <!-- EMAIL -->
-        <div class="register-group">
-          <label>Email</label>
-          <input type="email" name="email" maxlength="255" required>
-        </div>
-
-        <!-- FULL NAME -->
-        <div class="register-group">
-          <label>Họ và tên</label>
-          <input type="text" name="fullName" maxlength="255" required>
-        </div>
-
-        <!-- PASSWORD -->
-        <div class="register-group">
-          <label>Mật khẩu</label>
-          <input type="password" name="password" minlength="8" required>
-        </div>
-
-        <!-- RE PASSWORD -->
-        <div class="register-group">
-          <label>Nhập lại mật khẩu</label>
-          <input type="password" name="rePassword" required>
-        </div>
-
-        <button class="register-btn" type="submit">
-          Đăng ký
-        </button>
-
-      </form>
-
-      <hr style="margin: 1rem 0; opacity: 0.2;" />
-
-      <a class="register-link" th:href="@{/user/moonblight/login}">
-        Đã có tài khoản? Đăng nhập
-      </a>
-
-      <a class="register-link" th:href="@{/user/moonblight/forgot-password}">
-        Quên mật khẩu
-      </a>
-
     </div>
-</div>
-
-    
-</body>
-
+  </body>
 </html>

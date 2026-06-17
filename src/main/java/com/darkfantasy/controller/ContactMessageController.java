@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(Routes.CONTACT + "/")
 public class ContactMessageController {
     private final ContactMessageService contactMessageService;
-
     @GetMapping("list")
     public String toList(
             @PageableDefault(size = 20) Pageable pageable,

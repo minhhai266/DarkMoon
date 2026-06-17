@@ -12,7 +12,8 @@ public enum LogEntityType {
     CHARACTER(4),
     FAQ(5),
     USER(6),
-    CONTACT(7);
+    CONTACT(7),
+    CONTRIBUTOR(8);
 
     private final long code;
         public static LogEntityType fromValue(long code) {

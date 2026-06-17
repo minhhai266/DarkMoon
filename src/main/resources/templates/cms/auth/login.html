@@ -28,9 +28,9 @@
 
       <div class="register-divider"></div>
 
-      <!-- error -->
+      <!-- message -->
       <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
-
+      <p class="success-message" th:if="${successMessage}" th:text="${successMessage}"></p>
       <!-- form -->
       <form th:action="@{/user/moonblight/login}" method="post" th:object="${loginRequest}">
 
